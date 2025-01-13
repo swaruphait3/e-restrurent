@@ -10,7 +10,6 @@ import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.swarup.e_restaurants.audit.Auditable;
 
@@ -26,22 +25,29 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "mst_user")
-@JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate" })
+@Table(name = "mst_shop")
+@JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate"})
 @EntityListeners(AuditingEntityListener.class)
-public class User extends Auditable<String> {
+public class Shop extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
+    private Integer id;
     private String name;
+    private String owner;
+    private String address;
+    private String area;
+    private String city;
+    private String state;
+    private String contactNo;
     private String email;
-    private String mobile;
-    @JsonIgnore
-    private String password;
-    private boolean enabled;
-    private String role;
+    private String tradeLicenseNo;
+    private String panNo;
+    private String bankName;
+    private String bankACNo;
+    private String ifsc;
+    private boolean status;
+
     @Transient
-    private String rawPassword;
+    private String rawPass;
 
 }

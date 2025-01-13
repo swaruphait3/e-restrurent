@@ -1,18 +1,23 @@
-package com.swarup.e_restaurants.service;
+package com.swarup.e_restaurants.config;
+
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.swarup.e_restaurants.serviceImpl.UserDetailsServiceImpl;
+import com.swarup.e_restaurants.service.UserDetailsServiceImpl;
 
 @Configuration
+@EnableMethodSecurity 
 public class WebSecurityConfig {
 
     private final AuthenticationSuccessHandler successHandler;
@@ -24,7 +29,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -37,25 +42,29 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(requests -> requests
-                .antMatchers("/", "/forgetpass", "/assets/**","/user/registration").permitAll()
-                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/fetchstate", "/privacy").permitAll()
-                .anyRequest().authenticated())
-            .formLogin(login -> login
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authorize -> authorize
+                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy")
+                .permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
                 .loginPage("/login")
                 .successHandler(successHandler)
-                .permitAll())
+                .permitAll()
+            )
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
-                .permitAll());
+                .permitAll()
+            );
 
         return http.build();
     }

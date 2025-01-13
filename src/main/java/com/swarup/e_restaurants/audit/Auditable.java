@@ -1,5 +1,4 @@
 package com.swarup.e_restaurants.audit;
-
 import java.util.Date;
 
 import javax.persistence.EntityListeners;
@@ -19,16 +18,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable<U> {
-
     @CreatedBy
     protected U createdBy;
 
@@ -42,5 +39,4 @@ public abstract class Auditable<U> {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     protected Date lastModifiedDate;
-
 }

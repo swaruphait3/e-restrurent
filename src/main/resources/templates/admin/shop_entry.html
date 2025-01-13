@@ -1,0 +1,131 @@
+<div th:replace="fragment/head"></div>
+<title>E-Restaurants-Shop Registration</title>
+<div th:replace="fragment/header"></div>
+<div class="row user-reg-container" ng-app="userManagmentData" ng-controller="userManagmentController">
+    <div class="col-xl-5 col-lg-12 reg-image-container">
+        <img src="assets/images/user-reg.png" alt="" class="w-100">
+        <div>
+            <span class="lbl-user-reg-secondary">Welcome To</span>
+            <span class="lbl-user-reg-primary">E-Restaurants</span>
+        </div>
+    </div>
+    <div class="col-xl-7 col-lg-12 reg-form-container">
+        <div class="lbl-user-reg-sub-header">Shop</div>
+        <div class="lbl-user-reg-header">Registration</div>
+        <div class="spinner-wrapper" id="loader" style="display: none;">
+            <div class="spinner">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <form autocomplete="off" class="reg-form row g-3" ng-submit="submitRegistration()">
+            <div class="col-md-6">
+                <label for="exampleInputName" class="form-label">Shop Name: <span class="alert-danger">*</span></label>
+                <input type="text" ng-model="form.name" class="form-control" placeholder="Enter User Name"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid name')"
+                            oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-md-6">
+                <label for="exampleInputName" class="form-label">Location: <span class="alert-danger">*</span></label>
+                <input type="text" ng-model="form.username" class="form-control" placeholder="Enter User Username"
+                    aria-describedby="fullNameHelp" pattern="^[^\s]+$" autocomplete="off"
+                            oninvalid="this.setCustomValidity('Username should not contain spaces')"
+                            oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-md-4">
+                <label for="exampleInputName" class="form-label">City:  <span class="alert-danger">*</span></label>
+                <input type="text" ng-model="form.empCode" class="form-control" placeholder="Enter User Employee Id"
+                    aria-describedby="fullNameHelp">
+            </div>
+            <div class="col-md-4">
+                <label for="exampleInputName" class="form-label">Latitude: <span class="alert-danger">*</span></label>
+                <input type="email" ng-model="form.email" class="form-control" placeholder="Enter User Email Id"
+                    aria-describedby="fullNameHelp"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    oninvalid="this.setCustomValidity('Please enter valid email id')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-md-4">
+                <label for="exampleInputName" class="form-label">Longitude: <span
+                        class="alert-danger">*</span></label>
+                <input type="number" ng-model="form.mobile"  class="form-control" placeholder="Enter User Phone"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+           
+            <div class="col-lg-6 col-md-12 position-relative">
+                <label for="exampleInputName" class="form-label">Email: <span class="alert-danger">*</span></label>
+                <input type="email" ng-model="form.email" class="form-control"
+                    placeholder="Enter Email" required>
+            </div>
+            <div class="col-lg-6 col-md-12 position-relative">
+                <label for="exampleInputName" class="form-label">Contact No: <span
+                        class="alert-danger">*</span></label>
+                <input type="number" ng-model="form.mobile"  class="form-control" placeholder="Enter User Phone"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-lg-6 col-md-12 position-relative">
+                <label for="exampleInputName" class="form-label">Password: <span
+                        class="alert-danger">*</span></label>
+                <input type="password" ng-model="form.rawpassword" class="form-control" required>
+                <span class="icon-common icon-toggle-pass-slash icon-form" id="toggleConfirmPassword"
+                    placeholder="Repeat Password Enter"></span>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">Owner Name: <span
+                        class="alert-danger">*</span></label>
+                <input type="number" ng-model="form.mobile"  min="0" step="1" pattern="[0-9]{10}" class="form-control" placeholder="Enter User Phone"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">Trade License No: <span
+                    class="alert-danger">*</span></label>
+                <input type="text" ng-model="form.bankName" class="form-control" placeholder="Enter User Bank Name"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">Pan No:
+                    <span
+                        class="alert-danger">*</span>
+                </label>
+                <input type="text" ng-model="form.bankName" class="form-control" placeholder="Enter User Bank Name"
+                    aria-describedby="fullNameHelp"
+                    oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                    oninput="this.setCustomValidity('')" required>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">Bank Name</label>
+                <input type="text" ng-model="form.bankName" class="form-control" placeholder="Enter User Bank Name"
+                    aria-describedby="fullNameHelp">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">A/C No</label>
+                <input type="text" ng-model="form.bankACNo" class="form-control" placeholder="Enter User A/C No"
+                    aria-describedby="fullNameHelp">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label for="exampleInputName" class="form-label">IFSC Code</label>
+                <input type="text" ng-model="form.bankIFSCCode" class="form-control"
+                    placeholder="Enter User Bank IFSC Code" aria-describedby="fullNameHelp">
+            </div>
+           
+            <div class="btn-container">
+                <button type="submit" class="btn btn-submit mt-3">SUBMIT</button>
+                <button type="submit" class="btn btn-cancel me-4 mt-3" ng-click="refresh()">CANCEL</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="fragment/footer"></div>
+<script src="private/admin/usermanagment.js"></script>

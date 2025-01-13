@@ -6,16 +6,23 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class MvcConfig implements WebMvcConfigurer{
+public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/403").setViewName("403");
+        registry.addViewController("/home").setViewName("admin/home");
+              registry.addViewController("/shop_entry").setViewName("admin/shop_entry");
+              registry.addViewController("/shop_view").setViewName("admin/shop_view");
+
+       
     }
-    
+
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:uploads/");
     }
+
 }

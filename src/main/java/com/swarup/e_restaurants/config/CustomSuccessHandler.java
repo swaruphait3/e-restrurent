@@ -13,21 +13,19 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         String redirectUrl = null;
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             System.out.println(grantedAuthority);
             if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                System.out.println("*******************************");
-                redirectUrl = "/admin";
+                redirectUrl = "/home";
                 break;
             } else if (grantedAuthority.getAuthority().equals("SHOP")) {
                 redirectUrl = "/shop";
@@ -41,6 +39,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             throw new IllegalStateException();
         }
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectUrl);
+
     }
-    
+
 }

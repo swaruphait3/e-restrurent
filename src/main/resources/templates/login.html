@@ -1,570 +1,653 @@
-<!-- <!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-Restrurant</title>
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>V Commute</title>
+  <link rel="stylesheet" href="site.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <!-- <link rel="stylesheet" href="../v-commute/site.css"> -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
+		integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
+		integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
 <style>
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-:root {
-	--main-bg-color: #2770b0; 
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
+  }
+
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    /* background: url(assets/images/login-bg.svg) no-repeat; */
+    /* background-size: 102vw 102vh; */
+    background-position: center;
+    height: 100vh;
+
+    overflow: hidden;
+    position: relative;
+  }
+
+  .login-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 99;
+  }
+
+  .login-area, .image-area {
+    justify-content: center;
+    align-content: center;
+  }
+  .login-area {
+    position: relative;
+    height: 100vh;
+    padding: 30px;
+  }
+  .image-area {
+    background: #0467B2;
+    position: relative;
+    height: 100vh;
+    transform: scale(1, 1);
+    z-index: 9;
+  } 
+  .img-login {
+    width: 85%;
+  }
+
+  .login-form-container {
+    width: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .login-form-container, .login-image-container {
+    z-index: 99;
+    padding: 10px;
+  }
+  .brand-header {
+    font-size: 38px;
+    font-weight: 700;
+    color: #0060A9;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+  }
+  .login-header {
+    font-size: 24px;
+    font-weight: 500;
+    color: #00416C;
+    margin-bottom: 18px;
+    min-height: 37px;
+  }
+
+  .login-sub-header {
+    font-size: 14px;
+    color: #7E7E7E;
+    margin-bottom: 5px;
+    min-height: 44px;
+  }
+
+  .login-image-header {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .login-image-sub-header {
+    color: #99C9EE;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .btn-primary {
+    background-color: #0265A8;
+    border-color: #0265A8;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary:focus {
+    background-color: #2592DC;
+    border-color: #2592DC;
+  }
+
+  .btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem #2593dc63;
+  }
+
+  a {
+    text-decoration: none;
+  }
+ .link-label-container {
+    min-height: 24px;
+ }
+  .form-check-label, .lbl-forgot-pass, .form-link-secondary {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .lbl-forgot-pass {
+    color: #0060A9;
+  }
+ .form-check-label, .form-link-secondary {
+    color: #909090;
+  }
+  .form-check-label:hover, .form-link-secondary:hover {
+    color: #1f1e1e;
+  }
+  .form-link-secondary {
+    display: inile-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* .form-check-label:hover, .lbl-forgot-pass:hover, .form-link-secondary:hover {
+    
+  } */
+  .icon-common {
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    mask-size: 100%;
+    -webkit-mask-size: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .icon-form,
+  .icon-form-before {
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+    position: absolute;
+  }
+  .icon-header-container {
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    width: 35px;
+    height: 35px;
+    background-color: #FEF6D9;
+  }
+  .icon-header, .icon-link-label {
+    height: 18px;
+    width: 18px;
+  }
+.icon-link-label {
+    margin-right: 6px;
+  }
+  .icon-form {
+    right: 15px;
+    top: 8px;
+    background-color: #817F7F;
+  }
+
+  .icon-form-before {
+    background-color: #817F7F;
+    left: 15px;
+    top: 8px;
+  }
+  
+  .icon-toggle-pass {
+    mask-image: url(assets/icons/eye-fill.svg) !important;
+    -webkit-mask-image: url(assets/icons/eye-fill.svg) !important;
+  }
+
+  .icon-toggle-pass-slash {
+    mask-image: url(assets/icons/eye-slash-fill.svg);
+    -webkit-mask-image: url(assets/icons/eye-slash-fill.svg);
+  }
+
+  .icon-user {
+    mask-image: url(assets/icons/user-email.svg);
+    -webkit-mask-image: url(assets/icons/user-email.svg);
+  }
+ .icon-email {
+    mask-image: url(assets/icons/email.svg);
+    -webkit-mask-image: url(assets/icons/email.svg);
+  }
+  .icon-telephone {
+    mask-image: url(assets/icons/telephone.svg);
+    -webkit-mask-image: url(assets/icons/telephone.svg);
+  }
+  .icon-lock {
+    mask-image: url(assets/icons/lock.svg);
+    -webkit-mask-image: url(assets/icons/lock.svg);
+  }
+  .icon-lock-fill {
+    mask-image: url(assets/icons/lock-fill.svg);
+    -webkit-mask-image: url(assets/icons/lock-fill.svg);
+  }
+  .icon-header.icon-lock-fill {
+    background-color: #BA9205;
+  }
+
+  .icon-arrow-left {
+    mask-image: url(assets/icons/arrow-left.svg);
+    -webkit-mask-image: url(assets/icons/arrow-left.svg);
+  }
+  .form-link-secondary .icon-arrow-left {
+    background-color: #909090;
+  }
+  .form-link-secondary:hover .icon-arrow-left {
+    background-color: #1f1e1e;
+  }
+  .icon-exclamation {
+    mask-image: url(assets/icons/exclamation-circle.svg);
+    -webkit-mask-image: url(assets/icons/exclamation-circle.svg);
+    background-color: #BD1111;
+    height: 18px;
+    width: 18px;
+  }
+  
+  .form-control {
+    padding: 0.375rem 0.75rem 0.375rem 2.75rem;
+    border-radius: 5px;
+    border: 1px solid #949494;
+    background-color: #fff !important;
+    font-size: 14px;
+  }
+  
+  .login-error .form-control {
+    border-color: #BD1111;
+  }
+  .login-error .form-control:focus {
+    box-shadow: 0 0 0 0.25rem #bd11113f;
+  }
+  .error-msg-container {
+    opacity: 0;
+    pointer-events: none;
+    margin-bottom: 15px;
+  }
+  .login-error .error-msg-container {
+    opacity: 1;
+  }
+  .lbl-login-error {
+    color: #BD1111;
+    font-size: 14px;
+  }
+  .img-bg-style {
+    position: fixed;
+    /* display: none; */
+  }
+  .style-1 {
+    top: 0;
+    left: 0;
+  }
+  .style-2 {
+    bottom: 0;
+    left: 40%;
+  }
+  .area-container {
+    position: relative;
+  }
+
+  .image-area::before {
+    content: '';
+    position: absolute;
+    height: 100vh;
+    width: 105px;
+    background-image: url(assets/images/login-style.svg);
+    background-repeat: no-repeat;
+    /* background-repeat-y: repeat; */
+    left: -68px;
+  }
+  .lbl-ellipsis {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+  .lbl-confirmation-modal {
+    color: #313131;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0.6px;
+  }
+  .btn-modal {
+    width: 72px;
+  }
+  .img-success {
+    width: 60px;
+  }
+  
+  .spinner-wrapper {
+    position: absolute;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    background-color: #00000013;
+    backdrop-filter: blur(4px);
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
 }
 
-*,
-*::after,
-*::before {
-	margin: 0;
-	padding: 0;
-	box-sizing: inherit;
+.spinner {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
 }
 
-html {
-	height: 100%;
-	box-sizing: border-box;
-	font-family: Montserrat, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	font-weight: 400;
+.spinner .dot {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
 }
 
-body {
-	height: 100%;
-	font-size: 65.2%;
-	background: #e9ebee;
-	color: #1d2129;
-	display: flex;
-	perspective: 1600px;
+.spinner .dot::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: rgb(12, 180, 231);
 }
 
-.version {
-	position: absolute;
-	bottom: 1em;
-	right: 2em;
-	border-radius: 4em;
-	background: #ff4b2b;
-	color: #fff;
-	font-size: 1em;
-	font-weight: bold;
-	padding: 0.8em 2em;
-	letter-spacing: 0.1em;
-	transition: transform 80ms ease-in;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-h1 {
-	font-weight: 700;
-	font-size: 3.5em;
-	text-align: center;
+.spinner .dot {
+    animation: spin 2s infinite;
 }
 
-form input {
-	background: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 0.8em 0;
-	width: 100%;
-	font-size: 1.4em;
-	&:focus {
-		outline: 1px solid var(--main-bg-color);
-	}
+.spinner .dot:nth-child(2) {
+    animation-delay: 100ms;
 }
 
-span {
-	color: #333;
-	font-size: 1.4em;
-	display: inline-block;
-	margin: 15px auto;
-	font-weight: 100;
-	user-select: none;
+.spinner .dot:nth-child(3) {
+    animation-delay: 200ms;
 }
 
-label {
-	float: left;
-	font-size: 1.4em;
-	display: inline-block;
-	user-select: none;
-	&:hover {
-		cursor: pointer;
-	}
-	span {
-		font-size: inherit;
-		line-height: 1em;
-		&::before {
-			content: "";
-			width: 1em;
-			height: 1em;
-			display: inline-block;
-			border: 2px solid #aaa;
-			vertical-align: bottom;
-			transition: all 0.1s ease-in-out;
-			margin-right: 0.2em;
-			transform: scale(0.99);
-		}
-	}
+.spinner .dot:nth-child(4) {
+    animation-delay: 300ms;
 }
 
-input[type="checkbox"] {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-
-	&:checked + span::before {
-		border-color: #fafafa;
-		box-shadow: 0 0 0 2px var(--main-bg-color);
-		background: var(--main-bg-color);
-		transform: scale(0.8);
-	}
-	&:focus + span {
-		text-decoration: underline;
-	}
-	&:checked + span {
-		text-decoration: none;
-	}
+.spinner .dot:nth-child(5) {
+    animation-delay: 400ms;
 }
 
-span.forget {
-	float: right;
-}
-
-span.clearfix {
-	clear: both;
-	display: table;
-}
-
-span.loginwith {
-	display: block;
-	width: 100%;
-	margin-top: 1em;
-	white-space: nowrap;
-	overflow: hidden;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	&::before {
-		content: "";
-		display: inline-block;
-		width: 42%;
-		border-bottom: 1px solid #aaa;
-		vertical-align: middle;
-		margin-right: 5%;
-	}
-	&::after {
-		content: "";
-		display: inline-block;
-		width: 45%;
-		border-bottom: 1px solid #aaa;
-		vertical-align: middle;
-		margin-left: 5%;
-	}
-}
-
-span.copy {
-	display: block;
-	font-size: 1em;
-	margin-top: auto;
-}
-
-button {
-	display: block;
-	margin: 1em auto;
-	border-radius: 4em;
-	border: 1px solid var(--main-bg-color);
-	background: var(--main-bg-color);
-	color: #fff;
-	font-size: 1.2em;
-	font-family: Montserrat, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	font-weight: bold;
-	padding: 0.8em 2em;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-	user-select: none;
-	svg {
-		vertical-align: middle;
-	}
-}
-
-button:hover {
-	cursor: pointer;
-}
-
-button:active {
-	transform: scale(0.95);
-}
-
-button:focus {
-	outline: none;
-}
-
-a {
-	transition: all 0.3s ease;
-	cursor: pointer;
-	color: #333;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:hover svg {
-	cursor: pointer;
-	transition: all 0.3s ease;
-	stroke: var(--main-bg-color);
-}
-
-#container {
-	width: 100%;
-	max-width: 80em; 
-	min-width: 70.5em;
-	height: 50em;
-	position: relative;
-	border-radius: 2em;
-	transform-style: preserve-3d;
-	margin: auto; 
-	& > div {
-		position: absolute;
-		width: 50%;
-		height: 100%;
-		top: 0;
-	}
-}
-
-.content {
-	width: 100%;
-	height: 100%;
-	padding: 0 4em;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	p {
-		font-size: 1.4em;
-	}
-}
-
-.login {
-	left: 0;
-	border-radius: 2em 0 0 2em;
-	transform-style: preserve-3d; 
-	button {
-		border-radius: 0px;
-		width: 100%;
-	}
-	svg {
-		margin: 1em;
-		stroke: #999;
-	}
-	.content {
-		background: #fafafa;
-		border-radius: 2em 0 0 2em;
-	}
-	h1 {
-		margin-top: auto; 
-	}
-}
-
-.register {
-	right: 0;
-	border-radius: 0 20px 20px 0;
-	transform-style: preserve-3d; 
-	button {
-		border-radius: 0px;
-		width: 100%;
-		margin-bottom: auto;
-	}
-	svg {
-		margin: 1em;
-		stroke: #999;
-	}
-	.content {
-		border-radius: 0 20px 20px 0;
-		background: #fafafa;
-		padding: 0em 4em;
-	}
-}
-
-.page {
-	right: 0;
-	color: #fff;
-	border-radius: 0 20px 20px 0;
-	transform-origin: left center;
-	transition: animation 1s linear;
-	button {
-		border-color: #fff;
-		background: transparent;
-	}
-}
-
-.front {
-	background: linear-gradient(-45deg, var(--main-bg-color) 0%, #1d2129 100%)
-		no-repeat 0 0/100%;
-	z-index: 3;
-}
-
-.back {
-	background: linear-gradient(135deg, var(--main-bg-color) 0%, #1d2129 100%)
-		no-repeat 0 0/200%;
-	z-index: 2;
-	.content {
-		transform: rotateY(180deg);
-	}
-}
-
-.active .front {
-	animation: rot-front 0.6s ease-in-out normal forwards;
-}
-
-.active .back {
-	animation: rot-back 0.6s ease-in-out normal forwards;
-}
-
-.close .front {
-	animation: close-rot-front 0.6s ease-in-out normal forwards;
-}
-
-.close .back {
-	animation: close-rot-back 0.6s ease-in-out normal forwards;
-}
-
-@keyframes rot-front {
-	from {
-		transform: translateZ(2px) rotateY(0deg);
-		
-	}
-	to {
-		transform: translateZ(1px) rotateY(-180deg);
-	}
-}
-
-@keyframes rot-back {
-	from {
-		transform: translateZ(1px) rotateY(0deg);
-	}
-	to {
-		transform: translateZ(2px) rotateY(-180deg);
-	}
-}
-
-
-@keyframes close-rot-front {
-	from {
-		transform: translateZ(1px) rotateY(-180deg);
-	}
-	to {
-		transform: translateZ(2px) rotateY(0deg);
-	}
-}
-
-@keyframes close-rot-back {
-	from {
-		transform: translateZ(2px) rotateY(-180deg);
-	}
-	to {
-		transform: translateZ(1px) rotateY(0deg);
-	}
-}
-
-.active .register .content {
-	transform-origin: left center;
-	animation: show-register 0.7s ease-in-out normal forwards;
-}
-
-.active .login .content {
-	transform-origin: right center;
-	animation: hide-login 0.7s ease-in-out normal forwards;
-}
-
-.close .register .content {
-	transform-origin: left center;
-	animation: hide-register 0.7s ease-in-out normal forwards;
-}
-
-.close .login .content {
-	transform-origin: right center;
-	animation: show-login 0.7s ease-in-out normal forwards;
-}
-
-@keyframes show-register {
-	from {
-		transform: rotateY(80deg);
-	}
-	to {
-		transform: rotateY(0deg);
-	}
-}
-
-@keyframes hide-login {
-	from {
-		transform: rotateY(0.01deg);
-	}
-	to {
-		transform: rotateY(-80deg);
-	}
-}
-
-
-@keyframes hide-register {
-	from {
-		transform: rotateY(0.01deg);
-	}
-	to {
-		transform: rotateY(80deg);
-	}
-}
-
-@keyframes show-login {
-	from {
-		transform: rotateY(-80deg);
-	}
-	to {
-		transform: rotateY(0deg);
-	}
-}
-
-
+  @media (max-width: 1199px) {
+    body {
+      background: unset;
+    }
+    /* .img-bg-style {
+      display: block;
+    } */
+    .image-area::before {
+      content: unset;
+    }
+  }
+  @media (max-width: 991px) {
+    .login-form-container {
+      width: 350px;
+    }
+  }
+  @media (max-width: 767px) {
+    .image-area {
+      display: none !important;
+    }
+    .style-2 {
+      right: -28%;
+      left: auto;
+    }
+  }
+  @media (max-width: 576px) {
+    .login-form-container {
+      width: auto;
+    }
+    .brand-header {
+      font-size: 32px;
+      margin-bottom: 50px;
+    }
+    .login-header {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+  }
+   @media (max-width: 300px) {
+    .brand-header {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .login-header {
+      font-size: 18px;
+    }
+    
+  }
 </style>
-</head>
-<body>
-    <div id="container">
-        <div class="login">
-            <div class="content">
-                <h1>Log In</h1>
-                <form th:action="@{/login}" method="post" >
-                    <input type="email" name="email" placeholder="email">
-                    <input type="password" name="password" placeholder="password">
-                    <div>
-                        <label class="remember" for="remember">
-                            <input type="checkbox" id="remember" checked /><span>Remember me</span>
-                        </label>
-                        <span class="forget"><a href="#">Forgot password?</a></span>
-                        <span class="clearfix"></span>
-                    </div>
-                    <button onclick="return false;">Log In</button>
-                </form>
-                <span class="loginwith">Or Connect with</span>
-                <div>
-                    <a href="https://www.facebook.com/emin.qasimovdia"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                        </svg></a>
-                    <a href="https://www.twitter.com/webkoder"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                        </svg></a>
-                    <a href="https://www.github.com/eminqasimov"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg></a>
-                    <a href="https://www.linkedin.com/in/eminqasimov/"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg></a>
-                </div>
-                <span class="copy">&copy
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                </span>
-            </div>
-        </div>
-        <div class="page front">
-            <div class="content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="8.5" cy="7" r="4" />
-                    <line x1="20" y1="8" x2="20" y2="14" />
-                    <line x1="23" y1="11" x2="17" y2="11" />
-                </svg>
-                <h1>Hello, friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button type="" id="register">Register <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 16 16 12 12 8" />
-                        <line x1="8" y1="12" x2="16" y2="12" />
-                    </svg></button>
-            </div>
-        </div>
-        <div class="page back">
-            <div class="content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                    <polyline points="10 17 15 12 10 7" />
-                    <line x1="15" y1="12" x2="3" y2="12" />
-                </svg>
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button type="" id="login"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 8 8 12 12 16" />
-                        <line x1="16" y1="12" x2="8" y2="12" />
-                    </svg> Log In</button>
-            </div>
-        </div>
-        <div class="register">
-            <div class="content">
-                <h1>Sign Up</h1>
-                <div><a>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                        </svg></a>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                        </svg></a>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg></a>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg></a>
-                </div>
-                <span class="loginwith">Or use email</span>
-                <form>
-                    <input type="text" placeholder="name">
-                    <input type="email" placeholder="email">
-                    <input type="password" placeholder="password">
-                    <label class="remember" for="terms">
-                        <input type="checkbox" id="terms" /><span>I accept terms</span>
-                    </label>
-                    <span class="clearfix"></span>
-                    <button onclick="return false;">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
-<script>
-    const registerButton = document.getElementById('register')
-const loginButton = document.getElementById('login')
-const container = document.getElementById('container')
- 
 
-registerButton.onclick = function(){
-	 container.className = 'active'
-}
-loginButton.onclick = function(){
-		container.className = 'close'
-}
+<script type="text/javascript">
+
+var mainApp = angular.module("forgopass", []);
+mainApp.controller('forgopassController', function ($scope, $http) {
+// alert("Hi");
+    $scope.forgopass = {
+        username: "",
+        email: "",
+        mobile: "",
+    };
+
+    $scope.submitForgoPass = function () {
+    //   alert("Hi");
+    document.getElementById("loader").style.display = "block"
+        var method = "";
+        var url = "";
+        method = "GET";
+        url = 'forgopass';
+        $http({
+            method: method,
+            url: url,
+            params: {
+                "username": $scope.forgopass.username,
+                "email": $scope.forgopass.email,
+                "mobile": $scope.forgopass.mobile
+            },
+            transformResponse: angular.identity
+        }).then(function successCallback(response) {
+        	document.getElementById("loader").style.display = "none"
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: response.data,
+                showConfirmButton: true,
+            }).then(function () {
+                location.reload();
+            });
+        }, function errorCallback(response) {
+        	document.getElementById("loader").style.display = "none"
+            console.log(response.data);
+            Swal.fire({
+				position: 'center',
+				icon: 'error',
+				title: response.data,
+				showConfirmButton: true,
+			})
+        });
+    };
+
+});
 </script>
-</html> -->
+<body ng-controller="forgopassController" ng-app="forgopass">
+  <!-- new page -->
+  <img src="assets/icons/logo.png" alt="" class="login-logo">
+  
+  <img src="assets/images/login-bg-style-1.svg" alt="" class="img-bg-style style-1">
+  <img src="assets/images/login-bg-style-2.svg" alt="" class="img-bg-style style-2">
+  <div th:if="${param.error}" id="loginError"></div>
+  <div class="area-container" id="loginArea">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 login-area d-grid">
+        <!-- login-form -->
+        <div class="login-form-container" id="dvLogin">
+          <div class="brand-header lbl-ellipsis">E-Restaurants</div>
+          <div class="login-header lbl-ellipsis">Login To Your Account</div>
+          <div class="login-sub-header">Welcome Back...</div>
+          <div class="error-msg-container">
+            <span class="icon-common icon-exclamation me-1"></span>
+            <span class="lbl-login-error" >Invalid Username Or Password</span>
+          </div>
+          <form class="" th:action="@{/login}" method="post" id="loginform">
+            <div class="mb-4 position-relative">
+              <span class="icon-common icon-email icon-form-before"></span>
+              <input type="text" class="form-control" id="exampleInputEmail1"  aria-describedby="emailHelp" name="username" required value='' placeholder="Enter Username">
+            </div>
+            <div class="mb-4 position-relative">
+              <span class="icon-common icon-lock icon-form-before"></span>
+              <input type="password" class="form-control" id="idPassword" ng-model="login.password" name="password" required value='' placeholder="Password">
+              <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword"></span>
+            </div>
+            <div class="row mb-3">
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+            <div class="ms-5">
+              <a class="lbl-forgot-pass" id="linkForgetPass">Forgot Password</a>
+            </div>
+          </div>
+            <div class="link-label-container"></div>
+  
+          </form>
+        </div>
 
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<form th:action="@{/login}" method="post">
-		Email: <input type="text" name="email" placeholder="Email"></br>
-		Password: <input type="password" name="password" placeholder="password"></br>
-        <input type="submit">
-	</form>
+        <!-- forget-pass-form -->
+        <div class="login-form-container d-none" id="dvForgetPass"> 
+          <div class="brand-header lbl-ellipsis">E-Restaurants</div>
+          <div class="login-header lbl-ellipsis">
+            <span class="icon-header-container"><span class="icon-common icon-header icon-lock-fill"></span></span>
+            <span>Forgot Password?</span>
+          </div>
+          <div class="login-sub-header">Don’t Worry, Enter Your Details Below to Get New Password</div>
+          <div class="error-msg-container">
+            <span class="icon-common icon-exclamation me-1"></span>
+            <span class="lbl-login-error">Invalid Username Or Password</span>
+          </div>
+          		          	<div class="spinner-wrapper" style="display: none" id="loader">
+								<div class="spinner">
+									<div class="dot"></div>
+									<div class="dot"></div>
+									<div class="dot"></div>
+									<div class="dot"></div>
+									<div class="dot"></div>
+								</div>
+							</div>		
+          <form class="" ng-submit="submitForgoPass()" id="resetform">
+            <div class="mb-4 position-relative">
+              <span class="icon-common icon-user icon-form-before"></span>
+              <input type="text" class="form-control" ng-model="forgopass.username" id="username" aria-describedby="emailHelp" required
+                value='' placeholder="Username">
+            </div>
+            <div class="mb-4 position-relative">
+              <span class="icon-common icon-email icon-form-before"></span>
+              <input type="email" class="form-control" ng-model="forgopass.email" id="Email_id" aria-describedby="emailHelp"
+                required value='' placeholder="Email">
+            </div>
+            <div class="mb-4 position-relative">
+              <span class="icon-common icon-telephone icon-form-before"></span>
+              <input type="number" class="form-control" ng-model="forgopass.mobile" id="Phone_num" name="mobile" required
+                placeholder="Phone Number">
+            </div>
+            <input type="submit" class="btn btn-primary w-100 mb-3" value="Reset Password"></button>
+            
+            <div class="text-center link-label-container">
+              <a class="form-link-secondary" id="linkBackToLogin">
+                <span class="icon-common icon-link-label icon-arrow-left"></span>
+                <span>Back To Login</span>
+              </a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+      <div class="col-md-6 image-area d-grid align-items-center justify-content-center">
+        <div class="login-image-container">
+          <div class="login-image-header">One Single App</div>
+          <div class="login-image-sub-header">Food Order & Delivary</div>
+          <img src="assets/images/login-illustration.svg" alt="" class="img-login">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <div>
+            <img src="assets/images/tick.gif" alt="" class="img-success mb-4">
+          </div>
+          <div class="mb-4 lbl-confirmation-modal">New password has been sent successfully to your email</div>
+          <button type="button" class="btn btn-primary btn-modal" data-bs-dismiss="modal">Ok</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script>
+    (function () {
+      const togglePassword = document.querySelector('#togglePassword');
+      const password = document.querySelector('#idPassword');
+
+      togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('icon-toggle-pass');
+      });
+    })();
+      
+    // Check if the element is present
+    if (document.getElementById('loginError')) {
+      // Add class to another element
+      var loginArea = document.getElementById("loginArea");
+      loginArea.classList.add('login-error');
+    }
+
+    var dvLogin = document.getElementById('dvLogin');
+    var dvForgetPass = document.getElementById('dvForgetPass');
+    var linkForgetPass = document.getElementById('linkForgetPass');
+    var linkBackToLogin = document.getElementById('linkBackToLogin');
+
+    //hiding login form and opening forget pass form
+    linkForgetPass.onclick = function () {
+      dvLogin.classList.add('d-none');
+      dvForgetPass.classList.remove('d-none');
+
+      loginArea.classList.remove('login-error');
+    }
+
+    //hiding forget pass form and opening login form
+    linkBackToLogin.onclick = function () {
+      dvForgetPass.classList.add('d-none');
+      dvLogin.classList.remove('d-none');
+    }
+  </script>
 </body>
+
 </html>

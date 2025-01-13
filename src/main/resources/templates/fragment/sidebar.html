@@ -1,0 +1,76 @@
+<div class="body">
+    <div class="left-bar" id="navContainer">
+        <div class="side-menu" id="navMenu">
+            <div class="side-menu-header d-none"></div>
+            <div class="side-menu-body">
+                <ul class="nav-menu-container">
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/home}"
+                            onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-dashboard"></span> <span
+                                class="link-name">Dashboard</span>
+                        </a></li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a class="nav-link active" th:href="@{/approval}" onclick="toggleSubMenu(this)"> <span
+                            class="icon-common icon-sidemenu icon-user-service"></span>
+                                <span class="link-name">User Management</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navCourse"
+                    sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" id="courseLink" onclick="toggleSubMenu(this)"> <span
+                            class="icon-common icon-sidemenu icon-approval"></span> <span
+                            class="link-name">Shop Management</span> <span
+                            class="icon-common icon-sidemenu icon-chevron"></span>
+                    </a>
+                    <ul class="sub-menu-container">
+                        <li class="sub-menu-item" sec:authorize="hasAnyAuthority('ADMIN')"><a
+                                class="sub-menu-link" th:href="@{/shop_entry}"> <span
+                                    class="icon-common icon-dash"></span> <span
+                                    class="submenu-link-label">Shop Registration</span>
+                            </a></li>
+                        <li class="sub-menu-item"
+                            sec:authorize="hasAnyAuthority('ADMIN')">
+                            <a class="sub-menu-link" th:href="@{/customer}"> <span
+                                    class="icon-common icon-dash"></span> <span
+                                    class="submenu-link-label">Shop View</span>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-report"></span> <span
+                                class="link-name">Report</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" id="navCourse"
+                        sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a class="nav-link" id="courseLink" onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-settings"></span> <span
+                                class="link-name">Settings</span> <span
+                                class="icon-common icon-sidemenu icon-chevron"></span>
+                        </a>
+                        <ul class="sub-menu-container">
+                            <li class="sub-menu-item" sec:authorize="hasAnyAuthority('ADMIN')"><a
+                                    class="sub-menu-link" th:href="@{/company}"> <span
+                                        class="icon-common icon-dash"></span> <span
+                                        class="submenu-link-label">Commison Setup</span>
+                                </a></li>
+                            <li class="sub-menu-item"
+                                sec:authorize="hasAnyAuthority('ADMIN')">
+                                <a class="sub-menu-link" th:href="@{/customer}"> <span
+                                        class="icon-common icon-dash"></span> <span
+                                        class="submenu-link-label">Location Setup</span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right-bar">
+    <div class="body-wrapper" id="bodyWrapper">
