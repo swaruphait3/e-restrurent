@@ -29,7 +29,7 @@ public class MyUserDetails implements UserDetails {
        
             authorities.add(new SimpleGrantedAuthority(user.getRole()));
         
-        System.out.println(authorities.toString());
+        // System.out.println(authorities.toString());
         return authorities;
     }
 
