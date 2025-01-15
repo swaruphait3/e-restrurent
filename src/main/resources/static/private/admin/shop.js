@@ -96,7 +96,7 @@ app.controller("ShopManagmentController", function ($scope, $http, $timeout) {
             		Swal.fire({
             			position: 'center',
             			icon: 'success',
-            			title: response.message,
+            			title: response.data.message,
             			showConfirmButton: true,
             		}).then(function () {
             			location.reload();
@@ -105,7 +105,7 @@ app.controller("ShopManagmentController", function ($scope, $http, $timeout) {
             	}, function errorCallback(response) {
             		Swal.fire({
             			icon: 'error',
-            			title: response.message,
+            			title: response.data.message,
             			text: 'Something went wrong!'
             		})
             		console.log("Error" + response);
