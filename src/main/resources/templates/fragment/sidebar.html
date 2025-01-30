@@ -44,6 +44,25 @@
                                 class="link-name">Report</span>
                         </a>
                     </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-activity"></span> <span
+                                class="link-name">View Order</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-report"></span> <span
+                                class="link-name">Categories</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
+                                class="icon-common icon-sidemenu icon-report"></span> <span
+                                class="link-name">Product</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item" id="navCourse"
                         sec:authorize="hasAnyAuthority('ADMIN')">
