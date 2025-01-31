@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import com.swarup.e_restaurants.service.UserDetailsServiceImpl;
 
+
+
 @Configuration
 @EnableMethodSecurity 
 public class WebSecurityConfig {
@@ -51,7 +53,7 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy")
+                .requestMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy")
                 .permitAll()
                 .anyRequest().authenticated()
             )

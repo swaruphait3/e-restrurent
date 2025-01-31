@@ -1,7 +1,5 @@
 package com.swarup.e_restaurants.model;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,12 +17,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "mst_country")
-public class Country {
-    @Id
+@Table(name = "mst_state")
+public class City {
+       @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String code;
-    private String dial_code;
-    private String name;
+    private int id;
+    private int stateId;
+    private String cityName;
+    private boolean status;
 }

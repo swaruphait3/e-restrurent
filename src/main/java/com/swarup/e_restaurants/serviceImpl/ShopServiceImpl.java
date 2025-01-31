@@ -44,12 +44,12 @@ public class ShopServiceImpl implements ShopService{
             user.setPassword(passwordEncoder.encode(shop.getRawPass()));
             user.setMobile(shop.getContactNo());
             user.setEnabled(true);
-            user.setRole("SHOP");
+            user.setRole("RESTAURENT");
             userRepositiry.save(user);
         } else {
             Optional<User> byEmailOrMobile = userRepositiry.findByEmailOrMobile(shop.getEmail(),shop.getContactNo());
             User user = byEmailOrMobile.get();
-            user.setRole("SHOP");
+            user.setRole("RESTAURENT");
             userRepositiry.save(user);
         }
         return ResponseHandler.generateResponse("Successfully created Shop",HttpStatus.OK, null);

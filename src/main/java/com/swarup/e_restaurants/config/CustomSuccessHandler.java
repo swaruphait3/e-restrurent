@@ -3,15 +3,15 @@ package com.swarup.e_restaurants.config;
 import java.io.IOException;
 import java.util.Collection;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
@@ -27,7 +27,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             if (grantedAuthority.getAuthority().equals("ADMIN")) {
                 redirectUrl = "/home";
                 break;
-            } else if (grantedAuthority.getAuthority().equals("SHOP")) {
+            } else if (grantedAuthority.getAuthority().equals("RESTAURENT")) {
                 redirectUrl = "/shop";
                 break;
             } else {

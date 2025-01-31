@@ -19,20 +19,20 @@
                     sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link" id="courseLink" onclick="toggleSubMenu(this)"> <span
                             class="icon-common icon-sidemenu icon-approval"></span> <span
-                            class="link-name">Shop Management</span> <span
+                            class="link-name">Restaurants</span> <span
                             class="icon-common icon-sidemenu icon-chevron"></span>
                     </a>
                     <ul class="sub-menu-container">
                         <li class="sub-menu-item" sec:authorize="hasAnyAuthority('ADMIN')"><a
-                                class="sub-menu-link" th:href="@{/shop_entry}"> <span
+                                class="sub-menu-link" th:href="@{/restrurent_add}"> <span
                                     class="icon-common icon-dash"></span> <span
-                                    class="submenu-link-label">Shop Registration</span>
+                                    class="submenu-link-label">Registration</span>
                             </a></li>
                         <li class="sub-menu-item"
                             sec:authorize="hasAnyAuthority('ADMIN')">
                             <a class="sub-menu-link" th:href="@{/shop_view}"> <span
                                     class="icon-common icon-dash"></span> <span
-                                    class="submenu-link-label">Shop View</span>
+                                    class="submenu-link-label">View Restaurants</span>
                             </a>
                         </li>
                        
@@ -44,20 +44,20 @@
                                 class="link-name">Report</span>
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
                         <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
                                 class="icon-common icon-sidemenu icon-activity"></span> <span
                                 class="link-name">View Order</span>
                         </a>
                     </li>
 
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
                         <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
                                 class="icon-common icon-sidemenu icon-report"></span> <span
                                 class="link-name">Categories</span>
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('SHOP')">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
                         <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
                                 class="icon-common icon-sidemenu icon-report"></span> <span
                                 class="link-name">Product</span>
