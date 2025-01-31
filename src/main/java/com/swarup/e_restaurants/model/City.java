@@ -17,9 +17,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "mst_state")
+@Table(name = "mst_city")
 public class City {
-       @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int stateId;
