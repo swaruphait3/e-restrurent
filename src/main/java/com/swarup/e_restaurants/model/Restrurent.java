@@ -7,6 +7,9 @@ import com.swarup.e_restaurants.audit.Auditable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -25,6 +28,8 @@ import lombok.ToString;
 @JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate"})
 @EntityListeners(AuditingEntityListener.class)
 public class Restrurent extends Auditable<String>{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int locId;
     private int cityId;

@@ -1,8 +1,11 @@
 package com.swarup.e_restaurants.model;
 
+import java.time.LocalDate;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.swarup.e_restaurants.audit.Auditable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -10,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,21 +25,25 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "trn_branches")
+@Table(name = "mst_orderbill")
 @JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate"})
 @EntityListeners(AuditingEntityListener.class)
-public class RestrurentBranch {
-    @Id
+public class OrderBill extends Auditable<String>{
+     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int restId;
+    private LocalDate billDate;
+    private int branchId;
     private int cityId;
-    private int locationId;
-    private String locAddress;
-    private String branchName;
-    private String branchContact;
-    private boolean status;
-
-    @Transient
-    private String password;
+    private int locId;
+    private String custName;
+    private String custAddress;
+    private String custContactNo;
+    private float gross;
+    private float tax;
+    private float net;
+    private String payMode;
+    private String approxDelivaryTime;
+    private String delivaryStatus;
+    private String remarks;
 }

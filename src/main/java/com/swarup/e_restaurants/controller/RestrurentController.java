@@ -10,48 +10,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swarup.e_restaurants.model.Shop;
-import com.swarup.e_restaurants.service.ShopService;
+import com.swarup.e_restaurants.model.Restrurent;
+import com.swarup.e_restaurants.service.RestrurentService;
 
 @RestController
-@RequestMapping("/shop")
-public class ShopController {
+@RequestMapping("/restrurent")
+public class RestrurentController {
+    
+   @Autowired
+   private RestrurentService restrurentService;
 
-    @Autowired
-    private ShopService shopService;
-
-   @PostMapping(value = "/registation")
-    public ResponseEntity<?> registation(@RequestBody Shop shop ) {
-        return shopService.registation(shop);
+   @PostMapping(value = "/add")
+    public ResponseEntity<?> add(@RequestBody Restrurent restrurent ) {
+        return restrurentService.add(restrurent);
     }
 
     @PutMapping(value = "/edit")
-    public ResponseEntity<?> edit(@RequestBody Shop shop ) {
-        return shopService.edit(shop);
+    public ResponseEntity<?> edit(@RequestBody Restrurent restrurent) {
+        return restrurentService.edit(restrurent);
     }
 
     @GetMapping(value = "/findAll")
     public ResponseEntity<?> findAll() {
-        return shopService.findAll();
+        return restrurentService.findAll();
     }
 
     @GetMapping(value = "/findAllActiveList")
     public ResponseEntity<?> findAllActiveList() {
-        return shopService.findAllActiveList();
+        return restrurentService.findAllActiveList();
     }
 
     @GetMapping(value = "/findById")
     public ResponseEntity<?> findById(@RequestParam Integer id) {
-        return shopService.findById(id);
+        return restrurentService.findById(id);
     }
 
-    @GetMapping(value = "/activeShop")
-    public ResponseEntity<?> activeShop(@RequestParam Integer id) {
-        return shopService.activeShop(id);
+    @GetMapping(value = "/active")
+    public ResponseEntity<?> active(@RequestParam Integer id) {
+        return restrurentService.active(id);
     }
 
-    @GetMapping(value = "/deActiveShop")
-    public ResponseEntity<?> deActiveShop(@RequestParam Integer id) {
-        return shopService.deActiveShop(id);
+    @GetMapping(value = "/deActive")
+    public ResponseEntity<?> deActive(@RequestParam Integer id) {
+        return restrurentService.deActive(id);
     }
 }
