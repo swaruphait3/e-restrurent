@@ -1,95 +1,154 @@
 <div class="body">
-    <div class="left-bar" id="navContainer">
-        <div class="side-menu" id="navMenu">
-            <div class="side-menu-header d-none"></div>
-            <div class="side-menu-body">
-                <ul class="nav-menu-container">
-                    <li class="nav-item"><a class="nav-link active" th:href="@{/home}"
-                            onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-dashboard"></span> <span
-                                class="link-name">Dashboard</span>
-                        </a></li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                        <a class="nav-link active" th:href="@{/approval}" onclick="toggleSubMenu(this)"> <span
-                            class="icon-common icon-sidemenu icon-user-service"></span>
-                                <span class="link-name">User Management</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="navCourse"
-                    sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a class="nav-link" id="courseLink" onclick="toggleSubMenu(this)"> <span
-                            class="icon-common icon-sidemenu icon-approval"></span> <span
-                            class="link-name">Restaurants</span> <span
-                            class="icon-common icon-sidemenu icon-chevron"></span>
-                    </a>
-                    <ul class="sub-menu-container">
-                        <li class="sub-menu-item" sec:authorize="hasAnyAuthority('ADMIN')"><a
-                                class="sub-menu-link" th:href="@{/restrurent_add}"> <span
-                                    class="icon-common icon-dash"></span> <span
-                                    class="submenu-link-label">Registration</span>
-                            </a></li>
-                        <li class="sub-menu-item"
-                            sec:authorize="hasAnyAuthority('ADMIN')">
-                            <a class="sub-menu-link" th:href="@{/shop_view}"> <span
-                                    class="icon-common icon-dash"></span> <span
-                                    class="submenu-link-label">View Restaurants</span>
-                            </a>
-                        </li>
-                       
-                    </ul>
-                </li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-report"></span> <span
-                                class="link-name">Report</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
-                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-activity"></span> <span
-                                class="link-name">View Order</span>
-                        </a>
-                    </li>
+  <div class="left-bar" id="navContainer">
+    <div class="side-menu" id="navMenu">
+      <div class="side-menu-header d-none"></div>
+      <div class="side-menu-body">
+        <ul class="nav-menu-container">
+          <li sec:authorize="hasAuthority('HOME')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/home' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/home}">
+              <span class="icon-common icon-sidemenu icon-home"></span> <span class="link-name">home</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('BOOKINGS')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/bookings' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/bookings}">
+              <span class="icon-common icon-sidemenu icon-booking"></span>
+              <span class="link-name">bookings</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('ENQUIRY')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/enquiry' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/enquiry}">
+              <span class="icon-common icon-sidemenu icon-enquiry"></span>
+              <span class="link-name">enquiry</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('WORKSHOP')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/workshop' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/workshop}">
+              <span class="icon-common icon-sidemenu icon-workshop"></span>
+              <span class="link-name">Weekly Specials</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('ACTIVITY')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/activity}">
+              <span class="icon-common icon-sidemenu icon-activity"></span>
+              <span class="link-name">activity</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('REGULARCLASSES')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/regular-classes' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/regular-classes}">
+              <span class="icon-common icon-sidemenu icon-classes"></span>
+              <span class="link-name">regular classes</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('PRIVATEEVENTS')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/private-events' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/private-events}">
+              <span class="icon-common icon-sidemenu icon-events"></span>
+              <span class="link-name">private events</span>
+            </a>
+          </li>
+          <li sec:authorize="hasAuthority('ADMINMANAGEMENT')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-user' or #httpServletRequest.getRequestURI() == '/art-rickshaw/manage-role' or #httpServletRequest.getRequestURI() == '/art-rickshaw/manage-permission'  ? 'sub-menu-active' : ''}">
+            <a class="nav-link" onclick="toggleSubMenu(this)">
+              <span class="icon-common icon-sidemenu icon-admin"></span>
+              <span class="link-name">Admin</span>
+              <span class="icon-common icon-sidemenu icon-chevron"></span>
+            </a>
+            <ul class="sub-menu-container">
+              <li sec:authorize="hasAuthority('USERMANAGEMENT')" class="sub-menu-item"><a class="sub-menu-link"
+                  th:href="@{/manage-user}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-user' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Manage User</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('USERMANAGEMENT')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/manage-role}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-role' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">User permission</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('PERMISSION')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/manage-permission}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-permission' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Permission Table</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li sec:authorize="hasAuthority('MASTER')" class="nav-item"
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity-category' or #httpServletRequest.getRequestURI() == '/art-rickshaw/application-master' or #httpServletRequest.getRequestURI() == '/art-rickshaw/holiday-master' or #httpServletRequest.getRequestURI() == '/art-rickshaw/corporate-booking-master' ? 'sub-menu-active' : ''}">
+            <a class="nav-link" onclick="toggleSubMenu(this)">
+              <span class="icon-common icon-sidemenu icon-settings"></span>
+              <span class="link-name">master</span> <span class="icon-common icon-sidemenu icon-chevron"></span>
+            </a>
+            <ul class="sub-menu-container">
+              <li sec:authorize="hasAuthority('APPLICATIONMASTER')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/application-master}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/application-master' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Application Master</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('HOLIDAYMASTER')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/holiday-master}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/holiday-master' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Holiday Master</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('CORPORATEBOOKINGMASTER')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/corporate-booking-master}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/corporate-booking-master' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Corporate Booking Master</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('ACTIVITYCATEGORY')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/activity-category}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity-category' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Activity Category</span>
+                </a>
+              </li>
+              <li sec:authorize="hasAuthority('ACTIVITYCATEGORY')" class="sub-menu-item">
+                <a class="sub-menu-link" th:href="@{/activity-priority}"
+                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity-priority' ? 'link-active':''}">
+                  <span class="icon-common icon-dash"></span>
+                  <span class="submenu-link-label">Activity Priority</span>
+                </a>
+              </li>
 
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
-                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-report"></span> <span
-                                class="link-name">Categories</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasAnyAuthority('RESTAURENT')">
-                        <a class="nav-link active" th:href="@{/report}" onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-report"></span> <span
-                                class="link-name">Product</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item" id="navCourse"
-                        sec:authorize="hasAnyAuthority('ADMIN')">
-                        <a class="nav-link" id="courseLink" onclick="toggleSubMenu(this)"> <span
-                                class="icon-common icon-sidemenu icon-settings"></span> <span
-                                class="link-name">Settings</span> <span
-                                class="icon-common icon-sidemenu icon-chevron"></span>
-                        </a>
-                        <ul class="sub-menu-container">
-                            <li class="sub-menu-item" sec:authorize="hasAnyAuthority('ADMIN')"><a
-                                    class="sub-menu-link" th:href="@{/company}"> <span
-                                        class="icon-common icon-dash"></span> <span
-                                        class="submenu-link-label">Commison Setup</span>
-                                </a></li>
-                            <li class="sub-menu-item"
-                                sec:authorize="hasAnyAuthority('ADMIN')">
-                                <a class="sub-menu-link" th:href="@{/customer}"> <span
-                                        class="icon-common icon-dash"></span> <span
-                                        class="submenu-link-label">Location Setup</span>
-                                </a>
-                            </li>
-                           
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="side-menu-footer">
+        <div class="profile-container">
+          <div class="profile-image-container">
+            <img src="assets/images/brad-logo-circle.png" alt="" class="img-profile">
+          </div>
+          <div class="profile-details-container">
+            <div class="profile-name"><span th:text="${#authentication.getPrincipal().getUser().getName}"></div>
+            <div class="profile-brand lbl-ellipsis">Art Rickshaw</div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="right-bar">
+  </div>
+  <div class="right-bar">
     <div class="body-wrapper" id="bodyWrapper">
+      <!-- <div class="preloader no-print" id="overlay">
+        <svg class="circular" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div> -->
+      <!-- views will be rendered here -->
+      <div id='parentDBArea' ng-view class="view-area">

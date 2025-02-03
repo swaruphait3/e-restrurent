@@ -58,10 +58,8 @@ public class LocationServiceImpl implements LocationService{
       Optional<City> byId = cityRepository.findById(id);
       if (byId.isPresent()) {
       return ResponseHandler.generateResponse("Successfully Fetch Details",HttpStatus.OK, byId);
-        
       } else {
-    return ResponseHandler.generateResponse("Opps.. Something went wrong",HttpStatus.BAD_REQUEST, null);
-        
+        return ResponseHandler.generateResponse("Opps.. Something went wrong",HttpStatus.BAD_REQUEST, null);   
       }
     }
 
@@ -70,13 +68,13 @@ public class LocationServiceImpl implements LocationService{
       location.setStatus(true);
       locationRepository.save(location);
       return ResponseHandler.generateResponse("Successfully Saved the City",HttpStatus.OK, null);
-
     }
 
     @Override
     public ResponseEntity<?> fetchAllLocation() {
       List<Location> all = locationRepository.findAll();
-      return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, all);    }
+      return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, all);   
+     }
 
     @Override
     public ResponseEntity<?> findLocationById(int id) {
@@ -85,7 +83,6 @@ public class LocationServiceImpl implements LocationService{
       return ResponseHandler.generateResponse("Successfully Fetch Details",HttpStatus.OK, byId);
       } else {
        return ResponseHandler.generateResponse("Opps.. Something went wrong",HttpStatus.BAD_REQUEST, null);
-        
       }
     }
     

@@ -1,0 +1,98 @@
+<div th:replace="fragment/head"></div>
+<title>Artrickshaw | Permission</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<div ng-app="PermissionModule" ng-controller="PermissionController">
+
+  <div class="main-panel">
+    <div class="content-wrapper">
+
+
+      <div class="row">
+        <h3 class="card-title">Create Permission</h3>
+        <div class="col-md-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+
+              <form class="forms-sample" ng-submit="addEditPermission()" autocomplete="off">
+                <div class="row">
+                  <div class="form-group">
+                    <label>Menu<span style="color:red;font-weight:bold"> *</span></label>
+                    <input type="text" class="form-control" ng-model="form.menu" id="pageName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Sub Menu<span style="color:red;font-weight:bold"> *</span></label>
+                    <input type="text" class="form-control" ng-model="form.subMenu" id="permissionName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Priviliage<span style="color:red;font-weight:bold"> *</span></label>
+                    <input type="text" class="form-control" ng-model="form.priviliage" id="permissionName" ng-change="form.priviliage=(form.priviliage | uppercase)" required>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                <button type="reset" ng-click="cancelFormData()" class="btn btn-light">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Permission Detais</h4>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Sl No.</th>
+                      <th>Menu</th>
+                      <th>Sub Menu</th>
+                      <th>Priviliage</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="Permission in Permissions">
+                      <td>{{$index + 1}}</td>
+                      <td>{{Permission.menu}}</a></td>
+                      <td>{{Permission.subMenu}}</a></td>
+                      <td>{{Permission.priviliage}}</td>
+                      <td>
+                        <form method="POST">
+                          <label class="switch">
+                            <input class="user" type="checkbox" data-id="2" ng-click="deletePermission(Permission.id)"
+                              ng-model="Permission.status" name="status" checked="">
+                            <span class="knob"></span>
+                          </label>
+                        </form>
+                      </td>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+<div th:replace="fragment/footer"></div>
+
+<script src="private/manage-permission.js"></script>
+
+
+</body>
+
+</html>

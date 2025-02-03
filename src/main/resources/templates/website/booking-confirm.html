@@ -1,0 +1,116 @@
+<div th:replace="website/fragment/head"></div>
+<title>Art Rickshaw</title>
+<div th:replace="website/fragment/header"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!--  views -->
+<div ng-app="BookingConfirmModule" ng-controller="BookingConfirmController">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="">Home</a></li>
+			<li class="breadcrumb-item"><a href="">Bookings</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{viewName}}</li>
+		</ol>
+	</nav>
+	<div class="view-container">
+ 
+		<div class="section-container booking-confirm-page-container">
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="booking-confirm-container">
+						<div class="booking-confirm-header-container">
+							<div class="booking-confirm-icon-container">
+								<img src="assets/icons/check-circle.svg" alt="">
+							</div>
+							<div class="booking-confirm-title-container">
+								<div class="booking-confirm-title">thank you!</div>
+								<div class="booking-confirm-desc">
+									<span>Hi </span>
+									<span class="lbl-desc-highlight">{{activities.clientName}}</span>
+									<span class="lbl-desc-highlight">{{workshops.clientName}}</span>
+									<span>, your booking has been made.</span>
+								</div>
+							</div>
+						</div>
+						<div ng-if="activities != null && activities != '' && activities != undefined " class="booking-confirm-body-container booking-confirm-info-container">
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Booking ID : </span>
+								<span class="info-value">{{activities.id}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption" >{{viewName}} : </span>
+								<span class="info-value">{{activities.activity}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Number of seat : </span>
+								<span class="info-value">{{activities.bookingSeats}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Date : </span>
+								<span class="info-value">{{activities.date}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Slot : </span>
+								<span class="info-value">{{activities.startTime}}-{{activities.endTime}}</span>
+							</div>
+							<div class="booking-confirm-footer">Please check your email for confirmation</div>
+						</div>
+						<div ng-if="workshops != null && workshops != '' && workshops != undefined " class="booking-confirm-body-container booking-confirm-info-container">
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Booking ID : </span>
+								<span class="info-value">{{workshops.id}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption" >{{viewName}} : </span>
+								<span class="info-value">{{workshops.workshop}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Number of seat : </span>
+								<span class="info-value">{{workshops.bookingSeats}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Date : </span>
+								<span class="info-value">{{workshops.date}}</span>
+							</div>
+							<div class="booking-confirm-info-wrapper">
+								<span class="info-caption">Slot : </span>
+								<span class="info-value">{{workshops.startTime}}-{{workshops.endTime}}</span>
+							</div>
+							<div class="booking-confirm-footer">Please check your email for confirmation</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6">
+					<div class="booking-confirm-container">
+						<div class="booking-confirm-header-container">
+							<div class="booking-confirm-icon-container">
+								<img src="assets/icons/location-pin-dropped.svg" alt="">
+							</div>
+							<div class="booking-confirm-title-container">
+								<div class="booking-confirm-title">find us here:</div>
+								<div class="booking-confirm-desc">49B Hindustan Park, Kolkata, 700029</div>
+							</div>
+						</div>
+						<div class="booking-confirm-body-container booking-confirm-location-container">
+							<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14742.562746042735!2d88.3631231!3d22.5176605!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0276d55dc3df47%3A0xaecfbc5313723cfd!2sArt%20Rickshaw!5e0!3m2!1sen!2sin!4v1692947631702!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<!-- views end -->
+
+<!-- content-wrapper ends -->
+<div th:replace="website/fragment/footer"></div>
+<script src="assets/js/booking-confirm.js" type="text/javascript"></script>
+
+</body>
+
+</html>

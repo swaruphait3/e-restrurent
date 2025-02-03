@@ -1,0 +1,104 @@
+<div th:replace="website/fragment/head"></div>
+<title>Art Rickshaw</title>
+<div th:replace="website/fragment/header"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!--  views -->
+<div ng-app="BookingConfirmModule" ng-controller="BookingConfirmController">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Booking & refunds policy</li>
+		</ol>
+	</nav>
+	<div class="view-container">
+		<div class="page-header-container">
+			<div class="page-header">
+				<span class="lbl-dark">Booking </span>
+				<span class="lbl-highlight">& refunds policy</span>
+			</div>
+		</div>
+
+		<div class="section-container">
+			<div class="privacy-content">Effective date: 2024-04-01</div>
+		</div>
+
+
+		<div class="section-container">
+			<div class="privacy-header-primary">Introduction</div>
+			<div class="privacy-section">
+				<div class="privacy-content">Welcome to <span class="lbl-highlight">Art Rickshaw Kolkata Pvt. Ltd.</span></div>
+			</div>
+			<div class="privacy-section">
+				<div class="privacy-content">
+					<span>Below are the terms of making a booking (“Purchase”) with Art Rickshaw Kolkata Pvt. Ltd. (“Company”, “we”, “our”, “us”) through the website at </span>
+					<span class="lbl-semi-bold"><a href="https://www.artrickshaw.in" target="_blank" class="lbl-highlight">artrickshaw.in</a> </span>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-container">
+			<div class="privacy-header-primary">1. Booking Policy</div>
+			<div class="privacy-content">
+				<div class="privacy-section">Whenever you make a purchase with us, if the transaction is successful, we shall email a Booking Confirmation email to the email address provided by you.</div>
+				<div class="privacy-section">Kindly carry a copy of the email confirmation while arriving at our studio as this shall enable us to make your experience with us effortless and hassle-free. </div>
+				<div class="privacy-section">In case you have made a booking with us and have not received a confirmation email, please contact us immediately, and we shall try to resolve the matter as soon as possible.</div>
+				<div class="privacy-section">Please make sure to make your purchase at least 24 hours (1 day) in advance of your desired activity time and date, no appointments can be made online on the day of the activity itself. Please contact us by call or WhatsApp for short notice enquiries.</div>
+			</div>
+		</div>
+
+		<div class="section-container">
+			<div class="privacy-header-primary">2. Refund Policy</div>
+			<div class="privacy-content">
+				<div class="privacy-section">We know that plans can change, and we strive to accommodate such changes within our operational capabilities. Our refund policy for art class bookings is designed to be fair to both our customers and our business, acknowledging the preparation and resources allocated to scheduled classes.</div>
+				<div class="privacy-section">
+					<div>Customers are eligible for a full refund if they cancel their booking within 24 hours making their Purchase. To cancel, customers must contact us telephone call, email, or WhatsApp at the details given below.</div>
+					<div class="lbl-bold">Email - info@artrickshaw.in</div>
+					<div class="lbl-bold">Phone and WhatsApp - +91 8335855530</div>
+				</div>
+				<div class="privacy-section">Cancellations made after 24 hours of Purchase transaction are not eligible for a refund, however any amount can be adjusted against future appointments. Please refer to rescheduling policy below.</div>
+				<div class="privacy-section">Customers do not show up for their appointment will not receive a refund. </div>
+				<div class="privacy-section">We reserve the right to make exceptions to this policy on a case-by-case basis for extenuating circumstances. In such cases, customers should contact us directly to discuss their situation.</div>
+			</div>
+		</div>
+
+		<div class="section-container">
+			<div class="privacy-header-primary">3. Rescheduling Policy</div>
+			<div class="privacy-content">
+				<div class="privacy-section">If you wish to reschedule your class instead of cancelling, please contact us at least 24 hours before your scheduled appointment. We will do our best to accommodate your request based on availability, without any additional charges. </div>
+				<div class="privacy-section">In case you inform us of your desire to reschedule your appointment within 24 hours from your scheduled appointment, we will try to accommodate your request, but do not guarantee any such requests will be honored by us.</div>
+				<div class="privacy-section">No rescheduling is possible in case a change request is made within 3 hours of scheduled appointment. </div>
+				<div class="privacy-section">We reserve the right to forfeit partly and/or fully the fee paid by you to reserve your appointment in case rescheduling is done less than 24 hours before purchased slot. </div>
+			</div>
+		</div>
+
+		<div class="section-container">
+			<div class="privacy-header-primary">4. Processing Payments and Refunds</div>
+			<div class="privacy-content">
+				<div class="privacy-section">All payments and refunds are processed and handled by a third-party (Razorpay). Incase payments are debited from your account, but the Purchase was not made successfully, please contact us immediately.</div>
+				<div class="privacy-section">Eligible refunds will be processed to the original method of payment within 14 business days of the cancellation request. Please note that processing times can vary depending on the payment provider.</div>
+				<div class="privacy-section">
+					<div>For any questions or further clarification regarding our refund policy, please contact us at </div>
+					<div class="lbl-bold">Email - info@artrickshaw.in</div>
+					<div class="lbl-bold">Phone and WhatsApp - +91 8335855530</div>
+				</div>
+				<div class="privacy-section">Art Rickshaw Kolkata Pvt. Ltd. is committed to providing high-quality art classes and appreciates your understanding and compliance with our refund policy. This policy ensures that we can continue offering enriching art experiences to all our customers.</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+<!-- views end -->
+
+<!-- content-wrapper ends -->
+<div th:replace="website/fragment/footer"></div>
+<script src="assets/js/booking-confirm.js" type="text/javascript"></script>
+
+</body>
+
+</html>

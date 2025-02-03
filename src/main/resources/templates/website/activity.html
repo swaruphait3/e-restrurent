@@ -1,0 +1,215 @@
+<div th:replace="website/fragment/head"></div>
+<title>Art Rickshaw</title>
+<div th:replace="website/fragment/header"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!--  views -->
+<div ng-app="WebActivityModule" ng-controller="WebActivityController">
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="index">Home</a></li>
+			<li class="breadcrumb-item"><a>Bookings</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Our Activities</li>
+		</ol>
+	</nav>
+
+
+	<div class="view-container">
+
+		<div class="page-header-container">
+			<div class="page-header">
+				<span class="lbl-dark">OUR</span>
+				<span class="lbl-highlight">ACTIVITY</span>
+			</div>
+			<div class="page-action-container">
+				<div class="page-action filter-container">
+					<!-- <div class="dropdown">
+						<button class="btn btn-primary btn-page-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="icon-common icon-filter icon-page-action"></span>
+							<span>Filter</span>
+						</button>
+						<ul class="dropdown-menu filter-dropdown-menu">
+							<div class="filter-head">
+								<div class="header-container"></div>
+								<div class="button-container">
+									<span class="btn-filter-close btn-icon-only">
+										<span class="icon-common icon-filter-close icon-x"></span>
+									</span>
+								</div>
+							</div>
+							<div class="filter-dropdown-body">
+								<div class="lbl-filter-header">Start Date: </div>
+								<input class="form-control filter-date-picker" ng-model="date.startdate" type="date" placeholder="dd-mm-yyy">
+					
+								<div class="lbl-filter-header">End Date: </div>
+								<input class="form-control filter-date-picker" ng-model="date.enddate" type="date" placeholder="dd-mm-yyy">
+								<div class="text-center mt-4">
+									<button class="btn btn-apply btn-secondary">
+										<span class="lbl-btn">Apply</span>
+										<span class="icon-common icon-btn icon-check"></span>
+									</button>
+								</div>
+							</div>
+						</ul>
+					</div> -->
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary btn-page-action" data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click="openModal()">
+						<span class="icon-common icon-filter icon-page-action"></span>
+						<span>Filter</span>
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade filter-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header filter-header">
+									<div class="modal-title filter-title" id="exampleModalLabel">Filter</div>
+									<button type="button" class="btn-filter-close btn-icon-only" data-bs-dismiss="modal" aria-label="Close">
+										<span class="icon-common icon-filter-close icon-x"></span>
+									</button>
+								</div>
+								<div class="modal-body filter-menu-container">
+									<form action="">
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Category: </div>
+											<select class="form-select" name="" id="selectCategory" ng-model="search.cat" >
+												<option selected value="all">ALL</option>
+												<option ng-repeat="item in data track by $index" value="{{item.name}}">{{item.name}}</option>
+											</select>
+										</div>
+
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Price: </div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.priceType" name="price" type="radio" id="lowToHigh" ng-value="'lowToHigh'">
+												<label class="form-check-label" for="lowToHigh">Low to High</label>
+											</div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.priceType" name="price" type="radio" id="highToLow" ng-value="'highToLow'">
+												<label class="form-check-label" for="highToLow">High to Low</label>
+											</div>
+										</div>
+										
+										
+
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Time: </div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.time" name="time1" type="radio" id="1hour" value=1>
+												<label class="form-check-label" for="1hour">1 Hour</label>
+											</div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.time" name="time2" type="radio" id="2hour" value=2>
+												<label class="form-check-label" for="2hour">2 Hours</label>
+											</div>
+										</div>
+										
+
+
+										<div class="modal-footer">
+											<button type="button" class="btn-filter-footer btn-cancel" ng-click="closeModal()" data-bs-dismiss="modal">cancel</button>
+											<button type="button" ng-click="searchData()" class="btn-filter-footer btn-apply" data-bs-dismiss>apply filters</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-container" ng-repeat="adata in categorys track by $index">
+			<div class="section-header" style="text-transform: capitalize">{{adata.name}}</div>
+
+			<div class="secondary-card-wrapper">
+				<div class="row">
+					<div class="secondary-card-container col-lg-3 col-6" ng-repeat="activity in adata.activitys | orderBy:'price':!search.price | limitTo: adata.defSize">
+						<div class="secondary-card">
+							<div class="secondary-card-image-container">
+								<div ng-repeat="data in activity.upload | filter:{type:'listingPage'} track by $index">
+									<div class="img-secondary-card secondary-card-md" style="background-image: url(upload/{{data.fileLink}});"></div>
+								</div>
+							</div>
+							<div class="secondary-card-details-container" >
+								<div class="secondary-card-details">
+									<div class="secondary-card-header">{{activity.name}}</div>
+									<div class="secondary-card-desc"><b>{{activity.price}}</b></div>
+								</div>
+								<div class="secondary-card-action">
+									<a class="secondary-card-action-link" href="activity-booking?id={{activity.id}}">
+										<span class="lbl-card-action d-none d-md-block">buy now</span>
+										<span
+											class="icon-common icon-card-action icon-arrow-right d-none d-md-block"></span>
+										<span class="icon-common icon-cart d-block d-md-none"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-if="adata.size>4" class="item-expand-link-container text-center">
+						<a ng-if="adata.defSize==4" ng-click="toggleDefSize(adata)" class="btn-link btn-expand">
+							<span>See More</span><span class="icon-common icon-btn-link icon-chevron icon-chevron-down"></span>
+						</a>
+						<a ng-if="adata.defSize>4" ng-click="toggleDefSize(adata)" class="btn-link btn-expand">
+							<span>See Less</span><span class="icon-common icon-btn-link icon-chevron icon-chevron-up"></span>
+						</a>
+					</div>
+					<!-- <div class="item-expand-link-container text-center" ng-if="!showAllItems && adata.activitys.length > 4">
+						<a href="" class="btn-link btn-expand" ng-click="showAllItems = true">
+							<span>See More</span><span class="icon-common icon-btn-link icon-chevron"></span>
+						</a>
+					</div>
+					<div class="item-expand-link-container text-center" ng-if="showAllItems && !showInitialView">
+						<a href="" class="btn-link btn-expand" ng-click="showAllItems = false; showInitialView = true">
+							<span>Close</span><span class="icon-common icon-btn-link icon-chevron"></span>
+						</a>
+					</div> -->
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<!-- views end -->
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+<div th:replace="website/fragment/footer"></div>
+
+<script src="assets/js/webActivity.js"></script>
+<script>
+	$("#date").flatpickr({
+		dateFormat: "Y-m-d",
+		allowInput: true,
+		disableMobile: true, // "true" should not be in quotes
+		minDate: "today" // Disable all previous dates from the present date
+	});
+	$("#startTime").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+		allowInput: true,
+		disableMobile: true
+	});
+	$("#endTime").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+		allowInput: true,
+		disableMobile: true
+	});
+</script>
+
+</body>
+
+</html>

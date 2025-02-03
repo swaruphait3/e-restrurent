@@ -1,0 +1,84 @@
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+<!-- style -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/flatpickr.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+<!-- <link rel="stylesheet" href="public/css/magnify.css"> -->
+<!-- <script src="public/js/jquery.magnify.js"></script> -->
+</head>
+
+<body class="antialiased">
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index">
+      <img src="assets/images/logo-brand.png" alt="" class="img-brand">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/index' ? 'link-active':''}">
+          <a class="nav-link active" aria-current="page" href="index"
+            onclick="menuToggle(this)">HOME</a>
+        </li>
+        <!-- <li class="nav-item">
+                      <a class="nav-link" href="#">BOOKINGS</a>
+                  </li> -->
+        <!-- <li class="nav-item dropdown menu-item">
+                      <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span>BOOKINGS</span><span class="icon-common icon-chevron icon-nav"></span>
+                      </a>
+                      <ul class="dropdown-menu nav-sub-menu">
+                          <li><a class="dropdown-item" href="#">Workshop</a></li>
+                          <li><a class="dropdown-item" href="#">Activity</a></li>
+                          <li><a class="dropdown-item" href="#">Private Event</a></li>
+                      </ul>
+                  </li> -->
+        <li class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/weekly-specials' or #httpServletRequest.getRequestURI() == '/art-rickshaw/activities' or #httpServletRequest.getRequestURI() == '/art-rickshaw/web-private-events' or #httpServletRequest.getRequestURI() == '/art-rickshaw/web-regular-classes' or #httpServletRequest.getRequestURI() == '/art-rickshaw/enquiry' or #httpServletRequest.getRequestURI() == '/art-rickshaw/bookings' ? 'link-active':''}">
+          <div class="nav-link" onclick="menuToggle(this)">
+            <span class="">BOOKINGS</span>
+            <span class="icon-common icon-nav icon-chevron"></span>
+          </div>
+          <div class="nav-sub-menu">
+            <div class="nav-sub-menu-item-wrapper">
+              <div class="nav-sub-menu-items" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/weekly-specials' ? 'sub-menu-link-active':''}">
+                <a href="weekly-specials" class="nav-sub-menu-link">Weekly Specials</a>
+              </div>
+              <div class="nav-sub-menu-items" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activities' ? 'sub-menu-link-active':''}">
+                <a href="activities" class="nav-sub-menu-link">Activity</a>
+              </div>
+              <div class="nav-sub-menu-items" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/web-private-events' ? 'sub-menu-link-active':''}">
+                <a href="web-private-events" class="nav-sub-menu-link">Private Event</a>
+              </div>
+              <div class="nav-sub-menu-items" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/web-regular-classes' ? 'sub-menu-link-active':''}">
+                <a href="web-regular-classes" class="nav-sub-menu-link">Regular Classes</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/about-us' ? 'link-active':''}">
+          <a class="nav-link" href="about-us" onclick="menuToggle(this)">ABOUT US</a>
+        </li>
+        <li class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)" th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/contact-us' ? 'link-active':''}">
+          <a class="nav-link" href="contact-us" onclick="menuToggle(this)">CONTACT US</a>
+        </li>
+        <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
+          <a class="nav-link" href="home" onclick="menuToggle(this)">DASHBOARD</a>
+        </li>
+        <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
+          <a class="nav-link" href="logout" onclick="menuToggle(this)">LOGOUT</a>
+        </li>
+        <li th:if="${#authentication.getPrincipal()} == 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
+          <a class="nav-link" href="login" onclick="menuToggle(this)">LOGIN</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="body-area">
