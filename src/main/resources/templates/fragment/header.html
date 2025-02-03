@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="assets/css/admin.css" />
   <link rel="shortcut icon" href="assets/favicon.ico" />
   <link href="assets/css/flatpickr.min.css" rel="stylesheet">
-
   <!-- swiper -->
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
 
@@ -18,7 +17,6 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"></script> -->
   <!-- End layout styles -->
-
 </head>
 
 <body>
@@ -38,9 +36,13 @@
       <!-- <img src="assets/images/logo-brand-dark.png" alt="" srcset="" class="header-logo"> -->
       <div class="greetings-container d-none d-lg-flex">
         <div>
-          <span class="lbl-greetings" id="greetingSpan">Good Morning, </span><span
-            class="greetings-role capitalize"><span th:text="${#authentication.getPrincipal().getUser().getName}"></span></span>
+          <span class="lbl-greetings" id="greetingSpan">Good Morning, </span>
+          <span class="greetings-role capitalize">
+            <span th:text="${#authentication.getPrincipal().getUser().getName}"></span>
+          </span>
+          <span class="profile-role capitalize" sec:authentication="principal.authorities"></span>
         </div>
+        
         <!-- <span id="dateSpan"></span>  -->
       </div>
       <div class="toolbar-container">

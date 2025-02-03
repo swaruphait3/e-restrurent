@@ -1,0 +1,330 @@
+<div th:replace="fragment/head"></div>
+<title>e-Restrurent | Restrurent</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<div ng-app="RestrurentModule" ng-controller="RestrurentController">
+
+    <div class="breadcrumb-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/home}">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Restrurent</span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-xxl page-action-header-container order-1 order-xxl-2">
+        <div class="page-action-header">All Restrurents</div>
+    </div>
+    <div class="row page-action-container">
+        <div class="col-xxl-4 col-6 page-action-start-container order-2 order-xxl-1">
+            <div class="page-action-search">
+                <label for="filter" class="form-label form-label-highlight">Filter:</label>
+                <input type="text" data-kt-filter="search" ng-model="searchText"
+                    class="form-control btn-page-action ps-15 ng-pristine ng-valid ng-empty ng-touched"
+                    placeholder="Search">
+            </div>
+            <!-- <div class="dropdown ms-3 d-none">
+                <button class="btn btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="icon-common icon-filter-action"></span>
+                    <span class="lbl-filter">Filter</span>
+                </button>
+                <div class="dropdown-menu page-action-filter">
+                    <div class="modal-custom">
+                        <div class="modal-dialog m-0">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">
+                                        <span class="icon-common icon-modal-header icon-filter"></span>
+                                        <span>Filter</span>
+                                    </h1>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3">
+                                        <div class="col-md-12">
+                                            <label for="name" class="form-label form-label-highlight">Booking ID:
+                                            </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter booking ID" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-highlight">Name: </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-highlight">Phone No: </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter phone no" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-label-highlight">Activity Date:</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-secondary">Activity Date
+                                                From: </label>
+                                            <input type="date" class="form-control" id="name" ng-model="form.name"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-secondary">Activity Date To:
+                                            </label>
+                                            <input type="date" class="form-control" id="name" ng-model="form.name"
+                                                required>
+                                        </div>
+
+
+                                        <div class="modal-footer flex-column">
+                                            <button type="submit" class="btn btn-success btn-apply">Apply</button>
+                                            <button type="button" class="btn btn-danger-link">
+                                                <span class="icon-common icon-btn-link icon-reset"></span>
+                                                <span>Reset Filter</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <!-- <div class="col-xxl-4 col-12 page-action-header-container order-1 order-xxl-2">
+            <div class="page-action-header">All Regular Classes</div>
+        </div> -->
+        <div class="col-xxl-4 col-6 page-action-end-container order-3 order-xxl-3">
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-page-action btn-new-bookings" data-bs-toggle="modal"
+                data-bs-target="#newRestaurant" ng-click="openNewRestaurant()">
+                <span class="icon-common icon-page-action icon-add-circle"></span>
+                <span class="lbl-page-action" >Add Restaurant</span>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade modal-custom" id="newRestaurant" tabindex="-1" aria-labelledby="newRestaurantLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="newRestaurantLabel">
+                                <span class="icon-common icon-modal-header icon-add-circle"></span>
+                                <span>Add Restaurant</span>
+                            </h1>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3" ng-submit="addEditRegularClasses()" autocomplete="off">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">restaurant<span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="classesName" ng-model="form.name"
+                                        placeholder="Enter Regular Classes Name" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="description" class="form-label">Description </label>
+                                    <textarea class="form-control" ckeditor="data.options" id="description" ng-model="form.description" rows="4"
+                                        placeholder="Enter Regular Classes Description"></textarea>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger-light"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-success-light">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Upload Modal -->
+            <div class="modal fade modal-custom" id="upload_modal" tabindex="-1" aria-labelledby="newWorkshopsLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="newWorkshopsLabel">
+                                <span class="icon-common icon-modal-header icon-add-circle"></span>
+                                <span>Upload File</span>
+                            </h1>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3 pt-3" ng-submit="uploadSubmit()">
+                                <div class="row mb-3" ng-repeat="form in uploadModels track by $index">
+                                    <div class="col-12"><label for="slot" class="form-label">Uploade Image For: 
+                                        <span style="color:red;font-weight:bold"> *</span></label>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-select" ng-model="form.type"
+                                            required>
+                                            <option value="">Select One</option>
+                                            <option value="homePage">Home Page</option>
+                                            <option value="listingPage">Listing Page</option>
+                                            <option value="bookingPage">Booking Page</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control" type="file" id="fileInput" file-model="form.upFile" accept="image/*" required>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <button type="button" class="btn-modal-action btn-modal-upload"
+                                        ng-click="uploadFile(form.upFile,$index)">
+                                            <span class="icon-common icon-modal icon-upload"></span>
+                                    </button>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" ng-disabled="form.fileLink == null || form.fileLink == undefined || form.fileLink == ''"
+                                            ng-click="downloadFile(form.fileLink,form.fileName)" class="btn-modal-action btn-modal-download">
+                                            <span class="icon-common icon-modal icon-download"></span>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <button type="button" ng-click="removeRow($index)" class=" btn-modal-action btn-modal-delete">
+                                            <span class="icon-common icon-modal icon-delete"></span>
+                                        </button>
+                                    </div>
+                                  
+                                </div>
+
+                                <div class="modal-footer">
+                                     <button type="button" ng-click="addRow()" class="btn btn-primary-light">Add
+                                            Row</button>
+                                    <button type="button" class="btn btn-danger-light"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-success-light">Upload Image</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- View Image Modal -->
+             <div class="modal fade modal-custom" id="view_image" tabindex="-1" aria-labelledby="newWorkshopsLabel"
+             aria-hidden="true">
+             <div class="modal-dialog modal-dialog-centered modal-lg">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h1 class="modal-title fs-5" id="newWorkshopsLabel">
+                             <span class="icon-common icon-modal-header icon-add-circle"></span>
+                             <span>View Uploads</span>
+                         </h1>
+                     </div>
+                     <div class="modal-body">
+ 
+                         <table class="user-table-view">
+                             <tr class="table-head-primary">
+                                 <th>S/N</th>
+                                 <th>Type</th>
+                                 <th>Image</th>
+                                 <th>Delete Image</th>
+                             </tr>
+                             <tr ng-repeat="upload in uploadImage">
+                                 <td>{{$index + 1}}</td>
+                                 <td>{{upload.type}}</td>
+                                 <td> 
+                                    <img style="height: 80px; width: 100px;"
+                                    ng-src="{{'upload/' + upload.fileLink}}" alt="Image">
+                                 </td>
+                                 <td>
+                                    <button style="width: 100%;" class="btn btn-round btn-table-action" type="button" ng-click="deleteRegularClassesImage(upload.id)">
+                                        <span class="icon-common icon-table-action-list icon-edit"></span>
+                                        <span class="lbl-table-action lbl-edit">Delete</span>
+                                    </button>
+                                </td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+
+        </div>
+    </div>
+
+    <div id="tblCustomers" class="user-table-container">
+        <table class="user-table-view">
+            <tr class="table-head-primary">
+                <th>S/N</th>
+                <th>name</th>
+                <th>Logo</th>
+                <th>Status</th>
+                <th>action</th>
+            </tr>
+            <tr ng-repeat="classes in classess | filter:searchText">
+                <td>{{$index + 1}}</td>
+                <td>{{classes.name}}</td>
+                <td>
+                    <span ng-repeat="item in classes.upload | filter: {type: 'homePage'}">
+                        <img style="height: 80px; width: 100px;" ng-src="{{'upload/' + item.fileLink}}" alt="Image">
+                    </span>
+                    
+                </td>
+                <td>
+                    <form method="POST">
+                        <label class="switch">
+                            <input class="user" type="checkbox" data-id="2" ng-click="deleteRegularClasses(classes.id)"
+                                ng-model="classes.status" name="status" checked="">
+                            <span class="knob"></span>
+                        </label>
+                    </form>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-round btn-table-action" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="dropdownMenuButton2">
+                            <span class="icon-common icon-table-action icon-three-dot"></span>
+                        </button>
+                        <ul class="dropdown-menu list-table-action" aria-labelledby="dropdownMenuButton2">
+                            <li class="table-action-item">
+                                <!-- <a class="dropdown-item table-action-link" href="#"> -->
+                                <a class="dropdown-item table-action-link table-action-link-edit" ng-click="editRegularClasses(classes.id)">
+                                    <span class="icon-common icon-table-action-list icon-edit"></span>
+                                    <span class="lbl-table-action lbl-edit">Edit</span>
+                                </a>
+                            </li>
+                            <li class="table-action-item">
+                                <a class="dropdown-item table-action-link table-action-link-edit" ng-click="viewImage(classes.id)">
+                                    <span class="icon-common icon-table-action-list icon-view"></span>
+                                    <span class="lbl-table-action lbl-edit">View Image</span>
+                                </a>
+                            </li>
+                            <li class="table-action-item">
+                                <a class="dropdown-item table-action-link table-action-link-edit" ng-click="uploadFileModel(classes.id)">
+                                    <span class="icon-common icon-table-action-list icon-upload"></span>
+                                    <span class="lbl-table-action lbl-edit">Upload Image</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+        </table>
+    </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+
+
+<div th:replace="fragment/footer"></div>
+
+<script src="private/admin/restrurent.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<div th:replace="fragment/head"></div>
+<title>Artrickshaw | Activity Category</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+<div ng-app="CityModule" ng-controller="LocationController">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <h3 class="card-title">Holiday Master</h3>
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card d-grid">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="forms-sample" ng-submit="addEditHoliday()" autocomplete="off">
+
+                                <div>
+                                    <label>Date<span style="color:red;font-weight:bold"> *</span></label>
+                                    <input  ng-disabled="form.id != '' && form.id != undefined && form.id != null" class="form-control" type="text" ng-model="form.date" id="holiDate"
+                                        ng-required="form.date==null ||form.date==undefined " ng-pattern="/^\d{4}-\d{2}-\d{2}$/" required>
+                                </div>
+                                <div>
+                                    <label>Occasion: <span style="color:red;font-weight:bold">*</span></label>
+                                    <input type="text" class="form-control" ng-model="form.occasion" id="occasion"
+                                        required>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                <button type="reset" ng-click="cancelFormData()" class="btn btn-light">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Holiday Master Details</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl No.</th>
+                                            <th>Date</th>
+                                            <th>Occasion</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="holiday in holidays">
+                                            <td>{{$index + 1}}</td>
+                                            <td><a href="" ng-click="editHoliday(holiday.id)">{{holiday.date}}</a>
+                                            </td>
+                                            <td>{{holiday.occasion}}</td>
+                                            <td colspan="1">
+                                                <a class="dropdown-item table-action-link table-action-link-delete"
+                                                    ng-click="deleteHoliday(holiday.id)">
+                                                    <span class="icon-common icon-table-action-list icon-delete"></span>
+                                                    <span class="lbl-table-action lbl-delete">Delete</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+<!-- content-wrapper ends -->
+<div th:replace="fragment/footer"></div>
+
+
+<script src="private/admin/city.js"></script>
+<script>
+$("#holiDate").flatpickr({
+    dateFormat: "Y-m-d",
+    allowInput: true,
+    disableMobile: true,
+    minDate: new Date(new Date().getFullYear(), 0, 1) // Set minDate to the start of the current year
+});
+</script>
+
+</body>
+
+</html>
