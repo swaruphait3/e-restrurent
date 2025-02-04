@@ -20,5 +20,7 @@ public interface LocationService {
     ResponseEntity<?> fetchAllLocation();
 
     ResponseEntity<?> findLocationById(int id);
+
+    ResponseEntity<?> getLocationFindByCity(int cityId);
     
 }

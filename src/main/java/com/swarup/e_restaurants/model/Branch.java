@@ -27,7 +27,7 @@ import lombok.ToString;
 @Table(name = "trn_branches")
 @JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate"})
 @EntityListeners(AuditingEntityListener.class)
-public class RestrurentBranch {
+public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -36,9 +36,19 @@ public class RestrurentBranch {
     private int locationId;
     private String locAddress;
     private String branchName;
+    private String branchEmail;
     private String branchContact;
     private boolean status;
 
     @Transient
     private String password;
+
+    @Transient
+    private String city;
+
+    @Transient
+    private String location;
+
+    @Transient
+    private String restrurent;
 }

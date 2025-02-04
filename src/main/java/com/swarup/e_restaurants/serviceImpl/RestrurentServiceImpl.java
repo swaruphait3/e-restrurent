@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.swarup.e_restaurants.model.Restrurent;
 import com.swarup.e_restaurants.model.User;
+import com.swarup.e_restaurants.repository.CityRepository;
+import com.swarup.e_restaurants.repository.LocationRepository;
 import com.swarup.e_restaurants.repository.RestrurentRepository;
 import com.swarup.e_restaurants.repository.UserRepositiry;
 import com.swarup.e_restaurants.response.ResponseHandler;
@@ -25,6 +27,12 @@ public class RestrurentServiceImpl implements RestrurentService{
 
     @Autowired
     private UserRepositiry userRepositiry;
+
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -71,6 +79,10 @@ public class RestrurentServiceImpl implements RestrurentService{
         if (all.isEmpty()) {
          return ResponseHandler.generateResponse("No vaild present...",HttpStatus.OK, null);   
         } else {
+          for (Restrurent restrurent : all) {
+            restrurent.setCity(cityRepository.findById(restrurent.getCityId()).get().getCityName());
+            restrurent.setLocation(locationRepository.findById(restrurent.getLocId()).get().getLocation());
+          }
          return ResponseHandler.generateResponse("Successful fetch Data...",HttpStatus.OK, all);
          
         }

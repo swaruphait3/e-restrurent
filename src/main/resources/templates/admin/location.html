@@ -8,21 +8,29 @@
 <div ng-app="CityModule" ng-controller="LocationController">
     <div class="main-panel">
         <div class="content-wrapper">
-            <h3 class="card-title">Holiday Master</h3>
+            <h3 class="card-title">Location Master</h3>
             <div class="row">
-                <div class="col-md-6 grid-margin stretch-card d-grid">
+                <div class="col-md-4 grid-margin stretch-card d-grid">
                     <div class="card">
                         <div class="card-body">
-                            <form class="forms-sample" ng-submit="addEditHoliday()" autocomplete="off">
+                            <form class="forms-sample" ng-submit="addEditLocation()" autocomplete="off">
 
                                 <div>
-                                    <label>Date<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input  ng-disabled="form.id != '' && form.id != undefined && form.id != null" class="form-control" type="text" ng-model="form.date" id="holiDate"
-                                        ng-required="form.date==null ||form.date==undefined " ng-pattern="/^\d{4}-\d{2}-\d{2}$/" required>
+                                    <label>City<span style="color:red;font-weight:bold"> *</span></label>
+                                    <select name="country" ng-model="form.cityId" class="form-control select2" ng-change="stateListbyCountry()"
+                                    ng-options="city.id as city.cityName for city in cites" oninvalid="this.setCustomValidity('Please Select Country')"
+                                    oninput="this.setCustomValidity('')" required>
+                                    <option value="" disabled selected>Select Option-</option>
+                                </select>
                                 </div>
                                 <div>
-                                    <label>Occasion: <span style="color:red;font-weight:bold">*</span></label>
-                                    <input type="text" class="form-control" ng-model="form.occasion" id="occasion"
+                                    <label>Location: <span style="color:red;font-weight:bold">*</span></label>
+                                    <input type="text" class="form-control" ng-model="form.location" id="occasion"
+                                        required>
+                                </div>
+                                <div>
+                                    <label>Pin: <span style="color:red;font-weight:bold">*</span></label>
+                                    <input type="text" class="form-control" ng-model="form.pin" id="occasion"
                                         required>
                                 </div>
                                 <br>
@@ -32,26 +40,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Holiday Master Details</h4>
+                            <h4 class="card-title">Location Master Details</h4>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Sl No.</th>
-                                            <th>Date</th>
-                                            <th>Occasion</th>
+                                            <th>Location</th>
+                                            <th>Pin</th>
+                                            <th>City</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="holiday in holidays">
+                                        <tr ng-repeat="loc in locations">
                                             <td>{{$index + 1}}</td>
-                                            <td><a href="" ng-click="editHoliday(holiday.id)">{{holiday.date}}</a>
-                                            </td>
-                                            <td>{{holiday.occasion}}</td>
+                                            <td>{{loc.location}}</td>
+                                            <td>{{loc.pin}}</td>
+                                            <td>{{loc.city}}</td>
+<td>
+    <form method="POST" class="content-center" ng-if="loc.status==false">
+        <input type="hidden" name="_token" value="FsM848SirJ6QKs0CFziA4j7n5KkBtIkiG32c4lng">
+        <label class="switch"> <input class="user" type="checkbox" data-id="2"
+                ng-click="cityActivation(loc.id)" ng-model="loc.status" name="enabled"
+                checked=""> <span class="knob"></span>
+        </label>                                
+    </form>
+    <form method="POST" class="content-center" ng-if="loc.status==true">
+        <input type="hidden" name="_token" value="FsM848SirJ6QKs0CFziA4j7n5KkBtIkiG32c4lng">
+        <label class="switch"> <input class="user" type="checkbox" data-id="2"
+                ng-click="cityDeactivation(loc.id)" ng-model="loc.status" name="status"
+                checked=""> <span class="knob"></span>
+        </label>
+        
+    </form>
+</td>
                                             <td colspan="1">
                                                 <a class="dropdown-item table-action-link table-action-link-delete"
                                                     ng-click="deleteHoliday(holiday.id)">

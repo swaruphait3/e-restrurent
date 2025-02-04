@@ -45,6 +45,10 @@ public class Restrurent extends Auditable<String>{
 
     @Transient
     private String password;
+    @Transient
+    private String city;
+    @Transient
+    private String location;
 
 
 }

@@ -1,4 +1,4 @@
-var app = angular.module("RestrurentModule", ['ckeditor']);
+var app = angular.module("BranchModule", ['ckeditor']);
 
 // DIRECTIVE - FILE MODEL
 app.directive("fileModel", [
@@ -22,7 +22,7 @@ app.directive("fileModel", [
 
 
 //Forget Pass Controller
-app.controller("RestrurentController", function ($scope, $http) {
+app.controller("BranchController", function ($scope, $http) {
 
     $scope.form = {};
     $scope.views = {};
@@ -38,13 +38,13 @@ app.controller("RestrurentController", function ($scope, $http) {
         }
       };
 
-    autoRestrurentListFetch();
+    autoBranchListFetch();
 
-    function autoRestrurentListFetch() {
+    function autoBranchListFetch() {
        // alert(" Fetch Hi-------------------------")
         $http({
             method: 'GET',
-            url: 'restrurent/findAll'
+            url: 'branch/findAll'
 
         }).then(function successCallback(response) {
             console.log(response);
@@ -97,13 +97,13 @@ app.controller("RestrurentController", function ($scope, $http) {
     }
 
 
-    $scope.addEditRestrurents = function () {
+    $scope.addEditBranch = function () {
         if ($scope.form.id == '' || $scope.form.id == undefined) {
             var method = "POST";
-            var url = 'restrurent/add';
+            var url = 'branch/add';
         } else {
             var method = "PUT";
-            var url = 'restrurent/edit';
+            var url = 'branch/edit';
         }
         $http({
             method: method,
@@ -119,7 +119,7 @@ app.controller("RestrurentController", function ($scope, $http) {
 
         console.log(response);
         $("#test_new").modal("hide");
-        autoRestrurentListFetch();
+        autoBranchListFetch();
         Swal.fire({
             text: response.data,
             icon: "success",
@@ -151,7 +151,7 @@ app.controller("RestrurentController", function ($scope, $http) {
         $http({
             method: 'GET',
             params: { 'id': id },
-            url: 'restrurent/findById'
+            url: 'branch/findById'
 
         }).then(function successCallback(response) {
             console.log(response.data);
@@ -204,7 +204,7 @@ app.controller("RestrurentController", function ($scope, $http) {
                             confirmButton: "btn btn-primary"
                         }
                     })
-                    autoRegularClassesListFetch();
+                    autoBranchListFetch();
                 }, function errorCallback(response) {
                     console.log(response);
                 });

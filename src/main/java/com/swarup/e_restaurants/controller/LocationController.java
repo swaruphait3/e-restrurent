@@ -56,5 +56,13 @@ public class LocationController {
     public ResponseEntity<?> findLocationById(@RequestParam int id) {
         return locationService.findLocationById(id);
     }
+
     
+    @GetMapping("getLocationFindByCity")
+    public ResponseEntity<?> getLocationFindByCity(@RequestParam int cityId) {
+        return locationService.getLocationFindByCity(cityId);
+    }
+
+    
+ 
 }

@@ -73,6 +73,9 @@ public class LocationServiceImpl implements LocationService{
     @Override
     public ResponseEntity<?> fetchAllLocation() {
       List<Location> all = locationRepository.findAll();
+      for (Location location : all) {
+        location.setCity(cityRepository.findById(location.getCityId()).get().getCityName());
+      }
       return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, all);   
      }
 
@@ -84,6 +87,12 @@ public class LocationServiceImpl implements LocationService{
       } else {
        return ResponseHandler.generateResponse("Opps.. Something went wrong",HttpStatus.BAD_REQUEST, null);
       }
+    }
+
+    @Override
+    public ResponseEntity<?> getLocationFindByCity(int cityId) {
+     List<Location> allByCityId = locationRepository.findAllByCityId(cityId);
+     return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, allByCityId);   
     }
     
 }

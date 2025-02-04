@@ -142,6 +142,20 @@ app.controller("LocationController", function ($scope, $http) {
     showHideLoad(true);
     $scope.views.list = true;
 
+    autoLocationListFetch();
+    function autoLocationListFetch() {
+        $http({
+            method: 'GET',
+            url: 'location/fetchAllLocation'
+
+        }).then(function successCallback(response) {
+            console.log(response);
+            $scope.locations = response.data.data;
+        }, function errorCallback(response) {
+            console.log(response.statusText);
+        });
+    } 
+
     autoCityListFetch();
     function autoCityListFetch() {
         $http({
@@ -156,15 +170,16 @@ app.controller("LocationController", function ($scope, $http) {
         });
     } 
 
+
     $scope.cancelFormData = function () {
         $scope.form = {};
     }
 
 
-    $scope.addEditCity= function () {
+    $scope.addEditLocation= function () {
         if ($scope.form.id == '' || $scope.form.id == undefined) {
             var method = "POST";
-            var url = 'location/addCity';
+            var url = 'location/addLocation';
         } else {
             var method = "PUT";
             var url = 'location/addCity';
@@ -181,7 +196,7 @@ app.controller("LocationController", function ($scope, $http) {
     };
     function _success(response) {
         console.log(response);
-        autoCityListFetch();
+        autoLocationListFetch();
         $scope.form = {};
         Swal.fire({
             text: response.data,
@@ -214,7 +229,7 @@ app.controller("LocationController", function ($scope, $http) {
         $http({
             method: 'GET',
             params: { 'id': id },
-            url: 'location/findCityById'
+            url: 'location/findLocationById'
 
         }).then(function successCallback(response) {
             console.log(response.data);
@@ -254,7 +269,7 @@ app.controller("LocationController", function ($scope, $http) {
                         response.data,
                         'success'
                     )
-                    autoCityListFetch();
+                    autoLocationListFetch();
                 }, function errorCallback(response) {
                     console.log(response);
                 });

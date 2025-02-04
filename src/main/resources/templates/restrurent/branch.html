@@ -7,7 +7,7 @@
 <!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
 <!-- =============================================================== -->
 
-<div ng-app="RestrurentModule" ng-controller="RestrurentController">
+<div ng-app="BranchModule" ng-controller="BranchController">
 
     <div class="breadcrumb-container">
         <nav aria-label="breadcrumb">
@@ -18,14 +18,14 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <span>Restrurent</span>
+                    <span>Branches</span>
                 </li>
             </ol>
         </nav>
     </div>
 
     <div class="col-xxl page-action-header-container order-1 order-xxl-2">
-        <div class="page-action-header">All Restrurents</div>
+        <div class="page-action-header">All Branches</div>
     </div>
     <div class="row page-action-container">
         <div class="col-xxl-4 col-6 page-action-start-container order-2 order-xxl-1">
@@ -35,81 +35,14 @@
                     class="form-control btn-page-action ps-15 ng-pristine ng-valid ng-empty ng-touched"
                     placeholder="Search">
             </div>
-            <!-- <div class="dropdown ms-3 d-none">
-                <button class="btn btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="icon-common icon-filter-action"></span>
-                    <span class="lbl-filter">Filter</span>
-                </button>
-                <div class="dropdown-menu page-action-filter">
-                    <div class="modal-custom">
-                        <div class="modal-dialog m-0">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5">
-                                        <span class="icon-common icon-modal-header icon-filter"></span>
-                                        <span>Filter</span>
-                                    </h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="row g-3">
-                                        <div class="col-md-12">
-                                            <label for="name" class="form-label form-label-highlight">Booking ID:
-                                            </label>
-                                            <input type="text" class="form-control" id="name" ng-model="form.name"
-                                                placeholder="Enter booking ID" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name" class="form-label form-label-highlight">Name: </label>
-                                            <input type="text" class="form-control" id="name" ng-model="form.name"
-                                                placeholder="Enter name" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name" class="form-label form-label-highlight">Phone No: </label>
-                                            <input type="text" class="form-control" id="name" ng-model="form.name"
-                                                placeholder="Enter phone no" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-label-highlight">Activity Date:</div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name" class="form-label form-label-secondary">Activity Date
-                                                From: </label>
-                                            <input type="date" class="form-control" id="name" ng-model="form.name"
-                                                required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="name" class="form-label form-label-secondary">Activity Date To:
-                                            </label>
-                                            <input type="date" class="form-control" id="name" ng-model="form.name"
-                                                required>
-                                        </div>
-
-
-                                        <div class="modal-footer flex-column">
-                                            <button type="submit" class="btn btn-success btn-apply">Apply</button>
-                                            <button type="button" class="btn btn-danger-link">
-                                                <span class="icon-common icon-btn-link icon-reset"></span>
-                                                <span>Reset Filter</span>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
-        <!-- <div class="col-xxl-4 col-12 page-action-header-container order-1 order-xxl-2">
-            <div class="page-action-header">All Regular Classes</div>
-        </div> -->
         <div class="col-xxl-4 col-6 page-action-end-container order-3 order-xxl-3">
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-page-action btn-new-bookings" data-bs-toggle="modal"
                 data-bs-target="#newRestaurant" ng-click="openNewRestaurant()">
                 <span class="icon-common icon-page-action icon-add-circle"></span>
-                <span class="lbl-page-action" >Add Restaurant</span>
+                <span class="lbl-page-action" >Add Branch</span>
             </button>
 
             <!-- Modal -->
@@ -120,14 +53,14 @@
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="newRestaurantLabel">
                                 <span class="icon-common icon-modal-header icon-add-circle"></span>
-                                <span>Add Restaurant</span>
+                                <span>Add Branch</span>
                             </h1>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3" ng-submit="addEditRestrurents()" autocomplete="off">
+                            <form class="row g-3" ng-submit="addEditBranch()" autocomplete="off">
                                 <div class="col-md-8">
-                                    <label for="name" class="form-label">restaurant<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.name"
+                                    <label for="name" class="form-label">Branch Name<span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="classesName" ng-model="form.branchName"
                                         placeholder="Enter Restrurent Name" required>
                                 </div>
                                 <div class="col-md-4">
@@ -140,7 +73,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label>Location<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="country" ng-model="form.locId" class="form-control select2"
+                                    <select name="country" ng-model="form.locationId" class="form-control select2"
                                     ng-options="loc.id as loc.location for loc in locations" oninvalid="this.setCustomValidity('Please Select Location')"
                                     oninput="this.setCustomValidity('')" required>
                                     <option value="" disabled selected>Select Option-</option>
@@ -148,12 +81,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="name" class="form-label">email<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="email" class="form-control" id="classesName" ng-model="form.email"
+                                    <input type="email" class="form-control" id="classesName" ng-model="form.branchEmail"
                                         placeholder="Enter Email Address" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="name" class="form-label">Contact<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.contact"
+                                    <input type="text" class="form-control" id="classesName" ng-model="form.branchContact"
                                         placeholder="Enter Contact No" required>
                                 </div>
                                 <div class="col-md-6">
@@ -162,13 +95,8 @@
                                         placeholder="Enter Password" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="name" class="form-label">Specality<span style="color:red;font-weight:bold"> </span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.specality"
-                                        placeholder="Enter Specality">
-                                </div>
-                                <div class="col-md-6">
                                     <label for="name" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.address"
+                                    <input type="text" class="form-control" id="classesName" ng-model="form.locAddress"
                                         placeholder="Enter Address" required>
                                 </div>
                                 <div class="modal-footer">
@@ -294,6 +222,7 @@
         <table class="user-table-view">
             <tr class="table-head-primary">
                 <th>S/N</th>
+                <th>Branch</th>
                 <th>Restrurant</th>
                 <th>Email</th>
                 <th>Contact</th>
@@ -306,10 +235,11 @@
             </tr>
             <tr ng-repeat="res in restrurents | filter:searchText">
                 <td>{{$index + 1}}</td>
-                <td>{{res.name}}</td>
-                <td>{{res.email}}</td>
-                <td>{{res.contact}}</td>
-                <td>{{res.address}}</td>
+                <td>{{res.branchName}}</td>
+                <td>{{res.restrurent}}</td>
+                <td>{{res.branchEmail}}</td>
+                <td>{{res.branchContact}}</td>
+                <td>{{res.locAddress}}</td>
                 <td>{{res.city}}</td>
                 <td>{{res.location}}</td>
                 <td>
@@ -377,7 +307,7 @@
 
 <div th:replace="fragment/footer"></div>
 
-<script src="private/admin/restrurent.js"></script>
+<script src="private/restrurent/branch.js"></script>
 
 </body>
 
