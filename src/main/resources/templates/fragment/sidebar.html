@@ -25,22 +25,22 @@
         </a>
       </li>
           <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
-            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/bookings' ? 'link-active':''}">
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/branch' ? 'link-active':''}">
             <a class="nav-link active" th:href="@{/branch}">
               <span class="icon-common icon-sidemenu icon-booking"></span>
               <span class="link-name">Branch</span>
             </a>
           </li>
           <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
-            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/enquiry' ? 'link-active':''}">
-            <a class="nav-link active" th:href="@{/enquiry}">
+            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/foodtype' ? 'link-active':''}">
+            <a class="nav-link active" th:href="@{/foodtype}">
               <span class="icon-common icon-sidemenu icon-enquiry"></span>
               <span class="link-name">Food Type</span>
             </a>
           </li>
           <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/workshop' ? 'link-active':''}">
-            <a class="nav-link active" th:href="@{/workshop}">
+            <a class="nav-link active" th:href="@{/food}">
               <span class="icon-common icon-sidemenu icon-workshop"></span>
               <span class="link-name">Foods</span>
             </a>

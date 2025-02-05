@@ -1,4 +1,4 @@
-var app = angular.module("BranchModule", ['ckeditor']);
+var app = angular.module("FoodTypeModule", ['ckeditor']);
 
 // DIRECTIVE - FILE MODEL
 app.directive("fileModel", [
@@ -22,7 +22,7 @@ app.directive("fileModel", [
 
 
 //Forget Pass Controller
-app.controller("BranchController", function ($scope, $http) {
+app.controller("FoodTypeController", function ($scope, $http) {
 
     $scope.form = {};
     $scope.views = {};
@@ -38,143 +38,54 @@ app.controller("BranchController", function ($scope, $http) {
         }
       };
 
-    autoBranchListFetch();
+    autoFoodTypeListFetch();
 
-    function autoBranchListFetch() {
-       // alert(" Fetch Hi-------------------------")
+    function autoFoodTypeListFetch() {
         $http({
             method: 'GET',
-            url: 'branch/findAll'
+            url: 'foodtype/findAll'
 
         }).then(function successCallback(response) {
             console.log(response);
-            $scope.restrurents = response.data.data;
+            $scope.foodtype = response.data.data;
 
         }, function errorCallback(response) {
             console.log(response.statusText);
         });
     }
 
-
-    autoCityListFetch();
-    function autoCityListFetch() {
-        $http({
-            method: 'GET',
-            url: 'location/fetchAllCity'
-
-        }).then(function successCallback(response) {
-            console.log(response);
-            $scope.cites = response.data.data;
-        }, function errorCallback(response) {
-            console.log(response.statusText);
-        });
-    } 
 
 
     $scope.cancelFormData = function () {
         $scope.form = {};
     }
 
-    $scope.addRow = function () {
-        $scope.uploadModels.push({ type: '', fileName: '', fileLink: '' });
-    };
-
-    $scope.removeRow = function (index) {
-        $scope.uploadModels.splice(index, 1);
-    };
-
-    $scope.uploadFileModel = function (id) {
-        $scope.uploadModels = [{ type: '', fileName: '', fileLink: ''}];
-        $("#upload_modal").modal("show");
-    }
-
-
-    $scope.locationListbyCity= function (id) {
-        $http({
-            method: 'GET',
-            params: { 'cityId': id },
-            url: 'location/getLocationFindByCity'
-
-        }).then(function successCallback(response) {
-            $scope.locations = response.data.data;
-        }, function errorCallback(response) {
-            console.log(response.statusText);
-        });
-    }
-
-
-    // $scope.addEditBranch = function () {
-    //     if ($scope.form.id == '' || $scope.form.id == undefined) {
-    //         var method = "POST";
-    //         var url = 'branch/add';
-    //     } else {
-    //         var method = "PUT";
-    //         var url = 'branch/edit';
-    //     }
-    //     $http({
-    //         method: method,
-    //         url: url,
-    //         data: angular.toJson($scope.form),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         transformResponse: angular.identity
-    //     }).then(_success, _error);
-    // };
-
-    $scope.addEditBranch = function () {
-        var formData = new FormData();
-        formData.append("branchName", $scope.form.branchName);
-        formData.append("cityId", $scope.form.cityId);
-        formData.append("locationId", $scope.form.locationId);
-        formData.append("branchEmail", $scope.form.branchEmail);
-        formData.append("branchContact", $scope.form.branchContact);
-        formData.append("password", $scope.form.password);
-        formData.append("locAddress", $scope.form.locAddress);
-        // alert(formData);
-        // File Upload
-        if ($scope.form.Images) {
-            formData.append("Images", $scope.form.Images);
+    $scope.addEditFoodType = function () {
+        if ($scope.form.id == '' || $scope.form.id == undefined) {
+            var method = "POST";
+            var url = 'foodtype/add';
+        } else {
+            var method = "PUT";
+            var url = 'foodtype/edit';
         }
-
-        // HTTP Request
-        $http.post('branch/addBranch', formData, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(function (response) {
-            // alert("Branch added successfully!");
-            $("#test_new").modal("hide");
-        autoBranchListFetch();
-        Swal.fire({
-            text: response.data.message,
-            icon: "success",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-            console.log(response.data);
-        }).catch(function (error) {
-            Swal.fire({
-                text: response.data.message,
-                icon: "error",
-                buttonsStyling: !1,
-                confirmButtonText: "Ok, got it!",
-                customClass: {
-                    confirmButton: "btn btn-primary"
-                }
-            })
-            console.error(error);
-        });
+        $http({
+            method: method,
+            url: url,
+            data: angular.toJson($scope.form),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            transformResponse: angular.identity
+        }).then(_success, _error);
     };
+
     function _success(response) {
 
         console.log(response);
         $("#test_new").modal("hide");
-        autoBranchListFetch();
+        autoFoodTypeListFetch();
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -188,7 +99,7 @@ app.controller("BranchController", function ($scope, $http) {
         console.log(response);
 
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "error",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -204,7 +115,7 @@ app.controller("BranchController", function ($scope, $http) {
         $http({
             method: 'GET',
             params: { 'id': id },
-            url: 'branch/findById'
+            url: 'foodtype/findById'
 
         }).then(function successCallback(response) {
             console.log(response.data);
@@ -278,7 +189,7 @@ app.controller("BranchController", function ($scope, $http) {
             transformResponse: angular.identity
 
         }).then(function successCallback(response) {
-            autoRegularClassesListFetch();
+            autoFoodTypeListFetch();
             $("#upload_modal").modal("hide");
             Swal.fire({
                 text: response.data,

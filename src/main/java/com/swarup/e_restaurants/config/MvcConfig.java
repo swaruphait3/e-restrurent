@@ -22,6 +22,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/location").setViewName("admin/location");
         registry.addViewController("/restrurent").setViewName("restrurent/home");
         registry.addViewController("/branch").setViewName("restrurent/branch");
+        registry.addViewController("/foodtype").setViewName("restrurent/foodtype");
+        registry.addViewController("/food").setViewName("restrurent/food");
 
 
 
@@ -33,5 +35,4 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:uploads/");
     }
-
 }

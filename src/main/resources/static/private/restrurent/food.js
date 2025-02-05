@@ -1,4 +1,4 @@
-var app = angular.module("BranchModule", ['ckeditor']);
+var app = angular.module("FoodModule", ['ckeditor']);
 
 // DIRECTIVE - FILE MODEL
 app.directive("fileModel", [
@@ -22,7 +22,7 @@ app.directive("fileModel", [
 
 
 //Forget Pass Controller
-app.controller("BranchController", function ($scope, $http) {
+app.controller("FoodController", function ($scope, $http) {
 
     $scope.form = {};
     $scope.views = {};
@@ -38,17 +38,15 @@ app.controller("BranchController", function ($scope, $http) {
         }
       };
 
-    autoBranchListFetch();
-
-    function autoBranchListFetch() {
-       // alert(" Fetch Hi-------------------------")
+    autoFoodsListFetch();
+    function autoFoodsListFetch() {
         $http({
             method: 'GET',
-            url: 'branch/findAll'
+            url: 'food/findAll'
 
         }).then(function successCallback(response) {
             console.log(response);
-            $scope.restrurents = response.data.data;
+            $scope.items = response.data.data;
 
         }, function errorCallback(response) {
             console.log(response.statusText);
@@ -56,15 +54,15 @@ app.controller("BranchController", function ($scope, $http) {
     }
 
 
-    autoCityListFetch();
-    function autoCityListFetch() {
+    autoTypeListFetch();
+    function autoTypeListFetch() {
         $http({
             method: 'GET',
-            url: 'location/fetchAllCity'
+            url: 'foodtype/findAllActiveList'
 
         }).then(function successCallback(response) {
             console.log(response);
-            $scope.cites = response.data.data;
+            $scope.types = response.data.data;
         }, function errorCallback(response) {
             console.log(response.statusText);
         });
@@ -89,18 +87,6 @@ app.controller("BranchController", function ($scope, $http) {
     }
 
 
-    $scope.locationListbyCity= function (id) {
-        $http({
-            method: 'GET',
-            params: { 'cityId': id },
-            url: 'location/getLocationFindByCity'
-
-        }).then(function successCallback(response) {
-            $scope.locations = response.data.data;
-        }, function errorCallback(response) {
-            console.log(response.statusText);
-        });
-    }
 
 
     // $scope.addEditBranch = function () {
@@ -122,15 +108,11 @@ app.controller("BranchController", function ($scope, $http) {
     //     }).then(_success, _error);
     // };
 
-    $scope.addEditBranch = function () {
+    $scope.addEditFoods = function () {
         var formData = new FormData();
-        formData.append("branchName", $scope.form.branchName);
-        formData.append("cityId", $scope.form.cityId);
-        formData.append("locationId", $scope.form.locationId);
-        formData.append("branchEmail", $scope.form.branchEmail);
-        formData.append("branchContact", $scope.form.branchContact);
-        formData.append("password", $scope.form.password);
-        formData.append("locAddress", $scope.form.locAddress);
+        formData.append("name", $scope.form.name);
+        formData.append("typeId", $scope.form.typeId);
+        formData.append("price", $scope.form.price);
         // alert(formData);
         // File Upload
         if ($scope.form.Images) {
@@ -138,13 +120,13 @@ app.controller("BranchController", function ($scope, $http) {
         }
 
         // HTTP Request
-        $http.post('branch/addBranch', formData, {
+        $http.post('food/add', formData, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function (response) {
             // alert("Branch added successfully!");
             $("#test_new").modal("hide");
-        autoBranchListFetch();
+            autoFoodsListFetch();
         Swal.fire({
             text: response.data.message,
             icon: "success",
@@ -168,35 +150,7 @@ app.controller("BranchController", function ($scope, $http) {
             console.error(error);
         });
     };
-    function _success(response) {
 
-        console.log(response);
-        $("#test_new").modal("hide");
-        autoBranchListFetch();
-        Swal.fire({
-            text: response.data,
-            icon: "success",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-    }
-
-    function _error(response) {
-        console.log(response);
-
-        Swal.fire({
-            text: response.data,
-            icon: "error",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-    }
 
 
     $scope.editRegularClasses = function (id) {

@@ -115,10 +115,10 @@ public class RestrurentServiceImpl implements RestrurentService{
         Optional<Restrurent> byId = restrurentRepository.findById(id);
         if (!byId.get().isStatus()) {
             Restrurent restrurent = byId.get();
-            restrurent.setStatus(false);
+            restrurent.setStatus(true);
             restrurentRepository.save(restrurent);
             Optional<User> byEmailOrMobile = userRepositiry.findByEmail(restrurent.getEmail());
-            byEmailOrMobile.get().setEnabled(false);
+            byEmailOrMobile.get().setEnabled(true);
             userRepositiry.save(byEmailOrMobile.get());
           return ResponseHandler.generateResponse("Successful fetch the details...",HttpStatus.OK, null);   
         } else {
@@ -132,10 +132,10 @@ public class RestrurentServiceImpl implements RestrurentService{
         Optional<Restrurent> byId = restrurentRepository.findById(id);
         if (byId.get().isStatus()) {
             Restrurent restrurent = byId.get();
-            restrurent.setStatus(true);
+            restrurent.setStatus(false);
             restrurentRepository.save(restrurent);
             Optional<User> byEmailOrMobile = userRepositiry.findByEmail(restrurent.getEmail());
-            byEmailOrMobile.get().setEnabled(true);
+            byEmailOrMobile.get().setEnabled(false);
             userRepositiry.save(byEmailOrMobile.get());
           return ResponseHandler.generateResponse("Successful fetch the details...",HttpStatus.OK, null);   
         } else {

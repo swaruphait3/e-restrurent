@@ -39,6 +39,7 @@ public class Branch {
     private String branchEmail;
     private String branchContact;
     private boolean status;
+    private String image;
 
     @Transient
     private String password;

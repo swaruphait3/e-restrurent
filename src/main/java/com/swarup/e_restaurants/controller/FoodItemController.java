@@ -6,59 +6,53 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swarup.e_restaurants.model.Branch;
-import com.swarup.e_restaurants.model.dto.BranchMaltipartForm;
-import com.swarup.e_restaurants.service.BranchService;
+import com.swarup.e_restaurants.model.dto.FoodMultipartForm;
+import com.swarup.e_restaurants.service.FoodItemService;
 
 @RestController
-@RequestMapping("/branch")
-public class BranchController {
+@RequestMapping("/food")
+public class FoodItemController {
     
-   @Autowired
-   private BranchService branchService;
+    @Autowired
+    private FoodItemService foodItemService; 
 
-   @PostMapping(value = "/add")
-    public ResponseEntity<?> add(@RequestBody Branch branch ) {
-        return branchService.add(branch);
+    
+      @PostMapping(value = "/add")
+    public ResponseEntity<?> add(@ModelAttribute FoodMultipartForm multipartForm ) {
+        return foodItemService.add(multipartForm);
     }
 
-    @PostMapping(value = "/addBranch")
-    public ResponseEntity<?> addBranch(@ModelAttribute BranchMaltipartForm branchForm ) {
-        return branchService.addBranch(branchForm);
-    }
-
-    @PutMapping(value = "/edit")
-    public ResponseEntity<?> edit(@RequestBody Branch branch) {
-        return branchService.edit(branch);
+     @PutMapping(value = "/edit")
+    public ResponseEntity<?> edit(@ModelAttribute FoodMultipartForm multipartForm) {
+        return foodItemService.edit(multipartForm);
     }
 
     @GetMapping(value = "/findAll")
     public ResponseEntity<?> findAll() {
-        return branchService.findAll();
+        return foodItemService.findAll();
     }
 
     @GetMapping(value = "/findAllActiveList")
     public ResponseEntity<?> findAllActiveList() {
-        return branchService.findAllActiveList();
+        return foodItemService.findAllActiveList();
     }
 
     @GetMapping(value = "/findById")
     public ResponseEntity<?> findById(@RequestParam Integer id) {
-        return branchService.findById(id);
+        return foodItemService.findById(id);
     }
 
     @GetMapping(value = "/active")
     public ResponseEntity<?> active(@RequestParam Integer id) {
-        return branchService.active(id);
+        return foodItemService.active(id);
     }
 
     @GetMapping(value = "/deActive")
     public ResponseEntity<?> deActive(@RequestParam Integer id) {
-        return branchService.deActive(id);
+        return foodItemService.deActive(id);
     }
 }

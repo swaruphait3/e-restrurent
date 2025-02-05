@@ -7,7 +7,7 @@
 <!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
 <!-- =============================================================== -->
 
-<div ng-app="BranchModule" ng-controller="BranchController">
+<div ng-app="FoodModule" ng-controller="FoodController">
 
     <div class="breadcrumb-container">
         <nav aria-label="breadcrumb">
@@ -18,14 +18,14 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    <span>Branches</span>
+                    <span>Food Items</span>
                 </li>
             </ol>
         </nav>
     </div>
 
     <div class="col-xxl page-action-header-container order-1 order-xxl-2">
-        <div class="page-action-header">All Branches</div>
+        <div class="page-action-header">All Food Items</div>
     </div>
     <div class="row page-action-container">
         <div class="col-xxl-4 col-6 page-action-start-container order-2 order-xxl-1">
@@ -35,72 +35,114 @@
                     class="form-control btn-page-action ps-15 ng-pristine ng-valid ng-empty ng-touched"
                     placeholder="Search">
             </div>
+            <!-- <div class="dropdown ms-3 d-none">
+                <button class="btn btn-filter" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="icon-common icon-filter-action"></span>
+                    <span class="lbl-filter">Filter</span>
+                </button>
+                <div class="dropdown-menu page-action-filter">
+                    <div class="modal-custom">
+                        <div class="modal-dialog m-0">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">
+                                        <span class="icon-common icon-modal-header icon-filter"></span>
+                                        <span>Filter</span>
+                                    </h1>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3">
+                                        <div class="col-md-12">
+                                            <label for="name" class="form-label form-label-highlight">Booking ID:
+                                            </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter booking ID" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-highlight">Name: </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-highlight">Phone No: </label>
+                                            <input type="text" class="form-control" id="name" ng-model="form.name"
+                                                placeholder="Enter phone no" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-label-highlight">Activity Date:</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-secondary">Activity Date
+                                                From: </label>
+                                            <input type="date" class="form-control" id="name" ng-model="form.name"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label form-label-secondary">Activity Date To:
+                                            </label>
+                                            <input type="date" class="form-control" id="name" ng-model="form.name"
+                                                required>
+                                        </div>
+
+
+                                        <div class="modal-footer flex-column">
+                                            <button type="submit" class="btn btn-success btn-apply">Apply</button>
+                                            <button type="button" class="btn btn-danger-link">
+                                                <span class="icon-common icon-btn-link icon-reset"></span>
+                                                <span>Reset Filter</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
+        <!-- <div class="col-xxl-4 col-12 page-action-header-container order-1 order-xxl-2">
+            <div class="page-action-header">All Regular Classes</div>
+        </div> -->
         <div class="col-xxl-4 col-6 page-action-end-container order-3 order-xxl-3">
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-page-action btn-new-bookings" data-bs-toggle="modal"
                 data-bs-target="#newRestaurant" ng-click="openNewRestaurant()">
                 <span class="icon-common icon-page-action icon-add-circle"></span>
-                <span class="lbl-page-action" >Add Branch</span>
+                <span class="lbl-page-action" >Add Items</span>
             </button>
 
             <!-- Modal -->
             <div class="modal fade modal-custom" id="newRestaurant" tabindex="-1" aria-labelledby="newRestaurantLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-dialog modal-dialog-centered modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="newRestaurantLabel">
                                 <span class="icon-common icon-modal-header icon-add-circle"></span>
-                                <span>Add Branch</span>
+                                <span>Add Food Items</span>
                             </h1>
                         </div>
                         <div class="modal-body">
-
-                            <form class="row g-3" ng-submit="addEditBranch()" autocomplete="off" enctype="multipart/form-data">
-                                <div class="col-md-8">
-                                    <label for="branchName" class="form-label">Branch Name<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="branchName" ng-model="form.branchName" placeholder="Enter Restaurant Name" required>
-                                </div>
-                            
-                                <div class="col-md-4">
-                                    <label>City<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="city" ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
-                                        ng-options="city.id as city.cityName for city in cites" required>
-                                        <option value="" disabled selected>Select City</option>
+                            <form class="row g-3" ng-submit="addEditFoods()" autocomplete="off" enctype="multipart/form-data" >
+ 
+                                <div class="col-md-12">
+                                    <label>Food Type<span style="color:red;font-weight:bold"> *</span></label>
+                                    <select name="city" ng-model="form.typeId" class="form-control select2"
+                                        ng-options="type.id as type.typeDesc for type in types" required>
+                                        <option value="" disabled selected>Select Type</option>
                                     </select>
                                 </div>
-                            
-                                <div class="col-md-4">
-                                    <label>Location<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="location" ng-model="form.locationId" class="form-control select2"
-                                        ng-options="loc.id as loc.location for loc in locations" required>
-                                        <option value="" disabled selected>Select Location</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <label for="branchName" class="form-label">Food Item Name<span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="branchName" ng-model="form.name" placeholder="Enter Foods Name" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="branchContact" class="form-label">Price<span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="branchContact" ng-model="form.price" placeholder="Enter Price" required>
                                 </div>
                             
-                                <div class="col-md-4">
-                                    <label for="branchEmail" class="form-label">Email<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="email" class="form-control" id="branchEmail" ng-model="form.branchEmail" placeholder="Enter Email Address" required>
-                                </div>
-                            
-                                <div class="col-md-4">
-                                    <label for="branchContact" class="form-label">Contact<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="branchContact" ng-model="form.branchContact" placeholder="Enter Contact No" required>
-                                </div>
-                            
-                                <div class="col-md-6">
-                                    <label for="password" class="form-label">Password<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="password" class="form-control" id="password" ng-model="form.password" placeholder="Enter Password" required>
-                                </div>
-                            
-                                <div class="col-md-6">
-                                    <label for="locAddress" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="locAddress" ng-model="form.locAddress" placeholder="Enter Address" required>
-                                </div>
-                            
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="fileInput" class="form-label">Image</label>
                                     <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*" required>
                                 </div>
@@ -110,62 +152,6 @@
                                     <button type="button" class="btn btn-danger-light" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </form>
-
-
-                            <!-- <form class="row g-3" ng-submit="addEditBranch()" autocomplete="off">
-                                <div class="col-md-8">
-                                    <label for="name" class="form-label">Branch Name<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.branchName"
-                                        placeholder="Enter Restrurent Name" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>City<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="country" ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
-                                    ng-options="city.id as city.cityName for city in cites" oninvalid="this.setCustomValidity('Please Select City')"
-                                    oninput="this.setCustomValidity('')" >
-                                    <option value="" disabled selected>Select Option-</option>
-                                </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Location<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="country" ng-model="form.locationId" class="form-control select2"
-                                    ng-options="loc.id as loc.location for loc in locations" oninvalid="this.setCustomValidity('Please Select Location')"
-                                    oninput="this.setCustomValidity('')" required>
-                                    <option value="" disabled selected>Select Option-</option>
-                                </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="name" class="form-label">email<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="email" class="form-control" id="classesName" ng-model="form.branchEmail"
-                                        placeholder="Enter Email Address" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="name" class="form-label">Contact<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.branchContact"
-                                        placeholder="Enter Contact No" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Password<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="password" class="form-control" id="classesName" ng-model="form.password"
-                                        placeholder="Enter Password" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="classesName" ng-model="form.locAddress"
-                                        placeholder="Enter Address" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Image<span style="color:red;font-weight:bold"> </span></label>
-                                    <input class="form-control" type="file" id="fileInput" file-model="form.upFile" accept="image/*" required>
-                                </button>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success-light">Add</button>
-                                    <button type="button" class="btn btn-danger-light"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    
-                                </div>
-                            </form> -->
                         </div>
                     </div>
                 </div>
@@ -282,33 +268,23 @@
         <table class="user-table-view">
             <tr class="table-head-primary">
                 <th>S/N</th>
-                <th>Branch</th>
-                <th>Restrurant</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Location</th>
+                <th>Food Type</th>
+                <th>Food Items</th>
+                <th>Restrurent</th>
+                <th>Price</th>
                 <th>Image</th>
                 <th>Status</th>
                 <th>action</th>
             </tr>
-            <tr ng-repeat="res in restrurents | filter:searchText">
+            <tr ng-repeat="res in items | filter:searchText">
                 <td>{{$index + 1}}</td>
-                <td>{{res.branchName}}</td>
-                <td>{{res.restrurent}}</td>
-                <td>{{res.branchEmail}}</td>
-                <td>{{res.branchContact}}</td>
-                <td>{{res.locAddress}}</td>
-                <td>{{res.city}}</td>
-                <td>{{res.location}}</td>
-                
-                <!-- <img ng-if="tdata.images!=null" id="image_view_modal"
-                ng-click="setImageAsViewed($index,tdata.images)" src="uploads/{{tdata.images}}"
-                style="width: 50px; border-radius: 10px; cursor: pointer;" /> -->
+                <td>{{res.foodType}}</td>
+                <td>{{res.name}}</td>
+                <td>{{res.resturent}}</td>
+                <td>{{res.price}}</td>
                 <td>
-                    <span >
-                        <img style="height: 80px; width: 100px;" ng-src="{{'uploads/' + res.image}}" alt="Image">
+                    <span>
+                        <img style="height: 80px; width: 100px;" ng-src="{{'uploads/' + res.images}}" alt="Image">
                     </span>
                     
                 </td>
@@ -371,7 +347,7 @@
 
 <div th:replace="fragment/footer"></div>
 
-<script src="private/restrurent/branch.js"></script>
+<script src="private/restrurent/food.js"></script>
 
 </body>
 

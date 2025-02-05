@@ -2,14 +2,13 @@ package com.swarup.e_restaurants.service;
 
 import org.springframework.http.ResponseEntity;
 
-import com.swarup.e_restaurants.model.Branch;
-import com.swarup.e_restaurants.model.dto.BranchMaltipartForm;
+import com.swarup.e_restaurants.model.FoodType;
 
-public interface BranchService {
+public interface FoodTypeService {
 
-    ResponseEntity<?> add(Branch branch);
+    ResponseEntity<?> add(FoodType foodType);
 
-    ResponseEntity<?> edit(Branch branch);
+    ResponseEntity<?> edit(FoodType foodType);
 
     ResponseEntity<?> findAll();
 
@@ -20,7 +19,5 @@ public interface BranchService {
     ResponseEntity<?> active(Integer id);
 
     ResponseEntity<?> deActive(Integer id);
-
-    ResponseEntity<?> addBranch(BranchMaltipartForm branchForm);
     
 }
