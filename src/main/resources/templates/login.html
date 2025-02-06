@@ -586,20 +586,75 @@
             </div>
             <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
 
-            <!-- <div class="mb-3 text-center">Or</div> -->
 
-            <!-- <div class="text-center">
+            <div class="mb-3 text-center">Or</div>
+
+            <div class="text-center">
                 <span class="lbl-secondary me-1">New Here? </span>
-                <span class="lbl-signup"><a href="" class="lbl-forgot-pass">Sign Up Now</a></span>
-              </div> -->
+                <span class="lbl-signup"><a href="#" class="lbl-forgot-pass" id="linkSignUp">Sign Up Now</a></span>
+              </div>
           </form>
+          <!-- <a th:href="@{/signup}" class="btn btn-secondary w-100 mb-3" style="border-radius: 15px; font-weight: 600; font-size: 18px;" >Sign Up</a> -->
+
         </div>
+<!-- ************************************************************************************** -->
+  <div class="login-form-container d-none" id="dvSignUp" >
+    <div class="login-header lbl-ellipsis">
+      <span class="icon-header-container"><span class="icon-common icon-header icon-lock-fill"></span></span>
+      <span>Sign Up</span>
+    </div>
+    <div class="login-sub-header">Thank you.. for Registration</div>
+    <div class="error-msg-container">
+      <span class="icon-common icon-exclamation me-1"></span>
+      <span class="lbl-login-error">Invalid Username Or Password</span>
+    </div>
+    <div ng-app="SignUpModule" ng-controller="SignUpController">
+      <form id="loginform" ng-submit="addUser()" autocomplete="off">
+  
+        <div class="mb-5 position-relative">
+          <span class="icon-common icon-user icon-form-before"></span>
+          <input type="text" class="form-control" id="inputUserName" ng-model="form.name" name="name"
+            required value='' placeholder="Enter User Name">
+        </div>
+  
+        <div class="mb-5 position-relative">
+          <span class="icon-common icon-email icon-form-before"></span>
+          <input type="email" class="form-control" id="inputEmail" ng-model="form.email"
+            aria-describedby="emailHelp" name="email" required value='' placeholder="Enter Email">
+        </div>
+        <div class="mb-5 position-relative">
+          <span class="icon-common icon-phone icon-form-before"></span>
+          <input type="text" class="form-control" id="inputEmail" ng-model="form.mobile"
+            aria-describedby="emailHelp" name="mobile" required value='' placeholder="Enter Contact No">
+        </div>
+        <div class="mb-5 position-relative">
+          <span class="icon-common icon-lock icon-form-before"></span>
+          <input type="password" class="form-control" id="inputEmail" ng-model="form.rawPassword"
+            aria-describedby="emailHelp" name="rawPassword" required value='' placeholder="Enter Password">
+            <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword"></span>
+        </div>
+  
+        <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>
+  
+        <div class="text-center link-label-container mb-3">
+          <a class="form-link-secondary" id="linkBackToLogin">
+            <span class="icon-common icon-link-label icon-arrow-left"></span>
+            <span>Back To Login</span>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+        <!-- ************************************************************************* -->
         <div class="login-form-container d-none" id="dvForgetPass">
           <div class="login-header lbl-ellipsis">
             <span class="icon-header-container"><span class="icon-common icon-header icon-lock-fill"></span></span>
             <span>Forgot Password?</span>
           </div>
-          <div class="login-sub-header">Enter Your Details Below to Get New Password</div>
+          <div class="login-sub-header"></div>
           <div class="error-msg-container">
             <span class="icon-common icon-exclamation me-1"></span>
             <span class="lbl-login-error">Invalid Username Or Password</span>
@@ -651,6 +706,7 @@
     </div>
   </div>
   <div class="lbl-copyright">© copyright 2023 vareli tecsoft pvt. ltd</div>
+ 
   <script>
     (function () {
       const togglePassword = document.querySelector('#togglePassword');
@@ -676,12 +732,24 @@
     var dvLogin = document.getElementById('dvLogin');
     var dvForgetPass = document.getElementById('dvForgetPass');
     var linkForgetPass = document.getElementById('linkForgetPass');
+
+      var dvSignUp = document.getElementById('dvSignUp');
+     var linkSignUp = document.getElementById('linkSignUp');
+     
     var linkBackToLogin = document.getElementById('linkBackToLogin');
 
     //hiding login form and opening forget pass form
     linkForgetPass.onclick = function () {
       dvLogin.classList.add('d-none');
       dvForgetPass.classList.remove('d-none');
+      
+
+      loginArea.classList.remove('login-error');
+    }
+
+    linkSignUp.onclick = function () {
+      dvLogin.classList.add('d-none');
+      dvSignUp.classList.remove('d-none');
 
       loginArea.classList.remove('login-error');
     }
@@ -689,6 +757,8 @@
     //hiding forget pass form and opening login form
     linkBackToLogin.onclick = function () {
       dvForgetPass.classList.add('d-none');
+      dvSignUp.classList.add('d-none');
+
       dvLogin.classList.remove('d-none');
     }
 
@@ -705,7 +775,7 @@
   <script src="assets/js/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/angular.min.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="assets/js/forgetpassword.js"></script>
+  <script src="assets/js/signup.js"></script>
 </body>
 
 </html>

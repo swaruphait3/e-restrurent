@@ -96,32 +96,33 @@ app.controller("RestrurentController", function ($scope, $http) {
         });
     }
 
-
     $scope.addEditRestrurents = function () {
-        if ($scope.form.id == '' || $scope.form.id == undefined) {
-            var method = "POST";
-            var url = 'restrurent/add';
-        } else {
-            var method = "PUT";
-            var url = 'restrurent/edit';
-        }
-        $http({
-            method: method,
-            url: url,
-            data: angular.toJson($scope.form),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            transformResponse: angular.identity
-        }).then(_success, _error);
-    };
-    function _success(response) {
+        var formData = new FormData();
+        formData.append("name", $scope.form.name);
+        formData.append("cityId", $scope.form.cityId);
+        formData.append("locId", $scope.form.locId);
+        formData.append("email", $scope.form.email);
+        formData.append("contact", $scope.form.contact);
+        formData.append("password", $scope.form.password);
+        formData.append("address", $scope.form.address);
+        formData.append("specality", $scope.form.specality);
 
-        console.log(response);
-        $("#test_new").modal("hide");
-        autoRestrurentListFetch();
+        // alert(formData);
+        // File Upload
+        if ($scope.form.Images) {
+            formData.append("Images", $scope.form.Images);
+        }
+
+        // HTTP Request
+        $http.post('restrurent/addResaturant', formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(function (response) {
+            // alert("Branch added successfully!");
+            $("#test_new").modal("hide");
+            autoRestrurentListFetch();
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -129,21 +130,69 @@ app.controller("RestrurentController", function ($scope, $http) {
                 confirmButton: "btn btn-primary"
             }
         })
-    }
+            console.log(response.data);
+        }).catch(function (error) {
+            Swal.fire({
+                text: response.data.message,
+                icon: "error",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            })
+            console.error(error);
+        });
+    };
 
-    function _error(response) {
-        console.log(response);
 
-        Swal.fire({
-            text: response.data,
-            icon: "error",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-    }
+    // $scope.addEditRestrurents = function () {
+    //     if ($scope.form.id == '' || $scope.form.id == undefined) {
+    //         var method = "POST";
+    //         var url = 'restrurent/add';
+    //     } else {
+    //         var method = "PUT";
+    //         var url = 'restrurent/edit';
+    //     }
+    //     $http({
+    //         method: method,
+    //         url: url,
+    //         data: angular.toJson($scope.form),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         transformResponse: angular.identity
+    //     }).then(_success, _error);
+    // };
+    // function _success(response) {
+
+    //     console.log(response);
+    //     $("#test_new").modal("hide");
+    //     autoRestrurentListFetch();
+    //     Swal.fire({
+    //         text: response.data,
+    //         icon: "success",
+    //         buttonsStyling: !1,
+    //         confirmButtonText: "Ok, got it!",
+    //         customClass: {
+    //             confirmButton: "btn btn-primary"
+    //         }
+    //     })
+    // }
+
+    // function _error(response) {
+    //     console.log(response);
+
+    //     Swal.fire({
+    //         text: response.data,
+    //         icon: "error",
+    //         buttonsStyling: !1,
+    //         confirmButtonText: "Ok, got it!",
+    //         customClass: {
+    //             confirmButton: "btn btn-primary"
+    //         }
+    //     })
+    // }
 
 
     $scope.editRegularClasses = function (id) {

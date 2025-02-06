@@ -3,6 +3,7 @@ package com.swarup.e_restaurants.service;
 import org.springframework.http.ResponseEntity;
 
 import com.swarup.e_restaurants.model.Restrurent;
+import com.swarup.e_restaurants.model.dto.RestaurantMaltipartForm;
 
 public interface RestrurentService {
 
@@ -19,5 +20,7 @@ public interface RestrurentService {
     ResponseEntity<?> active(Integer id);
 
     ResponseEntity<?> deActive(Integer id);
+
+    ResponseEntity<?> addResaturant(RestaurantMaltipartForm restaurantMaltipartForm);
     
 }

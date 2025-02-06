@@ -20,11 +20,24 @@
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+   
+    <!-- <div>
+      <span class="lbl-greetings" id="greetingSpan">Good Morning, </span>
+      <span class="greetings-role capitalize">
+        <span th:text="${#authentication.getPrincipal().getUser().getName}"></span>
+      </span>
+      <span class="profile-role capitalize" sec:authentication="principal.authorities"></span>
+    </div> -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div style="color: aliceblue; padding-left: 50px; font-weight: 600; font-size: 1.5rem;">
+        <span cclass="nav-item menu-item" id="greetingSpan">Good Morning, </span>
+        <span>
+          <span th:text="${#authentication.getPrincipal().getUser().getName}"></span>
+        </span>
+        <!-- <span class="profile-role capitalize" sec:authentication="principal.authorities"></span> -->
+      </div>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-                      <a class="nav-link" href="#">BOOKINGS</a>
-                  </li> -->
+ 
         <!-- <li class="nav-item dropdown menu-item">
                       <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           <span>BOOKINGS</span><span class="icon-common icon-chevron icon-nav"></span>
@@ -35,14 +48,19 @@
                           <li><a class="dropdown-item" href="#">Private Event</a></li>
                       </ul>
                   </li> -->
+
+                
         <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
-          <a class="nav-link" href="home" onclick="menuToggle(this)">DASHBOARD</a>
+          <a class="nav-link" href="home" onclick="menuToggle(this)">WishList</a>
+        </li>
+        <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
+          <a class="nav-link" th:href="@{/order}" onclick="menuToggle(this)">Order</a>
         </li>
         <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
           <a class="nav-link" href="logout" onclick="menuToggle(this)">LOGOUT</a>
         </li>
         <li th:if="${#authentication.getPrincipal()} == 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
-          <a class="nav-link" href="login" onclick="menuToggle(this)">LOGIN</a>
+          <span th:text="${#authentication.getPrincipal().getUser().getName}"></span><a class="nav-link" href="login" onclick="menuToggle(this)">LOGIN</a>
         </li>
       </ul>
     </div>

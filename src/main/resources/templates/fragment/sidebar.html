@@ -6,13 +6,13 @@
         <ul class="nav-menu-container">
           <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/home' ? 'link-active':''}">
-            <a class="nav-link active" th:href="@{/home}">
+            <a class="nav-link active" th:href="@{/admin}">
               <span class="icon-common icon-sidemenu icon-home"></span> <span class="link-name">home</span>
             </a>
           </li>
           <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"
           th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/restrurent' ? 'link-active':''}">
-          <a class="nav-link active" th:href="@{/restrurent}">
+          <a class="nav-link active" th:href="@{/rest}">
             <span class="icon-common icon-sidemenu icon-classes"></span>
             <span class="link-name">Restrurent</span>
           </a>

@@ -1,7 +1,4 @@
 package com.swarup.e_restaurants.config;
-
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +50,7 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy","/branch/add")
+                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy","/user/add")
                 .permitAll()
                 .anyRequest().authenticated()
             )

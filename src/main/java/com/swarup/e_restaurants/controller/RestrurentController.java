@@ -3,6 +3,7 @@ package com.swarup.e_restaurants.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swarup.e_restaurants.model.Restrurent;
+import com.swarup.e_restaurants.model.dto.RestaurantMaltipartForm;
 import com.swarup.e_restaurants.service.RestrurentService;
 
 @RestController
@@ -23,6 +25,11 @@ public class RestrurentController {
    @PostMapping(value = "/add")
     public ResponseEntity<?> add(@RequestBody Restrurent restrurent ) {
         return restrurentService.add(restrurent);
+    }
+
+    @PostMapping(value = "/addResaturant")
+    public ResponseEntity<?> addResaturant(@ModelAttribute RestaurantMaltipartForm restaurantMaltipartForm ) {
+        return restrurentService.addResaturant(restaurantMaltipartForm);
     }
 
     @PutMapping(value = "/edit")

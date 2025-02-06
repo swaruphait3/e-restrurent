@@ -25,7 +25,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         for (GrantedAuthority grantedAuthority : authorities) {
             System.out.println(grantedAuthority);
             if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                redirectUrl = "/home";
+                redirectUrl = "/admin";
                 break;
             } else if (grantedAuthority.getAuthority().equals("RESTAURENT")) {
                 redirectUrl = "/restrurent";
@@ -35,7 +35,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 break;
             }
             else if (grantedAuthority.getAuthority().equals("USER")) {
-                redirectUrl = "/user";
+                redirectUrl = "/home";
                 break;
             } else {
                 redirectUrl = "/403";
