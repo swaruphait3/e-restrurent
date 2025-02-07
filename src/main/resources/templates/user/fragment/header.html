@@ -29,9 +29,9 @@
       <span class="profile-role capitalize" sec:authentication="principal.authorities"></span>
     </div> -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div style="color: aliceblue; padding-left: 50px; font-weight: 600; font-size: 1.5rem;">
+      <div style="color: aliceblue; padding-left: 50px; letter-spacing: 0.5rem; font-size: 1.5rem;">
         <span cclass="nav-item menu-item" id="greetingSpan">Good Morning, </span>
-        <span>
+        <span style="text-transform: capitalize;">
           <span th:text="${#authentication.getPrincipal().getUser().getName}"></span>
         </span>
         <!-- <span class="profile-role capitalize" sec:authentication="principal.authorities"></span> -->

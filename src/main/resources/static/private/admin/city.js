@@ -52,7 +52,7 @@ app.controller("CityController", function ($scope, $http) {
         autoCityListFetch();
         $scope.form = {};
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -66,7 +66,7 @@ app.controller("CityController", function ($scope, $http) {
         console.log(response);
         
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "error",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -199,7 +199,7 @@ app.controller("LocationController", function ($scope, $http) {
         autoLocationListFetch();
         $scope.form = {};
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -213,7 +213,7 @@ app.controller("LocationController", function ($scope, $http) {
         console.log(response);
         
         Swal.fire({
-            text: response.data,
+            text: response.data.message,
             icon: "error",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",

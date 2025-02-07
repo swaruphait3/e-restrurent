@@ -63,53 +63,54 @@
 
                             <form class="row g-3" ng-submit="addEditRestrurents()" autocomplete="off" enctype="multipart/form-data">
                                 <div class="col-md-12">
-                                    <label for="name" class="form-label">Restaurant Name<span style="color:red;font-weight:bold"> *</span></label>
+                                    <label for="name" class="form-label">Restaurant Name <span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="text" class="form-control" id="name" ng-model="form.name" placeholder="Enter Restaurant Name" required>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label>City<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="city" ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
-                                        ng-options="city.id as city.cityName for city in cites" required>
+                                    <label>City <span style="color:red;font-weight:bold"> *</span></label>
+                                    <select ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
+                                    ng-options="city.id as city.cityName for city in cites" required>
                                         <option value="" disabled selected>Select City</option>
                                     </select>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label>Location<span style="color:red;font-weight:bold"> *</span></label>
-                                    <select name="location" ng-model="form.locId" class="form-control select2"
+                                    <label>Location <span style="color:red;font-weight:bold"> *</span></label>
+                                    <select ng-model="form.locId" class="form-control select2"
                                         ng-options="loc.id as loc.location for loc in locations" required>
                                         <option value="" disabled selected>Select Location</option>
                                     </select>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label for="email" class="form-label">Email<span style="color:red;font-weight:bold"> *</span></label>
+                                    <label for="email" class="form-label">Email <span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="email" class="form-control" id="email" ng-model="form.email" placeholder="Enter Email Address" required>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label for="contact" class="form-label">Contact<span style="color:red;font-weight:bold"> *</span></label>
+                                    <label for="contact" class="form-label">Contact <span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="text" class="form-control" id="contact" ng-model="form.contact" placeholder="Enter Contact No" required>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label for="password" class="form-label">Password<span style="color:red;font-weight:bold"> *</span></label>
+                                    <label for="password" class="form-label">Password <span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="password" class="form-control" id="password" ng-model="form.password" placeholder="Enter Password" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="specality" class="form-label">Specality<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Password" required>
                                 </div>
                             
                                 <div class="col-md-12">
-                                    <label for="locAddress" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="locAddress" ng-model="form.locAddress" placeholder="Enter Address" required>
+                                    <label for="specality" class="form-label">Specialty <span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Specialty" required>
+                                </div>
+                            
+                                <div class="col-md-12">
+                                    <label for="address" class="form-label">Address <span style="color:red;font-weight:bold"> *</span></label>
+                                    <input type="text" class="form-control" id="address" ng-model="form.address" placeholder="Enter Address" required>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="fileInput" class="form-label">Image</label>
-                                    <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*" required>
+                                    <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*">
                                 </div>
                             
                                 <div class="modal-footer">
@@ -117,7 +118,7 @@
                                     <button type="button" class="btn btn-danger-light" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </form>
-
+                            
                         </div>
                     </div>
                 </div>
@@ -247,14 +248,14 @@
             <tr ng-repeat="res in restrurents | filter:searchText">
                 <td>{{$index + 1}}</td>
                 <td>{{res.name}}</td>
-                <td>{{res.email}}</td>
+                <td style="text-transform: none">{{res.email}}</td>
                 <td>{{res.contact}}</td>
                 <td>{{res.address}}</td>
                 <td>{{res.city}}</td>
                 <td>{{res.location}}</td>
                 <td>
-                    <span ng-repeat="item in classes.upload | filter: {type: 'homePage'}">
-                        <img style="height: 80px; width: 100px;" ng-src="{{'upload/' + item.fileLink}}" alt="Image">
+                    <span >
+                        <img style="height: 80px; width: 100px;" ng-src="{{'uploads/' + res.image}}" alt="Image">
                     </span>
                     
                 </td>

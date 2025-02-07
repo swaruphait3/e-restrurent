@@ -48,7 +48,7 @@
             <!-- Modal -->
             <div class="modal fade modal-custom" id="newRestaurant" tabindex="-1" aria-labelledby="newRestaurantLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="newRestaurantLabel">
@@ -59,12 +59,12 @@
                         <div class="modal-body">
 
                             <form class="row g-3" ng-submit="addEditBranch()" autocomplete="off" enctype="multipart/form-data">
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     <label for="branchName" class="form-label">Branch Name<span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="text" class="form-control" id="branchName" ng-model="form.branchName" placeholder="Enter Restaurant Name" required>
                                 </div>
                             
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label>City<span style="color:red;font-weight:bold"> *</span></label>
                                     <select name="city" ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
                                         ng-options="city.id as city.cityName for city in cites" required>
@@ -72,7 +72,7 @@
                                     </select>
                                 </div>
                             
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label>Location<span style="color:red;font-weight:bold"> *</span></label>
                                     <select name="location" ng-model="form.locationId" class="form-control select2"
                                         ng-options="loc.id as loc.location for loc in locations" required>
@@ -80,33 +80,33 @@
                                     </select>
                                 </div>
                             
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label for="branchEmail" class="form-label">Email<span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="email" class="form-control" id="branchEmail" ng-model="form.branchEmail" placeholder="Enter Email Address" required>
                                 </div>
                             
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label for="branchContact" class="form-label">Contact<span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="text" class="form-control" id="branchContact" ng-model="form.branchContact" placeholder="Enter Contact No" required>
                                 </div>
                             
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="password" class="form-label">Password<span style="color:red;font-weight:bold"> *</span></label>
                                     <input type="password" class="form-control" id="password" ng-model="form.password" placeholder="Enter Password" required>
                                 </div>
-                            
-                                <div class="col-md-6">
-                                    <label for="locAddress" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="locAddress" ng-model="form.locAddress" placeholder="Enter Address" required>
-                                </div>
-                            
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="fileInput" class="form-label">Image</label>
                                     <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*" required>
                                 </div>
+                                <div class="col-md-12">
+                                    <label for="locAddress" class="form-label">Address<span style="color:red;font-weight:bold"> *</span></label>
+                                    <textarea class="form-control" id="locAddress" ng-model="form.locAddress" placeholder="Enter Address" required></textarea>
+                                </div>
+                            
+                        
                             
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success-light">Add</button>
+                                    <button type="submit" class="btn btn-success-light" id="branch_add_btn">Add</button>
                                     <button type="button" class="btn btn-danger-light" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </form>

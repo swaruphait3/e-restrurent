@@ -143,7 +143,7 @@ app.controller("BranchController", function ($scope, $http) {
             headers: { 'Content-Type': undefined }
         }).then(function (response) {
             // alert("Branch added successfully!");
-            $("#test_new").modal("hide");
+            $("#newRestaurant").modal("hide");
         autoBranchListFetch();
         Swal.fire({
             text: response.data.message,

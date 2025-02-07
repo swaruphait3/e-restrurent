@@ -20,7 +20,6 @@ app.directive("fileModel", [
     },
 ]);
 
-
 //Forget Pass Controller
 app.controller("RestrurentController", function ($scope, $http) {
 
@@ -82,6 +81,11 @@ app.controller("RestrurentController", function ($scope, $http) {
         $scope.uploadModels.splice(index, 1);
     };
 
+    $scope.uploadFileModel = function (id) {
+        $scope.uploadModels = [{ type: '', fileName: '', fileLink: ''}];
+        $("#upload_modal").modal("show");
+    }
+
 
     $scope.locationListbyCity= function (id) {
         $http({
@@ -96,6 +100,22 @@ app.controller("RestrurentController", function ($scope, $http) {
         });
     }
 
+    app.directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+    
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]); // Only take first file
+                    });
+                });
+            }
+        };
+    }]);
+    
     $scope.addEditRestrurents = function () {
         var formData = new FormData();
         formData.append("name", $scope.form.name);
@@ -106,44 +126,43 @@ app.controller("RestrurentController", function ($scope, $http) {
         formData.append("password", $scope.form.password);
         formData.append("address", $scope.form.address);
         formData.append("specality", $scope.form.specality);
-
-        // alert(formData);
-        // File Upload
+    
         if ($scope.form.Images) {
-            formData.append("Images", $scope.form.Images);
+            formData.append("images", $scope.form.Images); // Ensure this matches your backend field name
         }
-
-        // HTTP Request
+    
+        // ✅ Debugging: Check if formData is correctly populated
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+    
         $http.post('restrurent/addResaturant', formData, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function (response) {
-            // alert("Branch added successfully!");
-            $("#test_new").modal("hide");
+            $("#newRestaurant").modal("hide");
             autoRestrurentListFetch();
-        Swal.fire({
-            text: response.data.message,
-            icon: "success",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
+    
+            Swal.fire({
+                text: response.data.message,
+                icon: "success",
+                confirmButtonText: "Ok, got it!",
+                customClass: { confirmButton: "btn btn-primary" }
+            });
+    
             console.log(response.data);
         }).catch(function (error) {
             Swal.fire({
-                text: response.data.message,
+                text: error.data?.message || "An error occurred",
                 icon: "error",
-                buttonsStyling: !1,
                 confirmButtonText: "Ok, got it!",
-                customClass: {
-                    confirmButton: "btn btn-primary"
-                }
-            })
-            console.error(error);
+                customClass: { confirmButton: "btn btn-primary" }
+            });
+    
+            console.error("Error:", error);
         });
     };
+    
 
 
     // $scope.addEditRestrurents = function () {

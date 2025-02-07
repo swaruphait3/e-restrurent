@@ -934,8 +934,10 @@ $secondaryCardBorderRadius: 10px;
 .primary-card {
     width: 100%;
     max-width: 400px;
+    border-radius: 8px;
     border-radius: $primaryCardBorderRadius;
-    background: radial-gradient(274.89% 100.91% at 93.75% 5.45%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%);
+    // background: radial-gradient(274.89% 100.91% at 93.75% 5.45%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%);
+    background: radial-gradient(274.89% 100.91% at 93.75% 5.45%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
     backdrop-filter: blur(21px);
 }
 

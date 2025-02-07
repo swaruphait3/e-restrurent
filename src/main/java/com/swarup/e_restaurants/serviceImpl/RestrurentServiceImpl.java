@@ -13,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.swarup.e_restaurants.model.MyUserDetails;
 import com.swarup.e_restaurants.model.Restrurent;
 import com.swarup.e_restaurants.model.User;
 import com.swarup.e_restaurants.model.dto.RestaurantMaltipartForm;
@@ -164,14 +161,14 @@ public class RestrurentServiceImpl implements RestrurentService {
 
   @Override
   public ResponseEntity<?> addResaturant(RestaurantMaltipartForm restaurantMaltipartForm) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-
+    // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    // MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+  System.out.println("restaurantMaltipartForm: "+restaurantMaltipartForm);
     boolean existsByNameAndEmail = restrurentRepository.existsByNameAndEmail(restaurantMaltipartForm.getName(),
         restaurantMaltipartForm.getEmail());
+
+
     if (!existsByNameAndEmail) {
-      Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
-      if (byEmail.isPresent()) {
         Restrurent restrurent = new Restrurent();
         restrurent.setStatus(true);
         restrurent.setLocId(restaurantMaltipartForm.getLocId());
@@ -215,7 +212,7 @@ public class RestrurentServiceImpl implements RestrurentService {
         boolean existsByEmail = userRepositiry.existsByEmail(restaurantMaltipartForm.getEmail());
         if (!existsByEmail) {
           User user = new User();
-          user.setName(byEmail.get().getName());
+          user.setName(restaurantMaltipartForm.getName());
           user.setEmail(restaurantMaltipartForm.getEmail());
           user.setPassword(passwordEncoder.encode(restaurantMaltipartForm.getPassword()));
           user.setMobile(restaurantMaltipartForm.getContact());
@@ -225,19 +222,16 @@ public class RestrurentServiceImpl implements RestrurentService {
         } else {
           Optional<User> byEmailOrMobile = userRepositiry.findByEmail(restaurantMaltipartForm.getEmail());
           User user = byEmailOrMobile.get();
-          user.setName(byEmail.get().getName());
+          user.setName(restaurantMaltipartForm.getName());
           user.setRole("RESTAURENT");
           userRepositiry.save(user);
         }
         return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
       } else {
-        return ResponseHandler.generateResponse("Alre", HttpStatus.BAD_REQUEST, null);
+        return ResponseHandler.generateResponse("Already Preseent", HttpStatus.BAD_REQUEST, null);
 
       }
 
-    } else {
-      return ResponseHandler.generateResponse("Shop Alreay Present...", HttpStatus.BAD_REQUEST, null);
     }
-  }
 
 }
