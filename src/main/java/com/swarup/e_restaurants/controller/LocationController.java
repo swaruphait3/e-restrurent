@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swarup.e_restaurants.model.City;
-import com.swarup.e_restaurants.model.Location;
+import com.swarup.e_restaurants.model.LocationMaster;
 import com.swarup.e_restaurants.service.LocationService;
-
 
 
 @RestController
@@ -43,7 +42,7 @@ public class LocationController {
     }
 
     @PostMapping("addLocation")
-    public ResponseEntity<?> addLocation(@RequestBody Location location) {
+    public ResponseEntity<?> addLocation(@RequestBody LocationMaster location) {
         return locationService.addLocation(location);
     }
 

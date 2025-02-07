@@ -138,6 +138,10 @@ Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getU
         if (all.isEmpty()) {
             return ResponseHandler.generateResponse("No vaild present...", HttpStatus.OK, null);
         } else {
+            for (FoodCategories foodCategories : all) {
+                foodCategories.setResturent(restrurentRepository.findById(foodCategories.getRestId()).get().getName());
+                foodCategories.setFoodType(foodTypeRepository.findById(foodCategories.getTypeId()).get().getTypeDesc());
+            }
             return ResponseHandler.generateResponse("Successful fetch Data...", HttpStatus.OK, all);
         }
     }

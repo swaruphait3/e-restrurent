@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.swarup.e_restaurants.model.City;
 import com.swarup.e_restaurants.model.Country;
-import com.swarup.e_restaurants.model.Location;
+import com.swarup.e_restaurants.model.LocationMaster;
 import com.swarup.e_restaurants.repository.CityRepository;
 import com.swarup.e_restaurants.repository.CountryRepository;
 import com.swarup.e_restaurants.repository.LocationRepository;
@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService{
     }
 
     @Override
-    public ResponseEntity<?> addLocation(Location location) {
+    public ResponseEntity<?> addLocation(LocationMaster location) {
       location.setStatus(true);
       locationRepository.save(location);
       return ResponseHandler.generateResponse("Successfully Saved the City",HttpStatus.OK, null);
@@ -72,8 +72,8 @@ public class LocationServiceImpl implements LocationService{
 
     @Override
     public ResponseEntity<?> fetchAllLocation() {
-      List<Location> all = locationRepository.findAll();
-      for (Location location : all) {
+      List<LocationMaster> all = locationRepository.findAll();
+      for (LocationMaster location : all) {
         location.setCity(cityRepository.findById(location.getCityId()).get().getCityName());
       }
       return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, all);   
@@ -81,7 +81,7 @@ public class LocationServiceImpl implements LocationService{
 
     @Override
     public ResponseEntity<?> findLocationById(int id) {
-      Optional<Location> byId = locationRepository.findById(id);
+      Optional<LocationMaster> byId = locationRepository.findById(id);
       if (byId.isPresent()) {
       return ResponseHandler.generateResponse("Successfully Fetch Details",HttpStatus.OK, byId);
       } else {
@@ -91,7 +91,7 @@ public class LocationServiceImpl implements LocationService{
 
     @Override
     public ResponseEntity<?> getLocationFindByCity(int cityId) {
-     List<Location> allByCityId = locationRepository.findAllByCityId(cityId);
+     List<LocationMaster> allByCityId = locationRepository.findAllByCityId(cityId);
      return ResponseHandler.generateResponse("Successfully Fetch List Of City",HttpStatus.OK, allByCityId);   
     }
     

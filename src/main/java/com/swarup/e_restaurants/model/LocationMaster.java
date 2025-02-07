@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "mst_location")
-public class Location {
+public class LocationMaster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -11,11 +11,11 @@ app.controller("IndexController", function ($scope, $http, $sce) {
   function autoWorkshopFetch() {
     $http({
       method: "GET",
-      url: "file/getWorkShopForBooking",
+      url: "food/findAllActiveList",
     }).then(
       function successCallback(response) {
         console.log(response.data);
-        $scope.listWorkshop = response.data;
+        $scope.foods = response.data.data;
       },
       function errorCallback(response) {
         console.log(response.statusText);

@@ -24,12 +24,13 @@
 			<div class="row">
 				<div class="primary-card-container col-xl-4 col-lg-6 ng-scope" ng-repeat="item in restrurents">
 					<div class="primary-card">
-						<div>
+		
 							<div class="primary-card-image-container">
 								<!-- <div class="img-primary-card" style="background-image: url('upload/{{item.fileLink}}');"></div> -->
-								<img ng-src="{{'uploads/' + item.image}}" alt="" class="img-primary-card">
+								<img ng-src="{{'uploads/' + item.image}}" alt="" style="height: 50vh;"
+								class="img-primary-card">
 							</div>
-						</div>
+						
 						<div class="primary-card-details" style="text-align: center;">
 							<div class="primary-card-header">{{item.name}}</div>
 							<span class="primary-card-desc" >{{item.specality}}</span><br/>
@@ -55,7 +56,7 @@
 	<div class="section-wrapper section-secondary">
 		<div class="section-style-before section-style-after section-style-alpha-before section-style-wave-after">
 			<div class="lead-section-header-container">
-				<span class="lead-section-header">Weekly Specials</span>
+				<span class="lead-section-header">Specials Items</span>
 			</div>
 			<div class="section-body home-carousel-wrapper">
 				<div id="carouselExampleControls" class="carousel sproduct home-carousel" data-interval="false" data-bs-ride="false">
@@ -63,27 +64,32 @@
 						<!-- <div ng-repeat="data in workshop.upload | filter:{type:'listingPage'} track by $index" class="carousel-item" ng-class="{ 'active': $first }">
 							<img src="upload/{{data.fileLink}}" class="d-block ms-auto me-auto w-50" alt="...">
 						</div> -->
-						<div class="carousel-item" ng-repeat="workshop in listWorkshop" ng-class="{ 'active': $first }">
+						<div class="carousel-item" ng-repeat="workshop in foods" ng-class="{ 'active': $first }">
 							<div class="row align-items-center section-height">
 								<div class="col-lg-6">
-									<div class="sproduct" data-interval="false">
-										<div ng-repeat="data in workshop.upload | filter:{type:'homePage'} track by $index">
-											<!-- <img src="" class="d-block ms-auto me-auto w-50" alt="..."> -->
-											<div class="img-section-content" style="background-image: url('upload/{{data.fileLink}}');"></div>
+									
+										<div >
+											<img ng-src="{{'uploads/' + workshop.images}}" class="d-block ms-auto me-auto" 
+											style="width: 500px; height: 50vh; border-radius: 25px;" alt="...">
 										</div>
-									</div>
+
 								</div>
 								<div class="col-lg-6">
 									<div class="section-content">
-										<div class="section-content-header">{{workshop.name}}</div>
-										<div class="section-content-details">
-											<div class="item-description" ng-bind-html="trustAsHtml(workshop.description)">
-												<span class="icon-common icon-section-details icon-chevron-right"></span>
-											</div>
+										<div class="section-content-header">{{workshop.name}}
+											
 										</div>
+										<div style="text-transform: capitalize; letter-spacing: 0.5rem; font-size: 1.5rem;">{{workshop.resturent}}</div><br/>
+
+										<!-- <div class="section-content-details"> -->
+											<div></div>
+											<!-- <div class="item-description" ng-bind-html="trustAsHtml(workshop.description)">
+												<span class="icon-common icon-section-details icon-chevron-right"></span>
+											</div> -->
+										<!-- </div> -->
 										<div class="section-content-cta">
 											<a href="weekly-special-booking?id={{workshop.id}}" class="btn-section-action btn-action-primary">
-												<span class="lbl-btn-action">Book Now</span>
+												<span class="lbl-btn-action">Order Now</span>
 												<span class="icon-common icon-section-action icon-arrow-right"></span>
 											</a>
 										</div>
@@ -104,81 +110,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="section-wrapper section-alpha">
-		<div class="section-style-after after-cover-alpha">
-			<div class="lead-section-header-container">
-				<span class="lead-section-header">regular classes</span>
-			</div>
-			<div class="section-body home-carousel-wrapper">
-				<div id="carouselRegularClasses" class="carousel sproduct home-carousel" data-interval="false">
-					<div class="carousel-inner">
-						<div class="carousel-item" ng-repeat="classes in classess" ng-class="{ 'active': $first }">
-							<div class="row align-items-center section-height">
-								<div class="col-lg-6 section-content-container">
-									<div class="section-content">
-										<div class="section-content-header">{{classes.name}}</div>
-										<div class="section-content-details">
-											<div class="item-description" ng-bind-html="trustAsHtml(classes.description)">
-												<span class="icon-common icon-section-details icon-chevron-right"></span>
-											</div>
-										</div>
-										<div class="section-content-cta">
-											<a href="web-enquiry?classesId={{classes.id}}" class="btn-section-action btn-action-transparent">
-												<span class="lbl-btn-action">Enquire Now</span>
-												<span class="icon-common icon-section-action icon-arrow-right"></span>
-											</a>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 section-image-container">
-									<div ng-repeat="data in classes.upload | filter:{type:'home'} track by $index">
-										<!-- <img src="upload/{{data.fileLink}}" class="d-block ms-auto me-auto w-50" alt="..."> -->
-										<div class="img-section-content" style="background-image: url('upload/{{data.fileLink}}');"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselRegularClasses" data-bs-slide="prev">
-						<span class="icon-common icon-carousel-control prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselRegularClasses" data-bs-slide="next">
-						<span class="icon-common icon-carousel-control next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-				</div>
-			</div>
-			<!-- <div class="section-body" ng-repeat="classes in classess">
-			<div class="row align-items-center">
-				<div class="col-md-6">
-					<div class="secondary-card-image-container">
-						<div id="carouselExampleControls" class="carousel sproduct" data-interval="false">
-							<div class="carousel-inner">
-								
-							</div>
-							<button class="carousel-control-prev" type="button"
-								data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-								<span class="icon-common icon-carousel-control prev-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Previous</span>
-							</button>
-							<button class="carousel-control-next" type="button"
-								data-bs-target="#carouselExampleControls" data-bs-slide="next">
-								<span class="icon-common icon-carousel-control next-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Next</span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					
-				</div>
-			</div>
-		</div> -->
-		</div>
-	</div>
-
 
 	<div class="section-wrapper section-primary pb-5">
 		<div class="section-style-before section-style-alpha-before">

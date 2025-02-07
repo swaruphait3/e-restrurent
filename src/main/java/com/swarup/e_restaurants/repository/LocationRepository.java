@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.swarup.e_restaurants.model.Location;
+import com.swarup.e_restaurants.model.LocationMaster;
 
-public interface LocationRepository extends JpaRepository<Location, Integer>{
 
-   List<Location> findAllByCityId(int cityId);
+public interface LocationRepository extends JpaRepository<LocationMaster, Integer>{
+
+   List<LocationMaster> findAllByCityId(int cityId);
     
 }

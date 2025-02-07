@@ -3,7 +3,7 @@ package com.swarup.e_restaurants.service;
 import org.springframework.http.ResponseEntity;
 
 import com.swarup.e_restaurants.model.City;
-import com.swarup.e_restaurants.model.Location;
+import com.swarup.e_restaurants.model.LocationMaster;
 
 public interface LocationService {
 
@@ -15,7 +15,7 @@ public interface LocationService {
 
     ResponseEntity<?> findCityById(int id);
 
-    ResponseEntity<?> addLocation(Location location);
+    ResponseEntity<?> addLocation(LocationMaster location);
 
     ResponseEntity<?> fetchAllLocation();
 
