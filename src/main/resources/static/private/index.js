@@ -14,7 +14,7 @@ app.controller("IndexController", function ($scope, $http, $sce) {
       url: "food/findAllActiveList",
     }).then(
       function successCallback(response) {
-        console.log(response.data);
+        // console.log(response.data);
         $scope.foods = response.data.data;
       },
       function errorCallback(response) {
@@ -30,7 +30,7 @@ app.controller("IndexController", function ($scope, $http, $sce) {
       url: "restrurent/findAllActiveList",
     }).then(
       function successCallback(response) {
-        console.log(response);
+        // console.log(response);
         $scope.restrurents = response.data.data.filter(function (item) {
           return item.priority !== 0;
         });
@@ -41,39 +41,49 @@ app.controller("IndexController", function ($scope, $http, $sce) {
     );
   }
 
-  autoRegularClassesListFetch();
-  function autoRegularClassesListFetch() {
-    //      alert(" Fetch Hi-------------------------")
+  // $scope.ItemsListbyRestrurent = function (id) {
+  //   $http({
+  //     method: 'GET',
+  //     params: { 'id': id },
+  //     url: 'food/findItemsByResturentId'
+  //   }).then(function successCallback(response) {
+  //     console.log(response);
+      
+  //     $scope.$apply(() => { 
+  //       $scope.items = response.data.data;
+  //     });
+  
+  //     alert(JSON.stringify(response.data.data)); 
+  //   }, function errorCallback(response) {
+  //     console.log(response.statusText);
+  //   });
+  // };
+  
+});
+
+
+app.controller("RestrurentItemController", function ($scope, $http) {
+
+
+  autoWorkshopFetch();
+  function autoWorkshopFetch() {
+
+    const params = new URLSearchParams(window.location.search);
+        const restId = params.get("restid");
+        $scope.activityId = restId;
+
     $http({
-      method: 'GET',
-      url: 'getActiveRegularClasses'
-
-    }).then(function successCallback(response) {
-      console.log(response);
-      $scope.classess = response.data;
-    }, function errorCallback(response) {
-      console.log(response.statusText);
-    });
+      method: "GET",
+      params: { id: $scope.activityId },
+      url: "food/findItemsByResturentId",
+    }).then(
+      function successCallback(response) {
+        $scope.foods = response.data.data;
+      },
+      function errorCallback(response) {
+        console.log(response.statusText);
+      }
+    );
   }
-
-  autoPrivateEventsListFetch();
-  function autoPrivateEventsListFetch() {
-    // alert("Hi-------------------------")
-    $http({
-      method: 'GET',
-      url: 'getActivePrivateEvents'
-
-    }).then(function successCallback(response) {
-      console.log(response);
-      $scope.privateEventss = response.data;
-    }, function errorCallback(response) {
-      console.log(response.statusText);
-    });
-  }
-
-
-
-
-
 
 });

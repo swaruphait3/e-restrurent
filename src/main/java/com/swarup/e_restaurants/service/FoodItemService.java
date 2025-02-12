@@ -19,5 +19,7 @@ public interface FoodItemService {
     ResponseEntity<?> active(Integer id);
 
     ResponseEntity<?> deActive(Integer id);
+
+    ResponseEntity<?> findItemsByResturentId(Integer id);
     
 }

@@ -55,4 +55,9 @@ public class FoodItemController {
     public ResponseEntity<?> deActive(@RequestParam Integer id) {
         return foodItemService.deActive(id);
     }
+
+    @GetMapping(value = "/findItemsByResturentId")
+    public ResponseEntity<?> findItemsByResturentId(@RequestParam Integer id) {
+        return foodItemService.findItemsByResturentId(id);
+    }
 }

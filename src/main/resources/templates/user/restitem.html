@@ -1,0 +1,312 @@
+<div th:replace="user/fragment/head"></div>
+<title>e-Restaurant</title>
+<div th:replace="user/fragment/header"></div>
+<style>
+    .container {
+/* 1140px */
+max-width: 120rem;
+padding: 0 3.2rem;
+margin: 0 auto;
+}
+
+.grid {
+display: grid;
+column-gap: 6.4rem;
+row-gap: 9.6rem;
+}
+
+.grid--3-cols {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.margin-right-md {
+margin-bottom: 4.8rem !important;
+}
+
+strong {
+font-weight: 500;
+}
+
+/***************************/
+/* MEALS SECTION */
+/***************************/
+.section-meals {
+padding: 9.6rem 0;
+}
+
+.meal {
+box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+border-radius: 11px;
+overflow: hidden;
+transition: all 0.4s;
+}
+
+.meal:hover {
+transform: translateY(-1.2rem);
+box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
+}
+
+.meal-content {
+padding: 3.2rem 4.8rem 4.8rem 4.8rem;
+}
+
+.meal-tags {
+margin-bottom: 1.2rem;
+display: flex;
+gap: 0.4rem;
+}
+
+.tag {
+display: inline-block;
+padding: 0.4rem 0.8rem;
+font-size: 1.2rem;
+text-transform: uppercase;
+background-color: #51cf66;
+color: #333;
+border-radius: 100px;
+font-weight: 600;
+}
+
+.tag--vegetarian {
+background-color: #51cf66;
+}
+
+.tag--vegan {
+background-color: #94d82d;
+}
+
+.tag--paleo {
+background-color: #ffd43b;
+}
+
+.meal-title {
+font-size: 2.4rem;
+color: #333;
+font-weight: 600;
+margin-bottom: 3.2rem;
+}
+
+.meal-attributes {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 2rem;
+}
+
+.meal-attribute {
+font-size: 1.8rem;
+display: flex;
+align-items: center;
+gap: 1.6rem;
+}
+
+.meal-icon {
+height: 2.4rem;
+width: 2.4rem;
+color: #e67e22;
+}
+
+.meal-img {
+width: 100%;
+height: 224.15px;
+object-fit: cover;
+}
+
+</style>
+
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!--  views -->
+<div ng-app="IndexModule" ng-controller="RestrurentItemController">
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="home">Home</a></li>
+			<li class="breadcrumb-item"><a>Foods Items</a></li>
+		</ol>
+	</nav>
+
+
+	<div class="view-container">
+
+			
+
+		<div class="page-header-container align-items-center">
+			<div class="page-header">
+				<span class="lbl-dark">OUR</span>
+				<span class="lbl-highlight">Items</span>
+			</div>
+
+			<div class="page-action-search">
+				<label for="filter" class="form-label form-label-highlight">Search:</label>
+				<input type="text" data-kt-filter="search" ng-model="searchText1"
+					class="form-control ps-15 ng-pristine ng-valid ng-empty ng-touched"
+					placeholder="Search">
+			</div>
+
+			<div class="page-action-container">
+				<div class="page-action filter-container">
+					<!-- <div class="dropdown">
+						<button class="btn btn-primary btn-page-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="icon-common icon-filter icon-page-action"></span>
+							<span>Filter</span>
+						</button>
+						<ul class="dropdown-menu filter-dropdown-menu">
+							<div class="filter-head">
+								<div class="header-container"></div>
+								<div class="button-container">
+									<span class="btn-filter-close btn-icon-only">
+										<span class="icon-common icon-filter-close icon-x"></span>
+									</span>
+								</div>
+							</div>
+							<div class="filter-dropdown-body">
+								<div class="lbl-filter-header">Start Date: </div>
+								<input class="form-control filter-date-picker" ng-model="date.startdate" type="date" placeholder="dd-mm-yyy">
+					
+								<div class="lbl-filter-header">End Date: </div>
+								<input class="form-control filter-date-picker" ng-model="date.enddate" type="date" placeholder="dd-mm-yyy">
+								<div class="text-center mt-4">
+									<button class="btn btn-apply btn-secondary">
+										<span class="lbl-btn">Apply</span>
+										<span class="icon-common icon-btn icon-check"></span>
+									</button>
+								</div>
+							</div>
+						</ul>
+					</div> -->
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary btn-page-action" data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click="openModal()">
+						<span class="icon-common icon-filter icon-page-action"></span>
+						<span>Filter</span>
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade filter-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header filter-header">
+									<div class="modal-title filter-title" id="exampleModalLabel">Filter</div>
+									<button type="button" class="btn-filter-close btn-icon-only" data-bs-dismiss="modal" aria-label="Close">
+										<span class="icon-common icon-filter-close icon-x"></span>
+									</button>
+								</div>
+								<div class="modal-body filter-menu-container">
+									<form action="">
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Category: </div>
+											<select class="form-select" name="" id="selectCategory" ng-model="search.cat" >
+												<option selected value="all">ALL</option>
+												<option ng-repeat="item in data track by $index" value="{{item.name}}">{{item.name}}</option>
+											</select>
+										</div>
+
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Price: </div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.priceType" name="price" type="radio" id="lowToHigh" ng-value="'lowToHigh'">
+												<label class="form-check-label" for="lowToHigh">Low to High</label>
+											</div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.priceType" name="price" type="radio" id="highToLow" ng-value="'highToLow'">
+												<label class="form-check-label" for="highToLow">High to Low</label>
+											</div>
+										</div>
+										
+										
+
+										<div class="filter-field-wrapper">
+											<div class="lbl-filter-input-title">Time: </div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.time" name="time1" type="radio" id="1hour" value=1>
+												<label class="form-check-label" for="1hour">1 Hour</label>
+											</div>
+											<div class="filter-field-container">
+												<input class="form-check-input" ng-model="search.time" name="time2" type="radio" id="2hour" value=2>
+												<label class="form-check-label" for="2hour">2 Hours</label>
+											</div>
+										</div>
+										
+
+
+										<div class="modal-footer">
+											<button type="button" class="btn-filter-footer btn-cancel" ng-click="closeModal()" data-bs-dismiss="modal">cancel</button>
+											<button type="button" ng-click="searchData()" class="btn-filter-footer btn-apply" data-bs-dismiss>apply filters</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="container grid grid--3-cols margin-right-md">
+            <div class="meal" ng-repeat="item in foods">
+              <img
+               ng-src="{{'uploads/' + item.images}}"
+                   class="meal-img"
+                   alt="item.images"
+                   />
+              <div class="meal-content">
+                <div class="meal-tags">
+                  <span class="tag tag--vegetarian">{{item.foodType}}</span>
+                
+                </div>
+                <p style="font-size: 1.2rem; font-weight: 600;">Price: <strong>&#8377</strong>{{item.price}}</p>
+                <p style="font-size: 1.5rem; font-weight: 600;">{{item.name}}</p>
+                <div class="section-content-cta">
+                    <a href="orederitem?itemId={{item.id}}" class="btn-section-action btn-action-primary">
+                        <span class="lbl-btn-action">Order Now</span>
+                        <span class="icon-common icon-section-action icon-arrow-right"></span>
+                    </a>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+
+	</div>
+
+</div>
+<!-- views end -->
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+<div th:replace="website/fragment/footer"></div>
+
+<script src="private/index.js"></script>
+<script>
+	$("#date").flatpickr({
+		dateFormat: "Y-m-d",
+		allowInput: true,
+		disableMobile: true, // "true" should not be in quotes
+		minDate: "today" // Disable all previous dates from the present date
+	});
+	$("#startTime").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+		allowInput: true,
+		disableMobile: true
+	});
+	$("#endTime").flatpickr({
+		enableTime: true,
+		noCalendar: true,
+		dateFormat: "H:i",
+		allowInput: true,
+		disableMobile: true
+	});
+</script>
+
+</body>
+
+</html>
