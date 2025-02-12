@@ -87,3 +87,38 @@ app.controller("RestrurentItemController", function ($scope, $http) {
   }
 
 });
+
+app.controller("OrderItemController", function ($scope, $http) {
+
+  $scope.itemName= "";
+  $scope.images = "";
+  $scope.price = "";
+
+  $scope.form = {};
+  
+  autoWorkshopFetch();
+  function autoWorkshopFetch() {
+
+    const params = new URLSearchParams(window.location.search);
+        const restId = params.get("itemId");
+        $scope.activityId = restId;
+
+    $http({
+      method: "GET",
+      params: { id: $scope.activityId },
+      url: "food/findById",
+    }).then(
+      function successCallback(response) {
+        $scope.foods = response.data.data;
+        $scope.form =                           $scope.foods;
+       $scope.itemName = $scope.foods.name;
+       $scope.images = $scope.foods.images;
+       $scope.price = $scope.foods.price;
+      },
+      function errorCallback(response) {
+        console.log(response.statusText);
+      }
+    );
+  }
+
+});
