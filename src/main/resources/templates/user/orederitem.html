@@ -78,12 +78,14 @@
 								ng-change="calculateDueAmount()" ng-disabled="form.paymentStatus === 'FP'">
 						</div>
 						<div class="col-xl-6 col-lg-6 md-12 sm-6">
-							<label for="remarks" class="form-label">Mode Of Payment: </label>
+							<label for="remarks" class="form-label">Mode Of Payment:<span
+								style="color:red;font-weight:bold"> *</span> </label>
 							<select name="location" ng-model="form.locationId" class="form-control select2"
 						 required>
-							<option value="" disabled selected>Select Location</option>
-							<option value="" >Cash On Delivary</option>
-							<option value="" >Online</option>
+							<option value="" disabled selected>Select Mode Of Payment<span
+								style="color:red;font-weight:bold"> *</span></option>
+							<option value="CASH" >Cash On Delivary</option>
+							<option value="ONLINE" >Online</option>
 
 						</select>
 						</div>
