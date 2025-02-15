@@ -27,7 +27,7 @@ import lombok.ToString;
 @Table(name = "mst_orderdetails")
 @JsonIgnoreProperties({ "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate"})
 @EntityListeners(AuditingEntityListener.class)
-public class OrderDetails extends Auditable<String>{
+public class       OrderDetails extends Auditable<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -39,6 +39,7 @@ public class OrderDetails extends Auditable<String>{
     private float totalAmount;
     private int customerId;
     private String modeOfPayment;
+    private String delivaryAddress;
     private String orderStatus;
-
+    private String contactNo;
 }

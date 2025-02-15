@@ -121,6 +121,10 @@ public class OrderServiceImpl implements OrderService{
             orderBill.setBillDate(LocalDate.now());
             orderBill.setRestName(restrurentRepository.findById(byId.get().getRestId()).get().getName());
             orderBill.setCustName(userRepositiry.findById(byId.get().getCustomerId()).get().getName());
+            orderBill.setCustAddress(byId.get().getDelivaryAddress());
+            orderBill.setCustContactNo(byId.get().getContactNo());
+            OrderBill save = orderBillRepository.save(orderBill);
+            byId.get().setBillNo(save.getId());
             byId.get().setOrderStatus("A");
             orderDetailsRepository.save(byId.get());
        

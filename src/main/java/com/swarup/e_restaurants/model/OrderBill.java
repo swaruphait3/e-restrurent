@@ -34,8 +34,6 @@ public class OrderBill extends Auditable<String>{
     private int id;
     private LocalDate billDate;
     private String restName;
-    private int cityId;
-    private int locId;
     private String custName;
     private String custAddress;
     private String custContactNo;
