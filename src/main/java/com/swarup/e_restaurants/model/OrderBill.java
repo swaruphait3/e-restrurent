@@ -33,7 +33,7 @@ public class OrderBill extends Auditable<String>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate billDate;
-    private int branchId;
+    private String restName;
     private int cityId;
     private int locId;
     private String custName;

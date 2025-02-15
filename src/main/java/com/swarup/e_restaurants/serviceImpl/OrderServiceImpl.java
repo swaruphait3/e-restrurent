@@ -1,5 +1,6 @@
 package com.swarup.e_restaurants.serviceImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.swarup.e_restaurants.model.MyUserDetails;
+import com.swarup.e_restaurants.model.OrderBill;
 import com.swarup.e_restaurants.model.OrderDetails;
 import com.swarup.e_restaurants.model.Restrurent;
 import com.swarup.e_restaurants.model.User;
@@ -113,8 +115,19 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public ResponseEntity<?> approveOrder(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'approveOrder'");
+        Optional<OrderDetails> byId = orderDetailsRepository.findById(id);
+        if (byId.isPresent()) {
+            OrderBill orderBill = new OrderBill();
+            orderBill.setBillDate(LocalDate.now());
+            orderBill.setRestName(restrurentRepository.findById(byId.get().getRestId()).get().getName());
+            orderBill.setCustName(userRepositiry.findById(byId.get().getCustomerId()).get().getName());
+            byId.get().setOrderStatus("A");
+            orderDetailsRepository.save(byId.get());
+       
+            return ResponseHandler.generateResponse("Order Canceled..",HttpStatus.OK, null);   
+        } else {
+         return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);         
+        }
     }
     
 }
