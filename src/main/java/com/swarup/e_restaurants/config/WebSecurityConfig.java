@@ -50,7 +50,9 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy","/user/add")
+                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy","/user/add","/restrurent/findAllActiveList",
+                "/food/findAllActiveList","/uploads/**")
+
                 .permitAll()
                 .anyRequest().authenticated()
             )

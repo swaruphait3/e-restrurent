@@ -1,5 +1,7 @@
 var mainApp = angular.module('basicData', []);
 mainApp.controller('basicDataController', function ($scope, $http) {
+
+    alert("hi...")
     $scope.submitForgoPass = function () {
         $http({
             method: "PUT",

@@ -45,42 +45,45 @@
 					</div>
 				</div>
 				<div class="col-xl-6 section-form-conatiner">
-					<form class="row section-form" ng-submit="proceedToPayment()" autocomplete="off">
+					<form class="row section-form" ng-submit="proceedToOrder()" autocomplete="off">
 						<div class="col-xl-6 col-lg-6 md-12 sm-6 ">
 
 							<label for="name" class="form-label">Name:<span
 									style="color:red;font-weight:bold">*</span></label>
-							<input type="text" class="form-control" ng-model="form.clientName"
+							<input type="text" class="form-control" ng-model="form.orderBy"
 								placeholder="Enter Client Name" required>
 						</div>
 						<div class="col-xl-6 col-lg-6 md-12 sm-6">
 							<label for="phone_no" class="form-label">Phone:<span style="color:red;font-weight:bold">
 									*</span></label>
 							<input type="text" class="form-control" pattern="[0-9]{10}" id="phoneNo"
-								ng-model="form.phoneNo" placeholder="10 digit phone number" required>
+								ng-model="form.contactNo" placeholder="10 digit phone number" required>
 						</div>
-			
+						<input type="text" class="form-control" id="itemId"
+						ng-model="form.itemId" hidden>
+
+
 						<div class="col-md-4 sm-6">
 							<label for="price" class="form-label">Price </label>
-							<input type="number" class="form-control" ng-model="form.price" disabled>
+							<input type="number" class="form-control" ng-model="form.rate" disabled>
 						</div>
 						<div class="col-md-4 sm-6">
-							<label for="holdSeats" class="form-label">No. Of Items:<span
+							<label for="qty" class="form-label">No. Of Items:<span
 									style="color:red;font-weight:bold"> *</span></label>
 							<input
-								type="number" min="1" max="50"
-								ng-change="getNetAmount(form.holdSeats)" class="form-control" id="holdSeats"
-								ng-model="form.holdSeats" placeholder="enter no of seats" required>
+								type="number" min="1" max="50" ng-blur="priceCalculate(form.qty)"
+								 class="form-control" id="qty"
+								ng-model="form.qty" placeholder="enter no of seats" required>
 						</div>
 						<div class="col-md-4 sm-6">
-							<label for="holdAmount" class="form-label">Total Amount</label>
-							<input type="number" class="form-control" ng-model="form.holdAmount"
-								ng-change="calculateDueAmount()" ng-disabled="form.paymentStatus === 'FP'">
+							<label for="totalAmount" class="form-label">Total Amount</label>
+							<input type="number" class="form-control" ng-model="form.totalAmount"
+							disabled>
 						</div>
 						<div class="col-xl-6 col-lg-6 md-12 sm-6">
 							<label for="remarks" class="form-label">Mode Of Payment:<span
 								style="color:red;font-weight:bold"> *</span> </label>
-							<select name="location" ng-model="form.locationId" class="form-control select2"
+							<select name="modeOfPayment" ng-model="form.modeOfPayment" class="form-control select2"
 						 required>
 							<option value="" disabled selected>Select Mode Of Payment<span
 								style="color:red;font-weight:bold"> *</span></option>
@@ -98,7 +101,7 @@
 						<div class="col-md-12 sm-12">
 							<label for="phone_no" class="form-label">Delivary Address:<span style="color:red;font-weight:bold">
 									*</span></label>
-									<textarea class="form-control" id="locAddress" ng-model="form.locAddress" placeholder="Enter Address" style="height: 150px;" required></textarea>
+									<textarea class="form-control" id="delivaryAddress" ng-model="form.delivaryAddress" placeholder="Enter Address" style="height: 150px;" required></textarea>
 						</div>
 						<div class="col-12 text-center d-flex justify-content-center">
 							<button class="btn-section-action btn-action-primary btn-pay mt-5" type="submit">

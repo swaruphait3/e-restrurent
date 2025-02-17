@@ -1,11 +1,6 @@
 var app = angular.module("IndexModule", ['ngSanitize']);
 
-app.controller("IndexController", function ($scope, $http, $sce) {
-
-  $scope.trustAsHtml = function (html) {
-    return $sce.trustAsHtml(html);
-  };
-
+app.controller("IndexController", function ($scope, $http) {
 
   autoWorkshopFetch();
   function autoWorkshopFetch() {
@@ -14,6 +9,8 @@ app.controller("IndexController", function ($scope, $http, $sce) {
       url: "food/findAllActiveList",
     }).then(
       function successCallback(response) {
+
+
         // console.log(response.data);
         $scope.foods = response.data.data;
       },
@@ -92,8 +89,6 @@ app.controller("OrderItemController", function ($scope, $http) {
 
   $scope.itemName= "";
   $scope.images = "";
-  $scope.price = "";
-
   $scope.form = {};
   
   autoWorkshopFetch();
@@ -102,7 +97,7 @@ app.controller("OrderItemController", function ($scope, $http) {
     const params = new URLSearchParams(window.location.search);
         const restId = params.get("itemId");
         $scope.activityId = restId;
-
+        $scope.form.itemId = $scope.activityId;
     $http({
       method: "GET",
       params: { id: $scope.activityId },
@@ -110,15 +105,55 @@ app.controller("OrderItemController", function ($scope, $http) {
     }).then(
       function successCallback(response) {
         $scope.foods = response.data.data;
-        $scope.form =                           $scope.foods;
+        $scope.form =  $scope.foods;
        $scope.itemName = $scope.foods.name;
        $scope.images = $scope.foods.images;
-       $scope.price = $scope.foods.price;
+       $scope.form.rate = $scope.foods.price;
       },
       function errorCallback(response) {
         console.log(response.statusText);
       }
     );
   }
+
+
+  $scope.priceCalculate = function (qty) {
+    $scope.form.totalAmount = $scope.form.rate * qty;
+}
+
+
+    $scope.proceedToOrder = function () {
+        $http({
+            method: "POST",
+            url: 'order/purchase',
+            data: angular.toJson($scope.form),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            transformResponse: angular.identity
+        }).then(function (response) {
+      Swal.fire({
+          text: response.data.message,
+          icon: "success",
+          buttonsStyling: !1,
+          confirmButtonText: "Ok, got it!",
+          customClass: {
+              confirmButton: "btn btn-primary"
+          }
+      })
+          console.log(response.data);
+      }).catch(function (error) {
+          Swal.fire({
+              text: response.data.message,
+              icon: "error",
+              buttonsStyling: !1,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                  confirmButton: "btn btn-primary"
+              }
+          })
+          console.error(error);
+      });
+    };
 
 });

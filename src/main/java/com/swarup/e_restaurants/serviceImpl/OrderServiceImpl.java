@@ -48,6 +48,7 @@ public class OrderServiceImpl implements OrderService{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
         Optional<User> byEmail = userRepositiry.findByEmail(userDetails.getUser().getEmail());
+        System.out.println("******************orderDetails***************");
         if (byEmail.isPresent()) {
             orderDetails.setOrderStatus("P");
             orderDetails.setCustomerId(byEmail.get().getId());

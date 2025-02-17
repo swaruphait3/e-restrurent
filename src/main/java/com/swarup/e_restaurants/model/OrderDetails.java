@@ -38,6 +38,7 @@ public class       OrderDetails extends Auditable<String>{
     private int qty;
     private float totalAmount;
     private int customerId;
+    private String orderBy;
     private String modeOfPayment;
     private String delivaryAddress;
     private String orderStatus;
