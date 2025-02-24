@@ -106,9 +106,9 @@ app.controller("OrderItemController", function ($scope, $http) {
       function successCallback(response) {
         $scope.foods = response.data.data;
         $scope.form =  $scope.foods;
-       $scope.itemName = $scope.foods.name;
-       $scope.images = $scope.foods.images;
-       $scope.form.rate = $scope.foods.price;
+        $scope.itemName = $scope.foods.name;
+        $scope.images = $scope.foods.images;
+        $scope.form.rate = $scope.foods.price;
       },
       function errorCallback(response) {
         console.log(response.statusText);
@@ -119,10 +119,9 @@ app.controller("OrderItemController", function ($scope, $http) {
 
   $scope.priceCalculate = function (qty) {
     $scope.form.totalAmount = $scope.form.rate * qty;
-}
+  }
 
-
-    $scope.proceedToOrder = function () {
+  $scope.proceedToOrder = function () {
         $http({
             method: "POST",
             url: 'order/purchase',
