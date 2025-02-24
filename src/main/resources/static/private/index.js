@@ -90,6 +90,7 @@ app.controller("OrderItemController", function ($scope, $http) {
   $scope.itemName= "";
   $scope.images = "";
   $scope.form = {};
+
   
   autoWorkshopFetch();
   function autoWorkshopFetch() {
@@ -97,7 +98,7 @@ app.controller("OrderItemController", function ($scope, $http) {
     const params = new URLSearchParams(window.location.search);
         const restId = params.get("itemId");
         $scope.activityId = restId;
-        $scope.form.itemId = $scope.activityId;
+        // $scope.form.itemId = $scope.activityId;
     $http({
       method: "GET",
       params: { id: $scope.activityId },
@@ -109,6 +110,8 @@ app.controller("OrderItemController", function ($scope, $http) {
         $scope.itemName = $scope.foods.name;
         $scope.images = $scope.foods.images;
         $scope.form.rate = $scope.foods.price;
+        $scope.form.itemId = response.data.data.id;
+        $scope.form.restId = response.data.data.restId;
       },
       function errorCallback(response) {
         console.log(response.statusText);

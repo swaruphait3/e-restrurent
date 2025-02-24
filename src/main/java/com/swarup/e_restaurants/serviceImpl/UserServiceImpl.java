@@ -18,7 +18,6 @@ import com.swarup.e_restaurants.service.UserService;
 @Service
 public class UserServiceImpl implements UserService{
 
-
     @Autowired
     private UserRepositiry userRepositiry;
 

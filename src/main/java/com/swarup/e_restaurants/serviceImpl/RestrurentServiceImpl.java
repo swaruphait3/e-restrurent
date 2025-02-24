@@ -161,12 +161,8 @@ public class RestrurentServiceImpl implements RestrurentService {
 
   @Override
   public ResponseEntity<?> addResaturant(RestaurantMaltipartForm restaurantMaltipartForm) {
-    // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    // MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-  System.out.println("restaurantMaltipartForm: "+restaurantMaltipartForm);
     boolean existsByNameAndEmail = restrurentRepository.existsByNameAndEmail(restaurantMaltipartForm.getName(),
         restaurantMaltipartForm.getEmail());
-
 
     if (!existsByNameAndEmail) {
         Restrurent restrurent = new Restrurent();
@@ -229,9 +225,7 @@ public class RestrurentServiceImpl implements RestrurentService {
         return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
       } else {
         return ResponseHandler.generateResponse("Already Preseent", HttpStatus.BAD_REQUEST, null);
-
       }
-
     }
 
 }

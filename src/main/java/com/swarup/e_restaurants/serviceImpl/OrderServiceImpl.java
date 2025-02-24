@@ -16,7 +16,6 @@ import com.swarup.e_restaurants.model.OrderBill;
 import com.swarup.e_restaurants.model.OrderDetails;
 import com.swarup.e_restaurants.model.Restrurent;
 import com.swarup.e_restaurants.model.User;
-import com.swarup.e_restaurants.repository.FoodTypeRepository;
 import com.swarup.e_restaurants.repository.OrderBillRepository;
 import com.swarup.e_restaurants.repository.OrderDetailsRepository;
 import com.swarup.e_restaurants.repository.RestrurentRepository;
@@ -38,9 +37,6 @@ public class OrderServiceImpl implements OrderService{
     private UserRepositiry userRepositiry;
 
     @Autowired
-    private FoodTypeRepository foodTypeRepository;
-
-    @Autowired
     private RestrurentRepository restrurentRepository;
 
     @Override
@@ -48,11 +44,10 @@ public class OrderServiceImpl implements OrderService{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
         Optional<User> byEmail = userRepositiry.findByEmail(userDetails.getUser().getEmail());
-        System.out.println("******************orderDetails***************");
+        System.out.println(orderDetails);
         if (byEmail.isPresent()) {
             orderDetails.setOrderStatus("P");
             orderDetails.setCustomerId(byEmail.get().getId());
-            orderDetails.setRestId(foodTypeRepository.findById(orderDetails.getItemId()).get().getRestId());
             orderDetailsRepository.save(orderDetails);
          return ResponseHandler.generateResponse("Successfully Placed Your Order..",HttpStatus.OK, null);
 
