@@ -1,11 +1,15 @@
 package com.swarup.e_restaurants.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -43,4 +47,19 @@ public class       OrderDetails extends Auditable<String>{
     private String delivaryAddress;
     private String orderStatus;
     private String contactNo;
+    private LocalDate purchaseDate;
+    private LocalTime purchaseTime;
+    private LocalDate delivaryDate;
+    private LocalTime delivaryTime;
+
+    @Transient
+    private String images;
+
+    @Transient
+    private String itemName;
+
+    @Transient
+    private String resturentName;
+
+
 }

@@ -1,6 +1,7 @@
 package com.swarup.e_restaurants.serviceImpl;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,11 +12,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.swarup.e_restaurants.model.FoodCategories;
 import com.swarup.e_restaurants.model.MyUserDetails;
 import com.swarup.e_restaurants.model.OrderBill;
 import com.swarup.e_restaurants.model.OrderDetails;
 import com.swarup.e_restaurants.model.Restrurent;
 import com.swarup.e_restaurants.model.User;
+import com.swarup.e_restaurants.repository.FoodCategoriesRepository;
 import com.swarup.e_restaurants.repository.OrderBillRepository;
 import com.swarup.e_restaurants.repository.OrderDetailsRepository;
 import com.swarup.e_restaurants.repository.RestrurentRepository;
@@ -39,6 +42,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private RestrurentRepository restrurentRepository;
 
+    @Autowired
+    private FoodCategoriesRepository foodCategoriesRepository;
+
     @Override
     public ResponseEntity<?> purchase(OrderDetails orderDetails) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +54,8 @@ public class OrderServiceImpl implements OrderService{
         if (byEmail.isPresent()) {
             orderDetails.setOrderStatus("P");
             orderDetails.setCustomerId(byEmail.get().getId());
+            orderDetails.setPurchaseDate(LocalDate.now());
+            orderDetails.setPurchaseTime(LocalTime.now());
             orderDetailsRepository.save(orderDetails);
          return ResponseHandler.generateResponse("Successfully Placed Your Order..",HttpStatus.OK, null);
 
@@ -65,7 +73,12 @@ public class OrderServiceImpl implements OrderService{
         Optional<User> byEmail = userRepositiry.findByEmail(userDetails.getUser().getEmail());
         if (byEmail.isPresent()) {
             List<OrderDetails> allByCustomerId = orderDetailsRepository.findAllByCustomerId(byEmail.get().getId());
-
+       for (OrderDetails orderDetails : allByCustomerId) {
+        Optional<FoodCategories> byId = foodCategoriesRepository.findById(orderDetails.getItemId());
+        orderDetails.setResturentName(restrurentRepository.findById(orderDetails.getRestId()).get().getName());
+        orderDetails.setItemName(byId.get().getName());
+        orderDetails.setImages(byId.get().getImages());
+       }
        return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, allByCustomerId);
             
         } else {
@@ -81,6 +94,12 @@ public class OrderServiceImpl implements OrderService{
         Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
         if (byEmail.isPresent()) {
             List<OrderDetails> allByCustomerId = orderDetailsRepository.findAllByRestId(byEmail.get().getId());
+            for (OrderDetails orderDetails : allByCustomerId) {
+                Optional<FoodCategories> byId = foodCategoriesRepository.findById(orderDetails.getItemId());
+                orderDetails.setResturentName(restrurentRepository.findById(orderDetails.getRestId()).get().getName());
+                orderDetails.setItemName(byId.get().getName());
+                orderDetails.setImages(byId.get().getImages());
+               }
             return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, allByCustomerId);   
         } else {
          return ResponseHandler.generateResponse("No valid User found..",HttpStatus.BAD_REQUEST, null);   

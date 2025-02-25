@@ -54,7 +54,7 @@
           <a class="nav-link" href="home" onclick="menuToggle(this)">WishList</a>
         </li>
         <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
-          <a class="nav-link" th:href="@{/order}" onclick="menuToggle(this)">Order</a>
+          <a class="nav-link" th:href="@{/orderlist}" onclick="menuToggle(this)">Order</a>
         </li>
         <li th:if="${#authentication.getPrincipal()} != 'anonymousUser'" class="nav-item menu-item" onmouseover="tempMenuOpen(this)" onmouseout="tempMenuClose(this)">
           <a class="nav-link" href="logout" onclick="menuToggle(this)">LOGOUT</a>

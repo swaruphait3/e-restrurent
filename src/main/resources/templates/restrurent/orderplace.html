@@ -1,0 +1,126 @@
+<div th:replace="fragment/head"></div>
+<title>e-Restrurent | Restrurent</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+ <div ng-app="OrderModule" ng-controller="OrderController">
+    <nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="restrurent">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Order</li>
+		</ol>
+	</nav>
+
+    <div id="tblCustomers" class="user-table-container">
+        <table class="user-table-view">
+            <tr class="table-head-primary">
+                <th>S/N</th>
+                <th>Item</th>
+                <th>qty</th>
+                <th>Order By</th>
+                <th>Contact No</th>
+                <th>Delivary Address</th>
+                <th>Address</th>
+                <th>Amount</th>
+                <th>Image</th>
+                <th>action</th>
+            </tr>
+            <tr ng-repeat="res in orders | filter:searchText">
+                <td>{{$index + 1}}</td>
+                <td>{{res.itemName}}</td>
+                <td>{{res.qty}}</td>
+                <td>{{res.orderBy}}</td>
+                <td>{{res.orderBy}}</td>
+                <td>{{res.contactNo}}</td>
+                <td>{{res.delivaryAddress}}</td>
+                <td>{{res.rate}} * {{res.qty}} = {{res.totalAmount}}</td>
+       
+                
+                <!-- <img ng-if="tdata.images!=null" id="image_view_modal"
+                ng-click="setImageAsViewed($index,tdata.images)" src="uploads/{{tdata.images}}"
+                style="width: 50px; border-radius: 10px; cursor: pointer;" /> -->
+                <td>
+                    <span >
+                        <img style="height: 80px; width: 100px;" ng-src="{{'uploads/' + res.images}}" alt="Image">
+                    </span>
+                    
+                </td>
+                <td>
+              <button  type="button" class="btn btn-success">Confirm</button> 
+              <!-- <button type="button" class="btn btn-success">Delivared</button> -->
+
+                </td>
+
+        </table>
+    </div>
+ </div>
+
+ <!-- <div th:replace="website/fragment/footer"></div> -->
+
+ <script src="assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/angular.min.js" type="text/javascript"></script>
+<script src="assets/js/angular-sanitize.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="assets/js/flatpickr.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- <script src="assets/js/flatpickr.min.js" type="text/javascript"></script> -->
+<script>
+  //function to custom menu dropdown
+  //to use this set menuToggle(this) function to the element, and add .menu-item class to the container element
+  function menuToggle(menuToggle) {
+    var clickedItem = menuToggle.closest('.menu-item'); //calling the conatiner menu
+
+    clickedItem.classList.remove('menu-temp-active'); //removing the class from .menu-item element
+
+    var isMenuActive = clickedItem.classList.contains('menu-active');
+    // Remove the active class from all elements
+    var elements = document.getElementsByClassName('menu-item');
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].classList.remove('menu-active');
+    }
+
+    // Toggle the class of the clicked element
+    if (!isMenuActive) {
+      clickedItem.classList.add('menu-active');
+    }
+  }
+
+  if (window.innerWidth > 991) {
+    function tempMenuOpen(activeMenu) {
+      var clickedItem = activeMenu.closest('.menu-item'); //calling the conatiner menu
+
+      clickedItem.classList.add('menu-temp-active'); //adding the class along with .menu-item
+    }
+
+    function tempMenuClose(deactiveMenu) {
+      var clickedItem = deactiveMenu.closest('.menu-item'); //calling the conatiner menu
+
+      clickedItem.classList.remove('menu-temp-active'); //removing the class from .menu-item element
+    }
+  }
+  var showHideLoad = function (hideIndicator) {
+  if (typeof hideIndicator === "undefined" || hideIndicator === null) {
+      // console.log('data');
+      $('#overlay').show();
+  } else {
+      // console.log('data1');
+      $('#overlay').hide();
+  }
+};
+
+  function collapseExpandDesc(event) {
+    event.preventDefault(); // Prevent the default behavior of the link
+
+    // Find the parent item-description-container of the clicked link
+    var container = event.target.closest('.description-collapse-expand');
+
+    // Toggle the .expand class on the found container
+    container.classList.toggle('expand');
+  }
+</script>
+<script src="private/restrurent/order.js"></script>

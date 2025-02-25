@@ -159,3 +159,34 @@ app.controller("OrderItemController", function ($scope, $http) {
     };
 
 });
+
+
+app.controller("OrderListController", function ($scope, $http,  $window) {
+
+  $scope.itemName= "";
+  $scope.images = "";
+  $scope.form = {};
+  $scope.ordersLength = null;
+
+  
+  autoWorkshopFetch();
+  function autoWorkshopFetch() {
+    $http({
+      method: "GET",
+      url: "order/viewOrderPurchaser",
+    }).then(
+      function successCallback(response) {
+        $scope.orders = response.data.data;
+        $scope.ordersLength = $scope.orders.length; // Get the length here
+      },
+      function errorCallback(response) {
+        console.log(response.statusText);
+      }
+    );
+  }
+
+  $scope.buyAgain = function(itemId) {
+    $window.location.href = 'orederitem?itemId=' + itemId;
+};
+
+});
