@@ -49,7 +49,10 @@
                     
                 </td>
                 <td>
-              <button  type="button" class="btn btn-success">Confirm</button> 
+              <button  type="button" class="btn btn-success" ng-click="confirmOrder(res.id)" ng-if="res.orderStatus=='P'">Confirm</button> 
+              <button  type="button" class="btn btn-info" ng-click="confirmOrder(res.id)" ng-if="res.orderStatus=='A'">Ready</button> 
+              <button  type="button" class="btn btn-info" ng-click="confirmOrder(res.id)" ng-if="res.orderStatus=='D'">Delivared</button> 
+
               <!-- <button type="button" class="btn btn-success">Delivared</button> -->
 
                 </td>

@@ -25,5 +25,41 @@ app.controller("OrderController", function ($scope, $http) {
   }
 
 
+  $scope.confirmOrder = function (id) {
+    $http({
+        method: 'GET',
+        params: { 'id': id },
+        url: 'order/approveOrder'
+    }).then(_success, _error);
+};
+
+function _success(response) {
+    autoWorkshopFetch();
+    Swal.fire({
+        text: response.data.message,
+        icon: "success",
+        buttonsStyling: !1,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn btn-primary"
+        }
+    })
+}
+
+function _error(response) {
+    console.log(response);
+
+    Swal.fire({
+        text: response.data.message,
+        icon: "error",
+        buttonsStyling: !1,
+        confirmButtonText: "Ok, got it!",
+        customClass: {
+            confirmButton: "btn btn-primary"
+        }
+    })
+}
+
+
 
 });

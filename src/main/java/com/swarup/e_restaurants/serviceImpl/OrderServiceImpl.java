@@ -1,6 +1,7 @@
 package com.swarup.e_restaurants.serviceImpl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -138,12 +139,27 @@ public class OrderServiceImpl implements OrderService{
             orderBill.setCustName(userRepositiry.findById(byId.get().getCustomerId()).get().getName());
             orderBill.setCustAddress(byId.get().getDelivaryAddress());
             orderBill.setCustContactNo(byId.get().getContactNo());
+            float netAmount = byId.get().getTotalAmount() * 0.82f;
+            float taxAmount = byId.get().getTotalAmount() * 0.18f;
+            orderBill.setNet(netAmount);
+            orderBill.setTax(taxAmount);
+            orderBill.setGross(byId.get().getTotalAmount());
+            orderBill.setPayMode(byId.get().getModeOfPayment());
             OrderBill save = orderBillRepository.save(orderBill);
             byId.get().setBillNo(save.getId());
             byId.get().setOrderStatus("A");
+
+            LocalDateTime plusMinutes = LocalDateTime.now().plusMinutes(30);
+            byId.get().setExpectedDelivary(plusMinutes);
+            // LocalDate localDate = plusMinutes.toLocalDate();
+            // LocalTime localTime = plusMinutes.toLocalTime();
+            
+            // System.out.println("LocalDate: " + localDate);
+            // System.out.println("LocalTime: " + localTime);
+            // byId.get().setDelivaryDate(localDate);
             orderDetailsRepository.save(byId.get());
        
-            return ResponseHandler.generateResponse("Order Canceled..",HttpStatus.OK, null);   
+            return ResponseHandler.generateResponse("Order Confiremd.",HttpStatus.OK, null);   
         } else {
          return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);         
         }

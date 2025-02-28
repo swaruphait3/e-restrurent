@@ -1,6 +1,7 @@
 package com.swarup.e_restaurants.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
@@ -51,6 +52,7 @@ public class       OrderDetails extends Auditable<String>{
     private LocalTime purchaseTime;
     private LocalDate delivaryDate;
     private LocalTime delivaryTime;
+    private LocalDateTime expectedDelivary;
 
     @Transient
     private String images;
