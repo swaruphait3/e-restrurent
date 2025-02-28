@@ -362,11 +362,17 @@
                             <span class="itemPrice">&#8377{{order.rate}} * {{order.qty}} = &#8377{{order.totalAmount}}</span>
                             <button class="buy_again"  ng-click="buyAgain(order.itemId)">Buy it again</button>
                         </div>
+
                     </div>
                     <div class="btn_group">
-                        <button ng-if="order.billNo==0" class="buy_again">Cancel Order</button>
-                        <button ng-if="order.billNo!=0" class="gift_btn">Order receipt</button>
-                        <button class="gift_btn">Feedback</button>
+                        <button ng-if="order.orderStatus=='P'" class="gift_btn" ng-click="cancelOrder(order.id)" style="background-color: rgb(237, 250, 123); color: #161616;">Cancel Order</button>
+                        <button ng-if="order.billNo!=0" class="gift_btn" style="background-color: rgb(87, 99, 121); color: #ececec;">Order receipt</button>
+                        <button class="gift_btn" ng-if="order.orderStatus=='D'">Feedback</button>
+                        <button class="gift_btn" style="background-color: rgb(243, 66, 42); color: #ececec;" ng-if="order.orderStatus=='C'">Cancelled</button>
+        
+                    </div>
+                    <div ng-if="order.orderStatus=='A'">
+                        <p><span>Expected Delivary:</span>  {{order.expectedDelivary | date: 'dd MMM yyyy, hh:mm:ss a'}}</p>
                     </div>
                 </div>
             </div>

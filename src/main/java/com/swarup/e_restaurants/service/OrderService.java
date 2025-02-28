@@ -17,5 +17,7 @@ public interface OrderService {
     ResponseEntity<?> cancelOrder(int id);
 
     ResponseEntity<?> approveOrder(int id);
+
+    ResponseEntity<?> viewBill(int id);
     
 }

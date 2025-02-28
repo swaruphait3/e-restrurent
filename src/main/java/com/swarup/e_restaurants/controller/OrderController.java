@@ -49,4 +49,9 @@ public class OrderController {
         return orderService.approveOrder(id);
     }
 
+    @GetMapping(value = "/viewBill")
+    public ResponseEntity<?> viewBill(@RequestParam int id) {
+        return orderService.viewBill(id);
+    }
+
 }

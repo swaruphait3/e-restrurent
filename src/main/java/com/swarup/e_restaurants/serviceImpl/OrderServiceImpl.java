@@ -164,5 +164,16 @@ public class OrderServiceImpl implements OrderService{
          return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);         
         }
     }
+
+    @Override
+    public ResponseEntity<?> viewBill(int id) {
+       Optional<OrderBill> byId = orderBillRepository.findById(id);
+      if (byId.isPresent()) {
+        return ResponseHandler.generateResponse("Fetched The Details...",HttpStatus.OK, byId);  
+      } else {
+        return ResponseHandler.generateResponse("Order Confiremd.",HttpStatus.BAD_REQUEST, null);   
+      }
+
+    }
     
 }
