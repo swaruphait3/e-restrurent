@@ -53,6 +53,7 @@ public class       OrderDetails extends Auditable<String>{
     private LocalDate delivaryDate;
     private LocalTime delivaryTime;
     private LocalDateTime expectedDelivary;
+    private Integer delivaryPersonId;
 
     @Transient
     private String images;
@@ -63,5 +64,12 @@ public class       OrderDetails extends Auditable<String>{
     @Transient
     private String resturentName;
 
+    @Transient
+    private OrderBill orderBill;
 
+    @Transient
+    private float platformCharge;
+
+    @Transient
+    private float netEarning;
 }

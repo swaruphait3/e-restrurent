@@ -1528,6 +1528,11 @@ input:checked + .knob:before {
   background-color: #FF5B40 !important;
 }
 
+.icon-report {
+  mask-image: url(../icons/report.svg);
+  -webkit-mask-image: url(../icons/report.svg);
+}
+
 .icon-chevron, .select-selected:after {
   mask-image: url(../icons/chevron-down.svg);
   -webkit-mask-image: url(../icons/chevron-down.svg);
@@ -1544,7 +1549,7 @@ input:checked + .knob:before {
   background-color: #2F2F2F;
   position: absolute;
   right: 15px;
-  top: 44px;
+  top: 32px;
 }
 
 .reg-form .icon-form {
@@ -1691,6 +1696,12 @@ input:checked + .knob:before {
   mask-image: url(../icons/excel.svg);
   -webkit-mask-image: url(../icons/excel.svg);
   background-color: #20744A;
+}
+
+.icon-print {
+  mask-image: url(../icons/print.svg);
+  -webkit-mask-image: url(../icons/print.svg);
+  background-color: #6D2F02;
 }
 
 .icon-add-circle {

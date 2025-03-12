@@ -49,9 +49,25 @@ public class OrderController {
         return orderService.approveOrder(id);
     }
 
+    @GetMapping(value = "/readyOrder")
+    public ResponseEntity<?> readyOrder(@RequestParam int id) {
+        return orderService.readyOrder(id);
+    }
+
+    @GetMapping(value = "/delivaryOrder")
+    public ResponseEntity<?> delivaryOrder(@RequestParam int id) {
+        return orderService.delivaryOrder(id);
+    }
+
+
     @GetMapping(value = "/viewBill")
     public ResponseEntity<?> viewBill(@RequestParam int id) {
         return orderService.viewBill(id);
+    }
+
+    @GetMapping(value = "/viewRestrurentWiseBill")
+    public ResponseEntity<?> viewRestrurentWiseBill() {
+        return orderService.viewRestrurentWiseBill();
     }
 
 }

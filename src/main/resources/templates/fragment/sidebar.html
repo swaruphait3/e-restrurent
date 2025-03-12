@@ -12,6 +12,13 @@
           </li>
           <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"
           th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/restrurent' ? 'link-active':''}">
+          <a class="nav-link active" th:href="@{/delivary_boy}">
+            <span class="icon-common icon-sidemenu icon-classes"></span>
+            <span class="link-name">Delivary Boy</span>
+          </a>
+        </li>
+          <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"
+          th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/restrurent' ? 'link-active':''}">
           <a class="nav-link active" th:href="@{/rest}">
             <span class="icon-common icon-sidemenu icon-classes"></span>
             <span class="link-name">Restrurent</span>
@@ -47,44 +54,14 @@
           </li>
 
 
-          <li sec:authorize="hasAuthority('PRIVATEEVENTS')" class="nav-item"
+          <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/private-events' ? 'link-active':''}">
-            <a class="nav-link active" th:href="@{/private-events}">
-              <span class="icon-common icon-sidemenu icon-events"></span>
-              <span class="link-name">private events</span>
+            <a class="nav-link active" th:href="@{/sales_report}">
+              <span class="icon-common icon-sidemenu icon-report"></span>
+              <span class="link-name">Reports</span>
             </a>
           </li>
-          <li sec:authorize="hasAuthority('ADMINMANAGEMENT')" class="nav-item"
-            th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-user' or #httpServletRequest.getRequestURI() == '/art-rickshaw/manage-role' or #httpServletRequest.getRequestURI() == '/art-rickshaw/manage-permission'  ? 'sub-menu-active' : ''}">
-            <a class="nav-link" onclick="toggleSubMenu(this)">
-              <span class="icon-common icon-sidemenu icon-admin"></span>
-              <span class="link-name">Admin</span>
-              <span class="icon-common icon-sidemenu icon-chevron"></span>
-            </a>
-            <ul class="sub-menu-container">
-              <li sec:authorize="hasAuthority('USERMANAGEMENT')" class="sub-menu-item"><a class="sub-menu-link"
-                  th:href="@{/manage-user}"
-                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-user' ? 'link-active':''}">
-                  <span class="icon-common icon-dash"></span>
-                  <span class="submenu-link-label">Manage User</span>
-                </a>
-              </li>
-              <li sec:authorize="hasAuthority('USERMANAGEMENT')" class="sub-menu-item">
-                <a class="sub-menu-link" th:href="@{/manage-role}"
-                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-role' ? 'link-active':''}">
-                  <span class="icon-common icon-dash"></span>
-                  <span class="submenu-link-label">User permission</span>
-                </a>
-              </li>
-              <li sec:authorize="hasAuthority('PERMISSION')" class="sub-menu-item">
-                <a class="sub-menu-link" th:href="@{/manage-permission}"
-                  th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/manage-permission' ? 'link-active':''}">
-                  <span class="icon-common icon-dash"></span>
-                  <span class="submenu-link-label">Permission Table</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+
           <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity-category' or #httpServletRequest.getRequestURI() == '/art-rickshaw/city-master' or #httpServletRequest.getRequestURI() == '/art-rickshaw/location-master' or #httpServletRequest.getRequestURI() == '/art-rickshaw/corporate-booking-master' ? 'sub-menu-active' : ''}">
             <a class="nav-link" onclick="toggleSubMenu(this)">

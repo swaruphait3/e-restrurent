@@ -8,6 +8,25 @@ app.controller("SignUpController", function ($scope, $http) {
     $scope.views = {};
     $scope.views.list = true;
 
+    $scope.views.list = true;
+	$scope.isPasswordVisible = false;
+
+
+	$scope.togglePassword = function() {
+		$scope.isPasswordVisible = !$scope.isPasswordVisible;
+		var passwordInput = document.getElementById('idPassword');
+		var toggleIcon = document.getElementById('togglePassword');
+		
+		if ($scope.isPasswordVisible) {
+			passwordInput.type = 'text';
+			toggleIcon.classList.remove('icon-toggle-pass-slash');
+			toggleIcon.classList.add('icon-toggle-pass');
+		} else {
+			passwordInput.type = 'password';
+			toggleIcon.classList.remove('icon-toggle-pass');
+			toggleIcon.classList.add('icon-toggle-pass-slash');
+		}
+	};
 
 
     $scope.addUser = function () {

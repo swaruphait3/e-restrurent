@@ -1,0 +1,133 @@
+<div th:replace="fragment/head"></div>
+<title>e-Restrurent | Sales Report</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<div ng-app="SalesReportModule" ng-controller="SalesReportController">
+
+    <div class="breadcrumb-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/restrurent}">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Sales Report</span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-xxl page-action-header-container order-1 order-xxl-2">
+        <div class="page-action-header">Sales Report</div>
+    </div>
+    <div class="row page-action-container">
+
+        <div class="page-action-end-container">
+            <div class="btn-page-action-container">
+
+                <div class="dropdown">
+                    <button class="btn btn-page-action" type="button"
+                        id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="icon-common icon-filter icon-page-action-button"></span>
+                        <span class="lbl-page-action-button">Filter</span>
+                    </button>
+               
+                        <ul class="dropdown-menu filter-dropdown-menu px-3"
+                            aria-labelledby="dropdownMenuButton1">
+                            <form ng-submit="fetchTravelData()">
+                            <div class="lbl-filter-header">Start Date:</div>
+                            <input class="form-control filter-date-picker" type="date"
+                                ng-model="date.startdate" placeholder="dd-mm-yyy">
+
+                            <div class="lbl-filter-header">End Date:</div>
+                            <input class="form-control filter-date-picker" type="date"
+                                ng-model="date.enddate" placeholder="dd-mm-yyy">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-apply btn-primary">
+                                    <span class="lbl-btn">Apply</span> <span
+                                        class="icon-common icon-btn icon-check"></span>
+                                </button>
+                            </div>
+                           </form>
+                        </ul>
+                 
+                </div>
+
+            </div>
+            <div class="btn-page-action-container">
+                <button class="btn btn-page-action btn-page-action-dropdown"
+                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="lbl-page-action-button">Export As</span> <span
+                        class="icon-common icon-chevron icon-page-action-button"></span>
+                </button>
+                <ul class="dropdown-menu action-dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" ng-click="exportData()"> <span
+                            class="icon-common icon-action-dropdown icon-excel"></span> <span
+                            class="">Excel</span>
+                    </a></li>
+                    <li><a class="dropdown-item" ng-click="printData()"> <span
+                            class="icon-common icon-action-dropdown icon-print"></span> <span
+                            class="">Print</span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="tblCustomers" class="user-table-container">
+        <table class="user-table-view">
+            <tr class="table-head-primary">
+                <th>S/N</th>
+                <th>Item Name</th>
+                <th>Order Date</th>
+                <th>Rate</th>
+                <th>Qty</th>
+                <th>Net Amount</th>
+                <th>Tax Amount</th>
+                <th>Gross Amount</th>
+                <th>Pay Mode</th>
+                <th>Platform Charge</th>
+                <th>Net Earning</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="data in restrurents | filter:searchText">
+                <td>{{$index + 1}}</td>
+                <td>{{data.itemName}}</td>
+                <td>{{data.purchaseDate}}</td>
+                <td>{{data.rate}}</td>
+                <td>{{data.qty}}</td>
+                <td>{{data.orderBill.net}}</td>
+                <td>{{data.orderBill.tax}}</td>
+                <td>{{data.orderBill.gross}}</td>
+                <td>{{data.orderBill.modeOfPayment}}</td>
+                <td>{{data.platformCharge}}</td>
+                <td>{{data.netEarning}}</td>
+                <td></td>
+        </table>
+    </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+
+
+<div th:replace="fragment/footer"></div>
+
+<script src="private/restrurent/report.js"></script>
+
+</body>
+
+</html>

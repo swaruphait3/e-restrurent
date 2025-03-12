@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -175,5 +177,57 @@ public class OrderServiceImpl implements OrderService{
       }
 
     }
-    
+
+    @Override
+    public ResponseEntity<?> readyOrder(int id) {
+        Optional<OrderDetails> byId = orderDetailsRepository.findById(id);
+        if (byId.isPresent()) {
+            byId.get().setOrderStatus("R");
+            orderDetailsRepository.save(byId.get());
+            Optional<OrderBill> byId2 = orderBillRepository.findById(byId.get().getBillNo());
+            if (byId2.isPresent()) {
+                OrderBill orderBill = byId2.get();
+                orderBill.setDelivaryStatus("R");
+                orderBillRepository.save(orderBill);
+            }
+            return ResponseHandler.generateResponse("Order Ready..",HttpStatus.OK, null);   
+        } else {
+         return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);         
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> delivaryOrder(int id) {
+        Optional<OrderDetails> byId = orderDetailsRepository.findById(id);
+        if (byId.isPresent()) {
+            byId.get().setOrderStatus("D");
+            orderDetailsRepository.save(byId.get());
+            Optional<OrderBill> byId2 = orderBillRepository.findById(byId.get().getBillNo());
+            if (byId2.isPresent()) {
+                OrderBill orderBill = byId2.get();
+                orderBill.setDelivaryStatus("D");
+                orderBillRepository.save(orderBill);
+            }
+            return ResponseHandler.generateResponse("Order Delivared..",HttpStatus.OK, null);   
+        } else {
+         return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);         
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> viewRestrurentWiseBill() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
+        if (byEmail.isPresent()) {
+            List<OrderDetails> allByCustomerId = orderDetailsRepository.findAllByRestId(byEmail.get().getId()).stream().filter(t -> t.getBillNo()!=0).collect(Collectors.toList());
+            for (OrderDetails orderDetails : allByCustomerId) {
+                orderDetails.setOrderBill(orderBillRepository.findById(orderDetails.getBillNo()).get());
+            }
+            return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, allByCustomerId);   
+        } else {
+         return ResponseHandler.generateResponse("No valid User found..",HttpStatus.BAD_REQUEST, null);   
+        }
+    }
 }
+

@@ -1,0 +1,179 @@
+<div th:replace="fragment/head"></div>
+<title>e-Restrurent | Delivary Boy</title>
+<div th:replace="fragment/header"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<div ng-app="DelivaryModule" ng-controller="DelivaryController">
+
+    <div class="breadcrumb-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/admin}">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Delivary Boy</span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-xxl page-action-header-container order-1 order-xxl-2">
+        <div class="page-action-header">All Delivary Boy</div>
+    </div>
+    <div class="row page-action-container">
+        <div class="col-xxl-4 col-6 page-action-start-container order-2 order-xxl-1">
+            <div class="page-action-search">
+                <label for="filter" class="form-label form-label-highlight">Filter:</label>
+                <input type="text" data-kt-filter="search" ng-model="searchText"
+                    class="form-control btn-page-action ps-15 ng-pristine ng-valid ng-empty ng-touched"
+                    placeholder="Search">
+            </div>
+        </div>
+        <!-- <div class="col-xxl-4 col-12 page-action-header-container order-1 order-xxl-2">
+            <div class="page-action-header">All Regular Classes</div>
+        </div> -->
+        <div class="col-xxl-4 col-6 page-action-end-container order-3 order-xxl-3">
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-page-action btn-new-bookings" data-bs-toggle="modal"
+                data-bs-target="#newDelivaryBoy" ng-click="openNewRestaurant()">
+                <span class="icon-common icon-page-action icon-add-circle"></span>
+                <span class="lbl-page-action" >Add Delivary Boy</span>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade modal-custom" id="newDelivaryBoy" tabindex="-1" aria-labelledby="newRestaurantLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="newRestaurantLabel">
+                                <span class="icon-common icon-modal-header icon-add-circle"></span>
+                                <span>Add Delivary Boy</span>
+                            </h1>
+                        </div>
+                        <div class="modal-body">
+                            <form id="loginform" ng-submit="addEditDelivaryBoy()" autocomplete="off">
+  
+                                <div class="mb-5 position-relative">
+                                  <span class="icon-common icon-user icon-form-before"></span>
+                                  <input type="text" class="form-control" id="inputUserName" ng-model="form.name" name="name"
+                                  oninvalid="this.setCustomValidity('Please enter valid name')"
+                                  oninput="this.setCustomValidity('')" value='' placeholder="Enter Name" required>
+                                </div>
+                          
+                                <div class="mb-5 position-relative">
+                                  <span class="icon-common icon-email icon-form-before"></span>
+                                  <input type="email" class="form-control" id="inputEmail" ng-model="form.email"
+                                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                                  oninvalid="this.setCustomValidity('Please enter valid email id')"
+                                  oninput="this.setCustomValidity('')" 
+                                    aria-describedby="emailHelp" name="email" required value='' placeholder="Enter Email">
+                                </div>
+                                <div class="mb-5 position-relative">
+                                    <span class="icon-common icon-phone icon-form-before"></span>
+                                    <input name="mobile" type="number" ng-model="form.mobile" min="0" step="1" pattern="[0-9]{10}" class="form-control"
+                                    placeholder="Enter Phone No" oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                                    oninput="this.setCustomValidity('')" required>
+                                </div>
+                                <div class="mb-5 position-relative">
+                                  <span class="icon-common icon-lock icon-form-before"></span>
+                                  <input type="password" class="form-control" id="idPassword" ng-model="form.rawPassword"
+            aria-describedby="emailHelp" name="password" 
+            placeholder="Enter Password" oninvalid="this.setCustomValidity('Please Enter Password')"
+            oninput="this.setCustomValidity('')" required>
+            <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword" ng-click="togglePassword()"></span>
+                                </div>
+                          
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>
+                          
+                                <div class="text-center link-label-container mb-3">
+                                  <a class="form-link-secondary" id="linkBackToLogin">
+                                    <span class="icon-common icon-link-label icon-arrow-left"></span>
+                                    <span>Back To Login</span>
+                                  </a>
+                                </div>
+                              </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="tblCustomers" class="user-table-container">
+        <table class="user-table-view">
+            <tr class="table-head-primary">
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Status</th>
+                <th>action</th>
+            </tr>
+            <tr ng-repeat="dBoy in delivaryBoyList | filter:searchText">
+                <td>{{$index + 1}}</td>
+                <td>{{dBoy.name}}</td>
+                <td style="text-transform: none">{{dBoy.email}}</td>
+                <td>{{dBoy.mobile}}</td>
+                <td>
+                    <form method="POST" class="content-center" ng-if="dBoy.enabled==false">
+                        <input type="hidden" name="_token" value="FsM848SirJ6QKs0CFziA4j7n5KkBtIkiG32c4lng">
+                        <label class="switch"> <input class="user" type="checkbox" data-id="2"
+                                ng-click="activation(dBoy.id)" ng-model="dBoy.enabled" name="enabled"
+                                checked=""> <span class="knob"></span>
+                        </label>                                
+                    </form>
+                    <form method="POST" class="content-center" ng-if="dBoy.enabled==true">
+                        <input type="hidden" name="_token" value="FsM848SirJ6QKs0CFziA4j7n5KkBtIkiG32c4lng">
+                        <label class="switch"> <input class="user" type="checkbox" data-id="2"
+                                ng-click="deactivation(dBoy.id)" ng-model="dBoy.enabled" name="status"
+                                checked=""> <span class="knob"></span>
+                        </label>
+                        
+                    </form>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-round btn-table-action" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="dropdownMenuButton2">
+                            <span class="icon-common icon-table-action icon-three-dot"></span>
+                        </button>
+                        <ul class="dropdown-menu list-table-action" aria-labelledby="dropdownMenuButton2">
+                            <li class="table-action-item">
+                                <!-- <a class="dropdown-item table-action-link" href="#"> -->
+                                <a class="dropdown-item table-action-link table-action-link-edit" ng-click="editRegularClasses(classes.id)">
+                                    <span class="icon-common icon-table-action-list icon-edit"></span>
+                                    <span class="lbl-table-action lbl-edit">Edit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+        </table>
+    </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- %%%%%%%%%%%%%%%% View section END Here %%%%%%%%%%%%%%%% -->
+<!-- =============================================================== -->
+
+<!-- content-wrapper ends -->
+
+
+<div th:replace="fragment/footer"></div>
+
+<script src="private/admin/delivaryboy.js"></script>
+
+</body>
+
+</html>

@@ -19,5 +19,11 @@ public interface OrderService {
     ResponseEntity<?> approveOrder(int id);
 
     ResponseEntity<?> viewBill(int id);
+
+    ResponseEntity<?> readyOrder(int id);
+
+    ResponseEntity<?> delivaryOrder(int id);
+
+    ResponseEntity<?> viewRestrurentWiseBill();
     
 }

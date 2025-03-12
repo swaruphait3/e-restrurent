@@ -34,6 +34,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 redirectUrl = "/branch";
                 break;
             }
+            else if (grantedAuthority.getAuthority().equals("DBOY")) {
+                redirectUrl = "/dboy";
+                break;
+            }
             else if (grantedAuthority.getAuthority().equals("USER")) {
                 redirectUrl = "/home";
                 break;

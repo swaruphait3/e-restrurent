@@ -614,24 +614,32 @@
         <div class="mb-5 position-relative">
           <span class="icon-common icon-user icon-form-before"></span>
           <input type="text" class="form-control" id="inputUserName" ng-model="form.name" name="name"
-            required value='' placeholder="Enter User Name">
+          oninvalid="this.setCustomValidity('Please enter valid name')"
+          oninput="this.setCustomValidity('')"
+          value='' placeholder="Enter Name" required>
         </div>
   
         <div class="mb-5 position-relative">
           <span class="icon-common icon-email icon-form-before"></span>
           <input type="email" class="form-control" id="inputEmail" ng-model="form.email"
-            aria-describedby="emailHelp" name="email" required value='' placeholder="Enter Email">
+            aria-describedby="emailHelp" name="email"  value='' placeholder="Enter Email"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            oninvalid="this.setCustomValidity('Please enter valid email id')"
+            oninput="this.setCustomValidity('')" required >
         </div>
         <div class="mb-5 position-relative">
           <span class="icon-common icon-phone icon-form-before"></span>
-          <input type="text" class="form-control" id="inputEmail" ng-model="form.mobile"
-            aria-describedby="emailHelp" name="mobile" required value='' placeholder="Enter Contact No">
+          <input name="mobile" type="number" ng-model="form.mobile" min="0" step="1" pattern="[0-9]{10}" class="form-control"
+          placeholder="Enter Phone No" oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+          oninput="this.setCustomValidity('')" required>
         </div>
         <div class="mb-5 position-relative">
           <span class="icon-common icon-lock icon-form-before"></span>
-          <input type="password" class="form-control" id="inputEmail" ng-model="form.rawPassword"
-            aria-describedby="emailHelp" name="rawPassword" required value='' placeholder="Enter Password">
-            <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword"></span>
+          <input type="password" class="form-control" id="idPassword" ng-model="form.rawPassword"
+            aria-describedby="emailHelp" name="password" 
+            placeholder="Enter Password" oninvalid="this.setCustomValidity('Please Enter Password')"
+            oninput="this.setCustomValidity('')" required>
+            <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword" ng-click="togglePassword()"></span>
         </div>
   
         <button type="submit" class="btn btn-primary w-100 mb-3">Submit</button>

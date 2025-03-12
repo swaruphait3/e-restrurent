@@ -19,5 +19,11 @@ public interface UserService {
     ResponseEntity<?> active(Integer id);
 
     ResponseEntity<?> deActive(Integer id);
+
+    ResponseEntity<?> findAllDelivaryBoy();
+
+    ResponseEntity<?> addDelivaryBoy(User user);
+
+    ResponseEntity<?> findActiveAllDelivaryBoy();
     
 }

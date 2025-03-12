@@ -25,6 +25,12 @@ public class UserController {
         return userService.add(user);
     }
 
+    @PostMapping(value = "/addDelivaryBoy")
+    public ResponseEntity<?> addDelivaryBoy(@RequestBody User user) {
+        return userService.addDelivaryBoy(user);
+    }
+
+
     @PutMapping(value = "/edit")
     public ResponseEntity<?> edit(@RequestBody User user) {
         return userService.edit(user);
@@ -39,6 +45,17 @@ public class UserController {
     public ResponseEntity<?> findAllActiveUserList() {
         return userService.findAllActiveUserList();
     }
+
+    @GetMapping(value = "/findAllDelivaryBoy")
+    public ResponseEntity<?> findAllDelivaryBoy() {
+        return userService.findAllDelivaryBoy();
+    }
+
+    @GetMapping(value = "/findActiveAllDelivaryBoy")
+    public ResponseEntity<?> findActiveAllDelivaryBoy() {
+        return userService.findActiveAllDelivaryBoy();
+    }
+
 
     @GetMapping(value = "/findById")
     public ResponseEntity<?> findById(@RequestParam Integer id) {

@@ -96,5 +96,33 @@ public class UserServiceImpl implements UserService{
             
         }
     }
+
+    @Override
+    public ResponseEntity<?> findAllDelivaryBoy() {
+       List<User> collect = userRepositiry.findAll().stream().filter(u -> u.getRole().equals("DBOY")).collect(Collectors.toList());
+       return ResponseHandler.generateResponse("Successfully User fetched",HttpStatus.OK, collect);   
+    }
+
+    @Override
+    public ResponseEntity<?> addDelivaryBoy(User user) {
+        boolean existsByEmailOrMobile = userRepositiry.existsByEmailOrMobile(user.getEmail(), user.getMobile());
+
+        if (existsByEmailOrMobile) {
+           return ResponseHandler.generateResponse("You Have Already account this email or mobile number",HttpStatus.BAD_REQUEST, null);   
+        } else {
+            user.setEnabled(true);
+            user.setRole("DBOY");
+            user.setPassword(passwordEncoder.encode(user.getRawPassword()));
+            userRepositiry.save(user);
+           return ResponseHandler.generateResponse("Successfully Register",HttpStatus.OK, null);   
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<?> findActiveAllDelivaryBoy() {
+        List<User> collect = userRepositiry.findAll().stream().filter(u -> u.getRole().equals("DBOY") && u.isEnabled()).collect(Collectors.toList());
+        return ResponseHandler.generateResponse("Successfully User fetched",HttpStatus.OK, collect);   
+    }
     
 }

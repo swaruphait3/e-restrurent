@@ -33,6 +33,17 @@ app.controller("OrderController", function ($scope, $http) {
     }).then(_success, _error);
 };
 
+
+$scope.readyOrder = function (id) {
+  $http({
+      method: 'GET',
+      params: { 'id': id },
+      url: 'order/readyOrder'
+  }).then(_success, _error);
+};
+
+
+
 function _success(response) {
     autoWorkshopFetch();
     Swal.fire({

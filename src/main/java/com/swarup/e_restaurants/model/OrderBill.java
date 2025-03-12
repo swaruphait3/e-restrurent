@@ -41,7 +41,6 @@ public class OrderBill extends Auditable<String>{
     private float tax;
     private float net;
     private String payMode;
-    private String approxDelivaryTime;
     private String delivaryStatus;
     private String remarks;
 }
