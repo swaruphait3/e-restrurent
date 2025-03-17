@@ -34,6 +34,19 @@ public class OrderController {
         return orderService.viewOrderRestaurant();
     }
 
+    
+    @GetMapping(value = "/pickOrderForDelivaryBoy")
+    public ResponseEntity<?> pickOrderForDelivaryBoy() {
+        return orderService.pickOrderForDelivaryBoy();
+    }
+
+
+    @GetMapping(value = "/viewOrderListDelivaryBoy")
+    public ResponseEntity<?> viewOrderListDelivaryBoy() {
+        return orderService.viewOrderListDelivaryBoy();
+    }
+
+
     @GetMapping(value = "/findById")
     public ResponseEntity<?> findById(@RequestParam int id) {
         return orderService.findById(id);
@@ -68,6 +81,11 @@ public class OrderController {
     @GetMapping(value = "/viewRestrurentWiseBill")
     public ResponseEntity<?> viewRestrurentWiseBill() {
         return orderService.viewRestrurentWiseBill();
+    }
+
+    @GetMapping(value = "/viewRestrurentWiseBillDateWise")
+    public ResponseEntity<?> viewRestrurentWiseBillDateWise(@RequestParam String startDate, @RequestParam String endDate) {
+        return orderService.viewRestrurentWiseBillDateWise(startDate, endDate);
     }
 
 }

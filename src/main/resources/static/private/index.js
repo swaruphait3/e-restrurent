@@ -168,7 +168,20 @@ app.controller("OrderListController", function ($scope, $http,  $window) {
   $scope.form = {};
   $scope.ordersLength = null;
 
-  
+  $scope.billDate = null;
+  $scope.billNo = null;
+  $scope.sgst = null;
+  $scope.cgst = null;
+  $scope.netAmount = null;
+  $scope.item = null;
+  $scope.rate = null;
+  $scope.qty = null;
+  $scope.payMode = null;
+  $scope.total = null;
+
+
+
+
   autoWorkshopFetch();
   function autoWorkshopFetch() {
     $http({
@@ -184,6 +197,47 @@ app.controller("OrderListController", function ($scope, $http,  $window) {
       }
     );
   }
+
+  viewBill
+
+  $scope.viewBill = function (id) {
+		$scope.form = {};
+		$("#viewBill").modal("show");
+		$scope.findByBillDetails(id);
+	}
+
+  $scope.generatePDF = function() {
+    var element = document.getElementById('bill');
+    html2pdf(element);
+};
+
+
+  $scope.findByBillDetails = function (id) {
+       $http({
+           method: 'GET',
+           params: { 'id': id },
+           url: 'order/viewBill'
+
+       }).then(function successCallback(response) {
+           console.log(response.data);
+           $scope.billData = response.data.data;
+           $scope.billDate = $scope.billData.purchaseDate;
+           $scope.billNo = $scope.billData.id;
+           $scope.sgst = $scope.billData.totalAmount * 0.05;
+           $scope.cgst =  $scope.billData.totalAmount * 0.05;
+           $scope.netAmount =($scope.billData.totalAmount - ($scope.billData.totalAmount * 0.10));
+           $scope.item =  $scope.billData.itemName;;
+           $scope.rate =  $scope.billData.rate;;
+           $scope.qty =  $scope.billData.qty;;
+           $scope.payMode =  $scope.billData.modeOfPayment;;
+           $scope.total =  $scope.billData.totalAmount;;
+         
+
+       }, function errorCallback(response) {
+           console.log(response.statusText);
+       });
+   }
+
 
   $scope.buyAgain = function(itemId) {
     $window.location.href = 'orederitem?itemId=' + itemId;
@@ -223,6 +277,40 @@ function _error(response) {
           confirmButton: "btn btn-primary"
       }
   })
+}
+
+
+$scope.printBill = function () {
+  printBill();
+
+};
+
+function printBill() {
+  var sTable = document.getElementById('billPrint').innerHTML;
+
+  var style = "<style>";
+  style += "body { font-family: Arial, sans-serif; }";
+  style += ".bill { width: 50%; margin: auto; padding: auto border: 1px solid #ddd; }";
+  style += "table { width: 100%; border-collapse: collapse; }";
+  style += "th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }";
+  style += ".total { font-weight: bold; }";
+  style += ".center { text-align: center; }";
+  style += "</style>";
+
+  // CREATE A NEW WINDOW OBJECT
+  var win = window.open('', '', 'height=700,width=700');
+
+  win.document.write('<html><head><title>Restaurant Bill</title>');
+  win.document.write(style); // ADD STYLE INSIDE HEAD
+  win.document.write('</head><body>');
+  win.document.write('<div class="bill">'); // ADD BILL CLASS WRAPPER
+  win.document.write('<h2 class="center">Restaurant Bill</h2>');
+  win.document.write(sTable); // INSERT TABLE CONTENT
+  win.document.write('</div>');
+  win.document.write('</body></html>');
+
+  win.document.close(); // CLOSE THE DOCUMENT
+  win.print(); // PRINT THE CONTENTS
 }
 
 

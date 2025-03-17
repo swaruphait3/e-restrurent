@@ -25,5 +25,12 @@ public interface OrderService {
     ResponseEntity<?> delivaryOrder(int id);
 
     ResponseEntity<?> viewRestrurentWiseBill();
+
+    ResponseEntity<?> viewRestrurentWiseBillDateWise(String startDate, String endDate);
+
+    ResponseEntity<?> pickOrderForDelivaryBoy();
+
+    ResponseEntity<?> viewOrderListDelivaryBoy();
+
     
 }

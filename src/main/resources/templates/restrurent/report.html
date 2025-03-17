@@ -23,7 +23,6 @@
             </ol>
         </nav>
     </div>
-
     <div class="col-xxl page-action-header-container order-1 order-xxl-2">
         <div class="page-action-header">Sales Report</div>
     </div>
@@ -42,7 +41,7 @@
                
                         <ul class="dropdown-menu filter-dropdown-menu px-3"
                             aria-labelledby="dropdownMenuButton1">
-                            <form ng-submit="fetchTravelData()">
+                            <form ng-submit="fetchSalesDataDateWise()">
                             <div class="lbl-filter-header">Start Date:</div>
                             <input class="form-control filter-date-picker" type="date"
                                 ng-model="date.startdate" placeholder="dd-mm-yyy">
@@ -84,7 +83,7 @@
         </div>
     </div>
 
-    <div id="tblCustomers" class="user-table-container">
+    <div id="salesReport" class="user-table-container">
         <table class="user-table-view">
             <tr class="table-head-primary">
                 <th>S/N</th>
@@ -100,7 +99,7 @@
                 <th>Net Earning</th>
                 <th>Status</th>
             </tr>
-            <tr ng-repeat="data in restrurents | filter:searchText">
+            <tr ng-repeat="data in orderList | filter:searchText">
                 <td>{{$index + 1}}</td>
                 <td>{{data.itemName}}</td>
                 <td>{{data.purchaseDate}}</td>
@@ -109,10 +108,14 @@
                 <td>{{data.orderBill.net}}</td>
                 <td>{{data.orderBill.tax}}</td>
                 <td>{{data.orderBill.gross}}</td>
-                <td>{{data.orderBill.modeOfPayment}}</td>
+                <td>{{data.modeOfPayment}}</td>
                 <td>{{data.platformCharge}}</td>
                 <td>{{data.netEarning}}</td>
-                <td></td>
+                <td>
+                    <button  type="button" class="btn btn-success" ng-if="data.orderStatus=='A'" disabled>Accepted</button> 
+                    <button  type="button" class="btn btn-warning" ng-if="data.orderStatus=='R'" disabled>On The Way</button> 
+                    <button  type="button" class="btn btn-info" ng-if="data.orderStatus=='D'" disabled>Delivared</button> 
+                </td>
         </table>
     </div>
 </div>

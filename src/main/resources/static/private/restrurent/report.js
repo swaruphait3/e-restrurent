@@ -3,68 +3,134 @@ app.controller("SalesReportController", function ($scope, $http) {
 
     $scope.form = {};
     $scope.views = {};
-    showHideLoad(true);
-    $scope.views.list = true;
-	$scope.isPasswordVisible = false;
-
-
-	$scope.togglePassword = function() {
-		$scope.isPasswordVisible = !$scope.isPasswordVisible;
-		var passwordInput = document.getElementById('idPassword');
-		var toggleIcon = document.getElementById('togglePassword');
-		
-		if ($scope.isPasswordVisible) {
-			passwordInput.type = 'text';
-			toggleIcon.classList.remove('icon-toggle-pass-slash');
-			toggleIcon.classList.add('icon-toggle-pass');
-		} else {
-			passwordInput.type = 'password';
-			toggleIcon.classList.remove('icon-toggle-pass');
-			toggleIcon.classList.add('icon-toggle-pass-slash');
-		}
-	};
-
-
-    autoDelivaryBoyListFetch();
-    function autoDelivaryBoyListFetch() {
+    $scope.orderList ={};
+    autoOrderListFetch();
+    function autoOrderListFetch() {
         $http({
             method: 'GET',
-            url: 'user/findAllDelivaryBoy'
+            url: 'order/viewRestrurentWiseBill'
 
         }).then(function successCallback(response) {
-            $scope.delivaryBoyList = response.data.data;
+            $scope.orderList = response.data.data;
         }, function errorCallback(response) {
             console.log(response.statusText);
         });
     }
 
-    $scope.addEditDelivaryBoy = function () {
-        $http({
-            method: 'POST',
-            url: "user/addDelivaryBoy",
-            data: angular.toJson($scope.form),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            transformResponse: angular.identity
-        }).then(_success, _error);
-    };
-    function _success(response) {
 
-        console.log(response);
-        $("#newDelivaryBoy").modal("hide");
-        autoDelivaryBoyListFetch();
-        Swal.fire({
-            text: response.data.message,
-            icon: "success",
-            buttonsStyling: !1,
-            confirmButtonText: "Ok, got it!",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        })
-    }
+    $scope.fetchSalesDataDateWise = function() {
+		$http({
+			method: 'GET',
+			url: 'order/viewRestrurentWiseBillDateWise',
+			params: {
+				"startDate": $scope.date.startdate,
+				"endDate": $scope.date.enddate
+			}
+		}).then(function successCallback(response) {
+			$scope.orderList = response.data.data;
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: response.data.message,
+				showConfirmButton: true,
+			}).then(function() {
+				$scope.refresh();
+			});
+		}, function errorCallback(response) {
+			console.log(response.statusText);
+		});
+	};
 
+    var SalesReport = {
+		headers: true,
+		columns: [{
+			columnid: 'itemName',
+			title: 'Item Name'
+		}, {
+			columnid: 'purchaseDate',
+			title: 'Purchase Date'
+		}, {
+			columnid: 'rate',
+			title: 'Rate'
+		}, {
+			columnid: 'qty',
+			title: 'Qty.'
+		}, {
+			columnid: 'net',
+			title: 'Net Amount'
+		}, {
+			columnid: 'tax',
+			title: 'Tax Amount'
+		}, {
+			columnid: 'gross',
+			title: 'Gross Amount'
+		}, {
+			columnid: 'modeOfPayment',
+			title: 'Mode Of Payment'
+		}, {
+			columnid: 'platformCharge',
+			title: 'Platform Charge'
+		}, {
+			columnid: 'netEarning',
+			title: 'Earnig'
+		}
+		],
+	};
+
+
+    $scope.exportData = function () {
+		alasql(
+			'SELECT * INTO XLS("SalesReport.xls",?) FROM ?',
+			[SalesReport, $scope.orderList]);
+
+	};
+
+
+    $scope.printData = function () {
+		printData();
+
+	};
+	function printData() {
+
+		var sTable = document.getElementById('salesReport').innerHTML;
+
+		var style = "<style>";
+		style = style
+			+ "table {width: 100%;font: 17px Calibri;}";
+		style = style
+			+ "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+		style = style
+			+ "padding: 2px 3px;text-align: center;}";
+		style = style + "</style>";
+
+		// CREATE A WINDOW OBJECT.
+		var win = window.open('', '',
+			'height=700,width=700');
+
+		win.document.write('<html><head>');
+		win.document.write('<h1>Status Report</h1>'); // <title> FOR PDF HEADER.
+		win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+		win.document.write('</head>');
+		win.document.write('<body>');
+		win.document.write(sTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+		win.document.write('</body></html>');
+
+		win.document.close(); // CLOSE THE CURRENT WINDOW.
+
+		win.print(); // PRINT THE CONTENTS.
+
+	}
+
+
+
+
+
+
+
+
+
+
+    
     function _error(response) {
         console.log(response);
 

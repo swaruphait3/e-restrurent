@@ -72,4 +72,16 @@ public class       OrderDetails extends Auditable<String>{
 
     @Transient
     private float netEarning;
+
+    @Transient
+    private float net;
+
+    @Transient
+    private float tax;
+
+    @Transient
+    private float gross;
+
+    @Transient
+    private String pickSelf;
 }

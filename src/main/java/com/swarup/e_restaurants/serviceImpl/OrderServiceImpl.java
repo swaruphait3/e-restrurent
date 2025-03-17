@@ -1,11 +1,13 @@
 package com.swarup.e_restaurants.serviceImpl;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,8 +143,8 @@ public class OrderServiceImpl implements OrderService{
             orderBill.setCustName(userRepositiry.findById(byId.get().getCustomerId()).get().getName());
             orderBill.setCustAddress(byId.get().getDelivaryAddress());
             orderBill.setCustContactNo(byId.get().getContactNo());
-            float netAmount = byId.get().getTotalAmount() * 0.82f;
-            float taxAmount = byId.get().getTotalAmount() * 0.18f;
+            float netAmount = byId.get().getTotalAmount() * 0.90f;
+            float taxAmount = byId.get().getTotalAmount() * 0.10f;
             orderBill.setNet(netAmount);
             orderBill.setTax(taxAmount);
             orderBill.setGross(byId.get().getTotalAmount());
@@ -169,13 +171,20 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public ResponseEntity<?> viewBill(int id) {
-       Optional<OrderBill> byId = orderBillRepository.findById(id);
-      if (byId.isPresent()) {
+    //    Optional<OrderBill> byId = orderBillRepository.findById(id);
+    //   if (byId.isPresent()) {
+    //     return ResponseHandler.generateResponse("Fetched The Details...",HttpStatus.OK, byId);  
+    //   } else {
+    //     return ResponseHandler.generateResponse("Order Confiremd.",HttpStatus.BAD_REQUEST, null);   
+    //   }
+    Optional<OrderDetails> byId = orderDetailsRepository.findById(id);
+    if (byId.isPresent()) {
+        Optional<FoodCategories> byId1 = foodCategoriesRepository.findById(byId.get().getItemId());
+        byId.get().setItemName(byId1.get().getName());
         return ResponseHandler.generateResponse("Fetched The Details...",HttpStatus.OK, byId);  
-      } else {
-        return ResponseHandler.generateResponse("Order Confiremd.",HttpStatus.BAD_REQUEST, null);   
-      }
-
+    }else{
+        return ResponseHandler.generateResponse("No valid Details found..",HttpStatus.BAD_REQUEST, null);    
+    }
     }
 
     @Override
@@ -222,12 +231,74 @@ public class OrderServiceImpl implements OrderService{
         if (byEmail.isPresent()) {
             List<OrderDetails> allByCustomerId = orderDetailsRepository.findAllByRestId(byEmail.get().getId()).stream().filter(t -> t.getBillNo()!=0).collect(Collectors.toList());
             for (OrderDetails orderDetails : allByCustomerId) {
-                orderDetails.setOrderBill(orderBillRepository.findById(orderDetails.getBillNo()).get());
+                Optional<FoodCategories> byId = foodCategoriesRepository.findById(orderDetails.getItemId());
+                Optional<OrderBill> byId2 = orderBillRepository.findById(orderDetails.getBillNo());
+                orderDetails.setOrderBill(byId2.get());
+                orderDetails.setPlatformCharge((orderDetails.getTotalAmount() * 0.10f));
+                orderDetails.setNetEarning((orderDetails.getTotalAmount() * 0.90f));
+                orderDetails.setItemName(byId.get().getName());
+                orderDetails.setNet(byId2.get().getNet());
+                orderDetails.setTax(byId2.get().getTax());
+                orderDetails.setGross(byId2.get().getGross());
             }
             return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, allByCustomerId);   
         } else {
          return ResponseHandler.generateResponse("No valid User found..",HttpStatus.BAD_REQUEST, null);   
         }
     }
+
+    @Override
+    public ResponseEntity<?> viewRestrurentWiseBillDateWise(String startDate, String endDate) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+         ZoneId asiaKolkata = ZoneId.of("Asia/Kolkata");
+        Instant nowUtc1 = Instant.parse(startDate);
+        Instant nowUtc2 = Instant.parse(endDate);
+        ZonedDateTime zone1 = ZonedDateTime.ofInstant(nowUtc1, asiaKolkata);
+        ZonedDateTime zone2 = ZonedDateTime.ofInstant(nowUtc2, asiaKolkata);
+        LocalDate stdt = zone1.toLocalDate();
+        LocalDate eddt = zone2.toLocalDate();
+
+        Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
+        if (byEmail.isPresent()) {
+        System.out.println("byEmail.get().getId()" +byEmail.get().getId());
+
+            List<OrderDetails> allByCustomerId = orderDetailsRepository.fetchResturantWiseSale(byEmail.get().getId(),stdt.toString(), eddt.toString());
+
+            for (OrderDetails orderDetails : allByCustomerId) {
+                Optional<FoodCategories> byId = foodCategoriesRepository.findById(orderDetails.getItemId());
+                Optional<OrderBill> byId2 = orderBillRepository.findById(orderDetails.getBillNo());
+                orderDetails.setOrderBill(byId2.get());
+                orderDetails.setPlatformCharge((orderDetails.getTotalAmount() * 0.10f));
+                orderDetails.setNetEarning((orderDetails.getTotalAmount() * 0.90f));
+                orderDetails.setItemName(byId.get().getName());
+                orderDetails.setNet(byId2.get().getNet());
+                orderDetails.setTax(byId2.get().getTax());
+                orderDetails.setGross(byId2.get().getGross());
+            }
+            return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, allByCustomerId);   
+        } else {
+         return ResponseHandler.generateResponse("No valid User found..",HttpStatus.BAD_REQUEST, null);   
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> pickOrderForDelivaryBoy() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        List<OrderDetails> fetchOpenOrderForPickDelivary = orderDetailsRepository.fetchOpenOrderForPickDelivary(userDetails.getUser().getId());
+        for (OrderDetails details : fetchOpenOrderForPickDelivary) {
+            
+        }
+        return ResponseHandler.generateResponse("Data Featch..",HttpStatus.OK, fetchOpenOrderForPickDelivary);   
+    }
+
+    @Override
+    public ResponseEntity<?> viewOrderListDelivaryBoy() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'viewOrderListDelivaryBoy'");
+    }
+
+
 }
 
