@@ -41,11 +41,10 @@ public class OrderController {
     }
 
 
-    @GetMapping(value = "/viewOrderListDelivaryBoy")
-    public ResponseEntity<?> viewOrderListDelivaryBoy() {
-        return orderService.viewOrderListDelivaryBoy();
+    @GetMapping(value = "/pickOrderDelivaryBoy")
+    public ResponseEntity<?> pickOrderDelivaryBoy(@RequestParam int id) {
+        return orderService.pickOrderDelivaryBoy(id);
     }
-
 
     @GetMapping(value = "/findById")
     public ResponseEntity<?> findById(@RequestParam int id) {

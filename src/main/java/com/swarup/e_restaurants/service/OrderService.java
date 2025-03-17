@@ -30,7 +30,8 @@ public interface OrderService {
 
     ResponseEntity<?> pickOrderForDelivaryBoy();
 
-    ResponseEntity<?> viewOrderListDelivaryBoy();
+    ResponseEntity<?> pickOrderDelivaryBoy(int id);
 
+   
     
 }

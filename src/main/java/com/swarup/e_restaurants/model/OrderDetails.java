@@ -84,4 +84,7 @@ public class       OrderDetails extends Auditable<String>{
 
     @Transient
     private String pickSelf;
+
+    @Transient
+    private String restAddress;
 }

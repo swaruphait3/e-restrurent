@@ -64,13 +64,17 @@
                             <form class="row g-3" ng-submit="addEditRestrurents()" autocomplete="off" enctype="multipart/form-data">
                                 <div class="col-md-12">
                                     <label for="name" class="form-label">Restaurant Name <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="name" ng-model="form.name" placeholder="Enter Restaurant Name" required>
+                                    <input type="text" class="form-control" id="name" ng-model="form.name"
+                                    oninvalid="this.setCustomValidity('Please enter valid Restaurant Name')"
+                                        oninput="this.setCustomValidity('')"  placeholder="Enter Restaurant Name" required>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label>City <span style="color:red;font-weight:bold"> *</span></label>
                                     <select ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
-                                    ng-options="city.id as city.cityName for city in cites" required>
+                                    ng-options="city.id as city.cityName for city in cites"
+                                    oninvalid="this.setCustomValidity('Select Valid City')"
+                                    oninput="this.setCustomValidity('')" required>
                                         <option value="" disabled selected>Select City</option>
                                     </select>
                                 </div>
@@ -78,34 +82,51 @@
                                 <div class="col-md-12">
                                     <label>Location <span style="color:red;font-weight:bold"> *</span></label>
                                     <select ng-model="form.locId" class="form-control select2"
-                                        ng-options="loc.id as loc.location for loc in locations" required>
+                                        ng-options="loc.id as loc.location for loc in locations" 
+                                        oninvalid="this.setCustomValidity('Select Valid Location')"
+                                        oninput="this.setCustomValidity('')" required>
                                         <option value="" disabled selected>Select Location</option>
                                     </select>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="email" class="form-label">Email <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="email" class="form-control" id="email" ng-model="form.email" placeholder="Enter Email Address" required>
+                                    <input type="email" class="form-control" id="email" ng-model="form.email"
+                                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                                    oninvalid="this.setCustomValidity('Please enter valid email id')"
+                                    oninput="this.setCustomValidity('')" placeholder="Enter Email Address" required>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="contact" class="form-label">Contact <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="contact" ng-model="form.contact" placeholder="Enter Contact No" required>
+                                    <input name="mobile" type="number" class="form-control" id="contact" ng-model="form.contact" placeholder="Enter Contact No"
+                                    min="0" step="1"
+                                        pattern="[0-9]{10}"
+                                        oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+                                        oninput="this.setCustomValidity('')" required>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="password" class="form-label">Password <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="password" class="form-control" id="password" ng-model="form.password" placeholder="Enter Password" required>
+                                    <input type="password" class="form-control" id="idPassword" ng-model="form.password" placeholder="Enter Password"
+                                    oninvalid="this.setCustomValidity('Please Enter Password')"
+                                    oninput="this.setCustomValidity('')"  required>
+                                    <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword"
+                                        ng-click="togglePassword()"></span>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="specality" class="form-label">Specialty <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Specialty" required>
+                                    <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Specialty" 
+                                    oninvalid="this.setCustomValidity('Please Entry Specialty')"
+                                    oninput="this.setCustomValidity('')" required>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <label for="address" class="form-label">Address <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="address" ng-model="form.address" placeholder="Enter Address" required>
+                                    <input type="text" class="form-control" id="address" ng-model="form.address" placeholder="Enter Address"
+                                    oninvalid="this.setCustomValidity('Please Entry Address')"
+                                    oninput="this.setCustomValidity('')" required>
                                 </div>
                             
                                 <div class="col-md-12">

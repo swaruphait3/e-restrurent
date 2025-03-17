@@ -18,6 +18,6 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Inte
     List<OrderDetails> fetchResturantWiseSale(int restId, String startDate, String endDate);
 
 
-    @Query(value = "SELECT * FROM mst_orderdetails WHERE order_status IN ('A', 'R') AND (delivary_person_id IS NULL OR (delivary_person_id = ?1)) order by purchase_date desc, purchase_time asc", nativeQuery = true)
+    @Query(value = "SELECT * FROM mst_orderdetails WHERE order_status IN ('A', 'R','W','D') AND (delivary_person_id IS NULL OR (delivary_person_id = ?1)) order by purchase_date desc, purchase_time asc", nativeQuery = true)
     List<OrderDetails>  fetchOpenOrderForPickDelivary(Integer userId);
 }

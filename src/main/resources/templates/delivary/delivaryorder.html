@@ -6,7 +6,7 @@
 <!-- =============================================================== -->
 <!-- %%%%%%%%%%%%%%%% View section Starts from Here %%%%%%%%%%%%%%%% -->
 <!-- =============================================================== -->
- <div ng-app="OrderModule" ng-controller="OrderController">
+ <div ng-app="OrderDelivaryModule" ng-controller="OrderDelivaryController">
     <nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="restrurent">Home</a></li>
@@ -18,44 +18,45 @@
         <table class="user-table-view">
             <tr class="table-head-primary">
                 <th>S/N</th>
-                <th>Item</th>
-                <th>qty</th>
+                <th>Resturent Name</th>
+                <th>Pick Address</th>
                 <th>Order By</th>
                 <th>Contact No</th>
                 <th>Delivary Address</th>
-                <th>Address</th>
-                <th>Amount</th>
-                <th>Image</th>
+                <th>Item</th>
+                <th>qty</th>
+                <th>Price</th>
+                <th>Payment Mode</th>
+
+                <!-- <th>Image</th> -->
                 <th>action</th>
             </tr>
-            <tr ng-repeat="res in orders | filter:searchText">
+            <tr ng-repeat="order in orders | filter:searchText">
                 <td>{{$index + 1}}</td>
-                <td>{{res.itemName}}</td>
-                <td>{{res.qty}}</td>
-                <td>{{res.orderBy}}</td>
-                <td>{{res.orderBy}}</td>
-                <td>{{res.contactNo}}</td>
-                <td>{{res.delivaryAddress}}</td>
-                <td>{{res.rate}} * {{res.qty}} = {{res.totalAmount}}</td>
-       
+            
+                <td>{{order.resturentName}}</td>
+                <td>{{order.restAddress}}</td>
+                <td>{{order.orderBy}}</td>
+                <td>{{order.contactNo}}</td>
+                <td>{{order.delivaryAddress}}</td>
+                <td>{{order.itemName}}</td>
+                <td>{{order.qty}}</td>
+                <td>{{order.totalAmount}}</td>
+                <td>{{order.modeOfPayment}}</td>
                 
                 <!-- <img ng-if="tdata.images!=null" id="image_view_modal"
                 ng-click="setImageAsViewed($index,tdata.images)" src="uploads/{{tdata.images}}"
                 style="width: 50px; border-radius: 10px; cursor: pointer;" /> -->
-                <td>
+                <!-- <td>
                     <span >
                         <img style="height: 80px; width: 100px;" ng-src="{{'uploads/' + res.images}}" alt="Image">
                     </span>
                     
-                </td>
+                </td> -->
                 <td>
-              <button  type="button" class="btn btn-success" ng-click="confirmOrder(res.id)" ng-if="res.orderStatus=='P'">Confirm</button> 
-              <button  type="button" class="btn btn-info" ng-click="readyOrder(res.id)" ng-if="res.orderStatus=='A'">Ready</button> 
-              <button  type="button" class="btn btn-secondary" ng-if="res.orderStatus=='R'" disabled>Delivary Soon</button> 
-              <button  type="button" class="btn btn-primary" ng-if="res.orderStatus=='D'" disabled>Delivared</button> 
-
-              <!-- <button type="button" class="btn btn-success">Delivared</button> -->
-
+              <button  type="button" class="btn btn-success" ng-click="pickOrder(order.id)" ng-if="order.orderStatus=='R' || order.orderStatus=='A'">Pick Order</button> 
+              <button  type="button" class="btn btn-warning" ng-click="delivaryOrder(order.id)" ng-if="order.delivaryPersonId!=null && !order.orderStatus=='D'">Mark Delivared</button>  
+              <button  type="button" class="btn btn-info" ng-if="order.orderStatus=='D'" disabled>Completed</button>  
                 </td>
 
         </table>
@@ -127,4 +128,4 @@
     container.classList.toggle('expand');
   }
 </script>
-<script src="private/restrurent/order.js"></script>
+<script src="private/dboy/order.js"></script>

@@ -21,6 +21,8 @@ app.directive("fileModel", [
 ]);
 
 
+
+
 //Forget Pass Controller
 app.controller("BranchController", function ($scope, $http) {
 
@@ -38,6 +40,25 @@ app.controller("BranchController", function ($scope, $http) {
         }
       };
 
+      $scope.isPasswordVisible = false;
+
+
+      $scope.togglePassword = function() {
+          $scope.isPasswordVisible = !$scope.isPasswordVisible;
+          var passwordInput = document.getElementById('idPassword');
+          var toggleIcon = document.getElementById('togglePassword');
+          
+          if ($scope.isPasswordVisible) {
+              passwordInput.type = 'text';
+              toggleIcon.classList.remove('icon-toggle-pass-slash');
+              toggleIcon.classList.add('icon-toggle-pass');
+          } else {
+              passwordInput.type = 'password';
+              toggleIcon.classList.remove('icon-toggle-pass');
+              toggleIcon.classList.add('icon-toggle-pass-slash');
+          }
+      };
+      
     autoBranchListFetch();
 
     function autoBranchListFetch() {

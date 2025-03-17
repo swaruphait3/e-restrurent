@@ -38,20 +38,20 @@
         <span class="link-name">Pick Order</span>
       </a>
     </li>
-      <li sec:authorize="hasAuthority('DBOY')" class="nav-item"
+      <!-- <li sec:authorize="hasAuthority('DBOY')" class="nav-item"
       th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/activity' ? 'link-active':''}">
       <a class="nav-link active" th:href="@{/orderplace}">
         <span class="icon-common icon-sidemenu icon-activity"></span>
         <span class="link-name">Delivared</span>
       </a>
-    </li>
-          <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
+    </li> -->
+          <!-- <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/branch' ? 'link-active':''}">
             <a class="nav-link active" th:href="@{/branch}">
               <span class="icon-common icon-sidemenu icon-booking"></span>
               <span class="link-name">Branch</span>
             </a>
-          </li>
+          </li> -->
           <li sec:authorize="hasAuthority('RESTAURENT')" class="nav-item"
             th:classappend="${#httpServletRequest.getRequestURI() == '/art-rickshaw/foodtype' ? 'link-active':''}">
             <a class="nav-link active" th:href="@{/foodtype}">

@@ -142,6 +142,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>e-restaurant</finalName>
+		<finalName>demo</finalName>
 	</build>
 </project>

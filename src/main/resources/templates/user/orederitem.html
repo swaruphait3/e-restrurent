@@ -51,7 +51,9 @@
 							<label for="name" class="form-label">Name:<span
 									style="color:red;font-weight:bold">*</span></label>
 							<input type="text" class="form-control" ng-model="form.orderBy"
-								placeholder="Enter Client Name" required>
+								placeholder="Enter Client Name" 
+								oninvalid="this.setCustomValidity('Please enter valid Name')"
+								oninput="this.setCustomValidity('')" required>
 						</div>
 						<input type="text" class="form-control" ng-model="form.itemId"
 								  style="display: none;">
@@ -60,8 +62,12 @@
 						<div class="col-xl-6 col-lg-6 md-12 sm-6">
 							<label for="phone_no" class="form-label">Phone:<span style="color:red;font-weight:bold">
 									*</span></label>
-							<input type="text" class="form-control" pattern="[0-9]{10}" id="phoneNo"
-								ng-model="form.contactNo" placeholder="10 digit phone number" required>
+							<input name="contactNo" type="number" class="form-control"  min="0" step="1"
+							 id="contactNo"
+								ng-model="form.contactNo" placeholder="10 digit phone number"
+								pattern="[0-9]{10}"
+							oninvalid="this.setCustomValidity('Please enter valid mobile number')"
+							oninput="this.setCustomValidity('')" required>
 						</div>
 						<input type="text" class="form-control" id="itemId"
 						ng-model="form.itemId" hidden>
@@ -77,7 +83,9 @@
 							<input
 								type="number" min="1" max="50" ng-blur="priceCalculate(form.qty)"
 								 class="form-control" id="qty"
-								ng-model="form.qty" placeholder="enter no of seats" required>
+								ng-model="form.qty" placeholder="enter no of seats" 
+								oninvalid="this.setCustomValidity('Please chose number of order')"
+								oninput="this.setCustomValidity('')" required>
 						</div>
 						<div class="col-md-4 sm-6">
 							<label for="totalAmount" class="form-label">Total Amount</label>
@@ -88,6 +96,8 @@
 							<label for="remarks" class="form-label">Mode Of Payment:<span
 								style="color:red;font-weight:bold"> *</span> </label>
 							<select name="modeOfPayment" ng-model="form.modeOfPayment" class="form-control select2"
+							oninvalid="this.setCustomValidity('Please chose mode of payment')"
+								oninput="this.setCustomValidity('')"
 						 required>
 							<option value="" disabled selected>Select Mode Of Payment<span
 								style="color:red;font-weight:bold"> *</span></option>
@@ -105,7 +115,9 @@
 						<div class="col-md-12 sm-12">
 							<label for="phone_no" class="form-label">Delivary Address:<span style="color:red;font-weight:bold">
 									*</span></label>
-									<textarea class="form-control" id="delivaryAddress" ng-model="form.delivaryAddress" placeholder="Enter Address" style="height: 150px;" required></textarea>
+									<textarea class="form-control" id="delivaryAddress" ng-model="form.delivaryAddress" placeholder="Enter Address" style="height: 150px;"
+									oninvalid="this.setCustomValidity('Please Enter Delivary Address')"
+								oninput="this.setCustomValidity('')" required></textarea>
 						</div>
 						<div class="col-12 text-center d-flex justify-content-center">
 							<button class="btn-section-action btn-action-primary btn-pay mt-5" type="submit">
