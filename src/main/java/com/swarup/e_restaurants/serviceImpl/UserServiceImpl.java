@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity<?> add(User user) {
         boolean existsByEmailOrMobile = userRepositiry.existsByEmailOrMobile(user.getEmail(), user.getMobile());
-
         if (existsByEmailOrMobile) {
            return ResponseHandler.generateResponse("You Have Already account this email or mobile number",HttpStatus.BAD_REQUEST, null);   
         } else {
