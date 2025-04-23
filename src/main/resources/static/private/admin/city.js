@@ -5,7 +5,6 @@ var app = angular.module("CityModule", []);
 //Forget Pass Controller
 app.controller("CityController", function ($scope, $http) {
 
-    $scope.form = {};
     $scope.views = {};
     showHideLoad(true);
     $scope.views.list = true;
@@ -48,11 +47,9 @@ app.controller("CityController", function ($scope, $http) {
         }).then(_success, _error);
     };
     function _success(response) {
-        console.log(response);
-        autoCityListFetch();
-        $scope.form = {};
+
         Swal.fire({
-            text: response.data.message,
+            text: "City Saved Successfully",
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -136,8 +133,6 @@ app.controller("CityController", function ($scope, $http) {
 
 
 app.controller("LocationController", function ($scope, $http) {
-
-    $scope.form = {};
     $scope.views = {};
     showHideLoad(true);
     $scope.views.list = true;
@@ -195,11 +190,8 @@ app.controller("LocationController", function ($scope, $http) {
         }).then(_success, _error);
     };
     function _success(response) {
-        console.log(response);
-        autoLocationListFetch();
-        $scope.form = {};
         Swal.fire({
-            text: response.data.message,
+            text: "Successfully Saved..",
             icon: "success",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",
@@ -207,13 +199,14 @@ app.controller("LocationController", function ($scope, $http) {
                 confirmButton: "btn btn-primary"
             }
         })
+
     }
 
     function _error(response) {
         console.log(response);
         
         Swal.fire({
-            text: response.data.message,
+            text: response.data,
             icon: "error",
             buttonsStyling: !1,
             confirmButtonText: "Ok, got it!",

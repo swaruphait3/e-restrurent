@@ -73,10 +73,12 @@ public class RestrurentServiceImpl implements RestrurentService {
         user.setRole("RESTAURENT");
         userRepositiry.save(user);
       }
-      return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
+      return ResponseEntity.status(HttpStatus.OK).body("Successfully Restrurent Created....");
+
+      // return ResponseHandler.generateResponse("Successfully ", HttpStatus.OK, null);
 
     } else {
-      return ResponseHandler.generateResponse("Shop Alreay Present...", HttpStatus.BAD_REQUEST, null);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Shop Alreay Present...");
     }
   }
 
