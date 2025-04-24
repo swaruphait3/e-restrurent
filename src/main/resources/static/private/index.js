@@ -146,7 +146,7 @@ app.controller("OrderItemController", function ($scope, $http) {
           console.log(response.data);
       }).catch(function (error) {
           Swal.fire({
-              text: response.data.message,
+              text: response.data,
               icon: "error",
               buttonsStyling: !1,
               confirmButtonText: "Ok, got it!",

@@ -50,10 +50,11 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-                .antMatchers("/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/privacy","/user/add","/restrurent/findAllActiveList",
-                "/food/findAllActiveList","/uploads/**")
-
-                .permitAll()
+                .antMatchers(
+                    "/", "/assets/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+                    "/privacy", "/user/add", "/restrurent/findAllActiveList",
+                    "/food/findAllActiveList", "/uploads/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -65,8 +66,19 @@ public class WebSecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll()
+            )
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint((request, response, authException) -> {
+                    // Handles 401 - Unauthenticated access
+                    response.sendRedirect("/login?error=unauthorized");
+                })
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    // Handles 403 - Access denied for authenticated users
+                    response.sendRedirect("/access-denied");
+                })
             );
-
+    
         return http.build();
     }
+    
 }

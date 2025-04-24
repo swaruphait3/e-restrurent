@@ -27,8 +27,9 @@ import com.swarup.e_restaurants.repository.FoodTypeRepository;
 import com.swarup.e_restaurants.repository.RestrurentRepository;
 import com.swarup.e_restaurants.response.ResponseHandler;
 import com.swarup.e_restaurants.service.FoodItemService;
+
 @Service
-public class FoodItemServiceImpl implements FoodItemService{
+public class FoodItemServiceImpl implements FoodItemService {
 
     @Autowired
     private FoodCategoriesRepository foodCategoriesRepository;
@@ -46,58 +47,52 @@ public class FoodItemServiceImpl implements FoodItemService{
 
     @Override
     public ResponseEntity<?> add(FoodMultipartForm multipartForm) {
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
-            if (byEmail.isPresent()) {
-                FoodCategories foods = new FoodCategories();
-                foods.setStatus(true);
-                foods.setRestId(byEmail.get().getId());
-                foods.setName(multipartForm.getName());
-                foods.setPrice(multipartForm.getPrice());
-                foods.setTypeId(multipartForm.getTypeId());
-              
-                UUID uuid = UUID.randomUUID();
+        Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
+        if (byEmail.isPresent()) {
+            FoodCategories foods = new FoodCategories();
+            foods.setStatus(true);
+            foods.setRestId(byEmail.get().getId());
+            foods.setName(multipartForm.getName());
+            foods.setPrice(multipartForm.getPrice());
+            foods.setTypeId(multipartForm.getTypeId());
 
-        File uploadDir = new File(uploadDirectory);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
+            UUID uuid = UUID.randomUUID();
 
-        MultipartFile multipartFile = multipartForm.getImages();
-        String random = uuid.toString();
-        String name = multipartFile.getOriginalFilename();
-
-        System.out.println(name);
-        String[] part = name.split("\\.");
-        String extension = part[part.length - 1];
-        // System.out.println(extension);
-        String filename = random + "." + extension;
-
-        if (multipartFile.isEmpty()) {
-            return new ResponseEntity<String>("file not found", HttpStatus.BAD_REQUEST);
-        } else {
-            String uploadFilePath = uploadDirectory + "/" + filename;
-          try {
-            byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get(uploadFilePath);
-            Files.write(path, bytes);
-            foods.setImages(filename);
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-        }
-
-
-
-
-                foodCategoriesRepository.save(foods);
-                
-                return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
-            } else {
-                return ResponseHandler.generateResponse("Alre", HttpStatus.BAD_REQUEST, null);
-
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
             }
+
+            MultipartFile multipartFile = multipartForm.getImages();
+            String random = uuid.toString();
+            String name = multipartFile.getOriginalFilename();
+            String[] part = name.split("\\.");
+            String extension = part[part.length - 1];
+            String filename = random + "." + extension;
+
+            if (multipartFile.isEmpty()) {
+                return new ResponseEntity<String>("file not found", HttpStatus.BAD_REQUEST);
+            } else {
+                String uploadFilePath = uploadDirectory + "/" + filename;
+                try {
+                    byte[] bytes = multipartFile.getBytes();
+                    Path path = Paths.get(uploadFilePath);
+                    Files.write(path, bytes);
+                    foods.setImages(filename);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            foodCategoriesRepository.save(foods);
+
+            return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
+        } else {
+            return ResponseHandler.generateResponse("Alre", HttpStatus.BAD_REQUEST, null);
+
+        }
 
     }
 
@@ -114,27 +109,30 @@ Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getU
 
         Optional<Restrurent> resturent = restrurentRepository.findByEmail(userDetails.getUser().getEmail());
         if (resturent.isPresent()) {
-        List<FoodCategories> all = foodCategoriesRepository.findAllByRestId(resturent.get().getId());
-        if (all.isEmpty()) {
-            return ResponseHandler.generateResponse("No vaild present...", HttpStatus.OK, null);
-        } else {
-           
-            for (FoodCategories foodCategories : all) {
-                foodCategories.setResturent(restrurentRepository.findById(foodCategories.getRestId()).get().getName());
-                foodCategories.setFoodType(foodTypeRepository.findById(foodCategories.getTypeId()).get().getTypeDesc());
+            List<FoodCategories> all = foodCategoriesRepository.findAllByRestId(resturent.get().getId());
+            if (all.isEmpty()) {
+                return ResponseHandler.generateResponse("No vaild present...", HttpStatus.OK, null);
+            } else {
+
+                for (FoodCategories foodCategories : all) {
+                    foodCategories
+                            .setResturent(restrurentRepository.findById(foodCategories.getRestId()).get().getName());
+                    foodCategories
+                            .setFoodType(foodTypeRepository.findById(foodCategories.getTypeId()).get().getTypeDesc());
+                }
+                return ResponseHandler.generateResponse("Successful fetch Data...", HttpStatus.OK, all);
+
             }
-            return ResponseHandler.generateResponse("Successful fetch Data...", HttpStatus.OK, all);
+        } else {
+            return ResponseHandler.generateResponse("Successful fetch Data...", HttpStatus.OK, null);
 
         }
-    }else{
-        return ResponseHandler.generateResponse("Successful fetch Data...", HttpStatus.OK, null);
-
-    }
     }
 
     @Override
     public ResponseEntity<?> findAllActiveList() {
-               List<FoodCategories> all = foodCategoriesRepository.findAll().stream().filter(t -> t.isStatus()).collect(Collectors.toList());
+        List<FoodCategories> all = foodCategoriesRepository.findAll().stream().filter(t -> t.isStatus())
+                .collect(Collectors.toList());
         if (all.isEmpty()) {
             return ResponseHandler.generateResponse("No vaild present...", HttpStatus.OK, null);
         } else {
@@ -173,7 +171,7 @@ Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getU
 
     @Override
     public ResponseEntity<?> deActive(Integer id) {
-           Optional<FoodCategories> byId = foodCategoriesRepository.findById(id);
+        Optional<FoodCategories> byId = foodCategoriesRepository.findById(id);
         if (byId.get().isStatus()) {
             FoodCategories food = byId.get();
             food.setStatus(false);
@@ -191,7 +189,7 @@ Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getU
         if (all.isEmpty()) {
             return ResponseHandler.generateResponse("No vaild present...", HttpStatus.OK, null);
         } else {
-           
+
             for (FoodCategories foodCategories : all) {
                 foodCategories.setResturent(restrurentRepository.findById(foodCategories.getRestId()).get().getName());
                 foodCategories.setFoodType(foodTypeRepository.findById(foodCategories.getTypeId()).get().getTypeDesc());
@@ -200,5 +198,5 @@ Optional<Restrurent> byEmail = restrurentRepository.findByEmail(userDetails.getU
 
         }
     }
-    
+
 }

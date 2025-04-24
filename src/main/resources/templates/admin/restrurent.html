@@ -36,19 +36,12 @@
                     placeholder="Search">
             </div>
         </div>
-        <!-- <div class="col-xxl-4 col-12 page-action-header-container order-1 order-xxl-2">
-            <div class="page-action-header">All Regular Classes</div>
-        </div> -->
         <div class="col-xxl-4 col-6 page-action-end-container order-3 order-xxl-3">
-
-            <!-- Button trigger modal -->
             <button type="button" class="btn btn-page-action btn-new-bookings" data-bs-toggle="modal"
                 data-bs-target="#newRestaurant" ng-click="openNewRestaurant()">
                 <span class="icon-common icon-page-action icon-add-circle"></span>
                 <span class="lbl-page-action" >Add Restaurant</span>
             </button>
-
-            <!-- Modal -->
             <div class="modal fade modal-custom" id="newRestaurant" tabindex="-1" aria-labelledby="newRestaurantLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -60,85 +53,83 @@
                             </h1>
                         </div>
                         <div class="modal-body">
-
-                            <form class="row g-3" ng-submit="addEditRestrurents()" autocomplete="off" enctype="multipart/form-data">
+                            <form id="restaurantForm" class="row g-3" autocomplete="off" enctype="multipart/form-data">
+    
+                                <!-- Restaurant Name -->
                                 <div class="col-md-12">
-                                    <label for="name" class="form-label">Restaurant Name <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="name" ng-model="form.name"
-                                    oninvalid="this.setCustomValidity('Please enter valid Restaurant Name')"
-                                        oninput="this.setCustomValidity('')"  placeholder="Enter Restaurant Name" required>
+                                  <label for="name" class="form-label">Restaurant Name <span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control" id="name" ng-model="form.name" placeholder="Enter Restaurant Name">
+                                  <div class="text-danger" id="error-name"></div>
                                 </div>
                             
+                                <!-- City -->
                                 <div class="col-md-12">
-                                    <label>City <span style="color:red;font-weight:bold"> *</span></label>
-                                    <select ng-model="form.cityId" class="form-control select2" ng-change="locationListbyCity(form.cityId)"
-                                    ng-options="city.id as city.cityName for city in cites"
-                                    oninvalid="this.setCustomValidity('Select Valid City')"
-                                    oninput="this.setCustomValidity('')" required>
-                                        <option value="" disabled selected>Select City</option>
-                                    </select>
+                                  <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                  <select id="city" class="form-control" ng-model="form.cityId" ng-change="locationListbyCity(form.cityId)"
+                                  ng-options="city.id as city.cityName for city in cites">
+                                    <option value="" disabled selected>Select City</option>
+                                  </select>
+                                  <div class="text-danger" id="error-city"></div>
                                 </div>
                             
+                                <!-- Location -->
                                 <div class="col-md-12">
-                                    <label>Location <span style="color:red;font-weight:bold"> *</span></label>
-                                    <select ng-model="form.locId" class="form-control select2"
-                                        ng-options="loc.id as loc.location for loc in locations" 
-                                        oninvalid="this.setCustomValidity('Select Valid Location')"
-                                        oninput="this.setCustomValidity('')" required>
-                                        <option value="" disabled selected>Select Location</option>
-                                    </select>
+                                  <label for="loc" class="form-label">Location <span class="text-danger">*</span></label>
+                                  <select id="loc" class="form-control"
+                                  ng-options="loc.id as loc.location for loc in locations"  ng-model="form.locId">
+                                    <option value="" disabled selected>Select Location</option>
+                                 
+                                  </select>
+                                  <div class="text-danger" id="error-loc"></div>
                                 </div>
                             
+                                <!-- Email -->
                                 <div class="col-md-12">
-                                    <label for="email" class="form-label">Email <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="email" class="form-control" id="email" ng-model="form.email"
-                                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                                    oninvalid="this.setCustomValidity('Please enter valid email id')"
-                                    oninput="this.setCustomValidity('')" placeholder="Enter Email Address" required>
+                                  <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                  <input type="email" class="form-control" id="email" ng-model="form.email" placeholder="Enter Email Address">
+                                  <div class="text-danger" id="error-email"></div>
                                 </div>
                             
+                                <!-- Contact -->
                                 <div class="col-md-12">
-                                    <label for="contact" class="form-label">Contact <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input name="mobile" type="number" class="form-control" id="contact" ng-model="form.contact" placeholder="Enter Contact No"
-                                    min="0" step="1"
-                                        pattern="[0-9]{10}"
-                                        oninvalid="this.setCustomValidity('Please enter valid mobile number')"
-                                        oninput="this.setCustomValidity('')" required>
+                                  <label for="contact" class="form-label">Contact <span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control" id="contact" ng-model="form.contact" placeholder="Enter Contact No">
+                                  <div class="text-danger" id="error-contact"></div>
                                 </div>
                             
+                                <!-- Password -->
                                 <div class="col-md-12">
-                                    <label for="password" class="form-label">Password <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="password" class="form-control" id="idPassword" ng-model="form.password" placeholder="Enter Password"
-                                    oninvalid="this.setCustomValidity('Please Enter Password')"
-                                    oninput="this.setCustomValidity('')"  required>
-                                    <span class="icon-common icon-toggle-pass-slash icon-form" id="togglePassword" style="position: absolute; top: 55%; right: 4%;"
-                                        ng-click="togglePassword()"></span>
+                                  <label for="idPassword" class="form-label">Password <span class="text-danger">*</span></label>
+                                  <input type="password" class="form-control" id="idPassword" ng-model="form.password" placeholder="Enter Password">
+                                  <div class="text-danger" id="error-idPassword"></div>
                                 </div>
                             
+                                <!-- Specialty -->
                                 <div class="col-md-12">
-                                    <label for="specality" class="form-label">Specialty <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Specialty" 
-                                    oninvalid="this.setCustomValidity('Please Entry Specialty')"
-                                    oninput="this.setCustomValidity('')" required>
+                                  <label for="specality" class="form-label">Specialty <span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control" id="specality" ng-model="form.specality" placeholder="Enter Specialty">
+                                  <div class="text-danger" id="error-specality"></div>
                                 </div>
                             
+                                <!-- Address -->
                                 <div class="col-md-12">
-                                    <label for="address" class="form-label">Address <span style="color:red;font-weight:bold"> *</span></label>
-                                    <input type="text" class="form-control" id="address" ng-model="form.address" placeholder="Enter Address"
-                                    oninvalid="this.setCustomValidity('Please Entry Address')"
-                                    oninput="this.setCustomValidity('')" required>
+                                  <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                                  <input type="text" class="form-control" id="address" ng-model="form.address" placeholder="Enter Address">
+                                  <div class="text-danger" id="error-address"></div>
                                 </div>
                             
+                                <!-- Image -->
                                 <div class="col-md-12">
-                                    <label for="fileInput" class="form-label">Image</label>
-                                    <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*">
+                                  <label for="fileInput" class="form-label">Image</label>
+                                  <input class="form-control" type="file" id="fileInput" file-model="form.Images" accept="image/*">
                                 </div>
                             
+                                <!-- Submit -->
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success-light">Add</button>
-                                    <button type="button" class="btn btn-danger-light" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="submit" class="btn btn-success">Submit</button>
+                                  <button type="button" class="btn btn-secondary">Cancel</button>
                                 </div>
-                            </form>
+                              </form>
                             
                         </div>
                     </div>
@@ -340,7 +331,71 @@
 <div th:replace="fragment/footer"></div>
 
 <script src="private/admin/restrurent.js"></script>
+<script>
+    const fields = ['name', 'city', 'loc', 'email', 'contact', 'idPassword', 'specality', 'address'];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Attach real-time listeners
+    fields.forEach(field => {
+      const el = document.getElementById(field);
+      if (el) {
+        el.addEventListener('input', () => clearError(field));
+        el.addEventListener('change', () => clearError(field));
+      }
+    });
+
+    function showError(id, message) {
+      document.getElementById('error-' + id).innerText = message;
+    }
+
+    function clearError(id) {
+      document.getElementById('error-' + id).innerText = '';
+    }
+
+    document.getElementById('restaurantForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      const get = id => document.getElementById(id).value.trim();
+
+      const values = {
+        name: get('name'),
+        city: get('city'),
+        loc: get('loc'),
+        email: get('email'),
+        contact: get('contact'),
+        idPassword: get('idPassword'),
+        specality: get('specality'),
+        address: get('address')
+      };
+
+      if (!values.name) { showError('name', 'Restaurant name is required'); valid = false; }
+      if (!values.city) { showError('city', 'City is required'); valid = false; }
+      if (!values.loc) { showError('loc', 'Location is required'); valid = false; }
+      if (!values.email) {
+        showError('email', 'Email is required'); valid = false;
+      } else if (!emailRegex.test(values.email)) {
+        showError('email', 'Invalid email format'); valid = false;
+      }
+      if (!values.contact) {
+        showError('contact', 'Contact number is required'); valid = false;
+      } else if (!/^\d{10}$/.test(values.contact)) {
+        showError('contact', 'Must be 10 digits'); valid = false;
+      }
+      if (!values.idPassword) { showError('idPassword', 'Password is required'); valid = false; }
+      if (!values.specality) { showError('specality', 'Specialty is required'); valid = false; }
+      if (!values.address) { showError('address', 'Address is required'); valid = false; }
+
+      if (valid) {
+        alert("Form submitted successfully!");
+        // Trigger AngularJS logic here if needed
+        // angular.element(this).scope().$apply(() => {
+        //   angular.element(this).scope().addEditRestrurents();
+        // });
+      }
+    });
+  </script>
 </body>
 
 </html>

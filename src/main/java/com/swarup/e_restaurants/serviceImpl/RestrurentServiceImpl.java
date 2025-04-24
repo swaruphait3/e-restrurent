@@ -73,17 +73,18 @@ public class RestrurentServiceImpl implements RestrurentService {
         user.setRole("RESTAURENT");
         userRepositiry.save(user);
       }
-      return ResponseHandler.generateResponse("Successfully created Restrurent", HttpStatus.OK, null);
+      return ResponseEntity.status(HttpStatus.OK).body("Successfully Added Restaurant");
 
     } else {
-      return ResponseHandler.generateResponse("Shop Alreay Present...", HttpStatus.BAD_REQUEST, null);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Resturant Already Present");
     }
   }
 
   @Override
   public ResponseEntity<?> edit(Restrurent restrurent) {
     restrurentRepository.save(restrurent);
-    return ResponseHandler.generateResponse("Successfully Updated Restrurent", HttpStatus.OK, null);
+    return ResponseEntity.status(HttpStatus.OK).body("Successfully Updated Restaurant");
+
 
   };
 
@@ -120,8 +121,7 @@ public class RestrurentServiceImpl implements RestrurentService {
     if (byId.isPresent()) {
       return ResponseHandler.generateResponse("Successful fetch the details...", HttpStatus.OK, byId);
     } else {
-      return ResponseHandler.generateResponse("No vaild present...", HttpStatus.BAD_REQUEST, null);
-
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Opps. No valid user present!..");
     }
   }
 
@@ -135,9 +135,11 @@ public class RestrurentServiceImpl implements RestrurentService {
       Optional<User> byEmailOrMobile = userRepositiry.findByEmail(restrurent.getEmail());
       byEmailOrMobile.get().setEnabled(true);
       userRepositiry.save(byEmailOrMobile.get());
-      return ResponseHandler.generateResponse("Successful fetch the details...", HttpStatus.OK, null);
+      return ResponseEntity.status(HttpStatus.OK).body("Successfully Activated..");
+
     } else {
-      return ResponseHandler.generateResponse("Alreay Deactive...", HttpStatus.BAD_REQUEST, null);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Opps. Already Activated!..");
+
 
     }
   }
@@ -152,9 +154,9 @@ public class RestrurentServiceImpl implements RestrurentService {
       Optional<User> byEmailOrMobile = userRepositiry.findByEmail(restrurent.getEmail());
       byEmailOrMobile.get().setEnabled(false);
       userRepositiry.save(byEmailOrMobile.get());
-      return ResponseHandler.generateResponse("Successful fetch the details...", HttpStatus.OK, null);
+      return ResponseEntity.status(HttpStatus.OK).body("Successfully DeActivated..");
     } else {
-      return ResponseHandler.generateResponse("Alreay Deactive...", HttpStatus.BAD_REQUEST, null);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Opps. Already DeActivated!..");
 
     }
   }
