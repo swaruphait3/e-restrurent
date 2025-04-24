@@ -39,10 +39,11 @@ private RestrurentRepository restrurentRepository;
             foodType.setRestId(resturent.get().getId());
             foodType.setStatus(true);
             foodTypeRepository.save(foodType);
-         return ResponseHandler.generateResponse("Successfully Saved....",HttpStatus.OK, null);
+            return ResponseEntity.status(HttpStatus.OK).body("Successfully Saved....");
 
         } else {
-         return ResponseHandler.generateResponse("No valid Restrurent found..",HttpStatus.OK, null);
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No valid Restrurent found..");
+
             
         }
 

@@ -163,7 +163,7 @@ app.controller("RestrurentController", function ($scope, $http) {
             autoRestrurentListFetch();
     
             Swal.fire({
-                text: response.data.message,
+                text: response.data,
                 icon: "success",
                 confirmButtonText: "Ok, got it!",
                 customClass: { confirmButton: "btn btn-primary" }
